@@ -1,0 +1,19 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Hata";
+    var message = Model.StatusCode == 404
+        ? "Aradığınız sayfa bulunamadı."
+        : "Beklenmedik bir hata oluştu.";
+}
+
+<div class="text-center" style="padding: 4rem 1rem;">
+    <h1 style="font-size: 4rem; margin-bottom: 0;">@Model.StatusCode</h1>
+    <p style="font-size: 1.25rem; color: #666;">@message</p>
+
+    @if (Model.ShowRequestId)
+    {
+        <p><strong>Request ID:</strong> <code>@Model.RequestId</code></p>
+    }
+
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary mt-3">Ana Sayfaya Dön</a>
+</div>
