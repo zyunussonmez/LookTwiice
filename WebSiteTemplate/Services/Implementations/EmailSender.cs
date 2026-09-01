@@ -3,7 +3,7 @@ using MailKit.Security;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using MimeKit;
 
-namespace WebSiteTemplate.Services
+namespace WebSiteTemplate.Services.Implementations
 {
     public class EmailSender : IEmailSender
     {

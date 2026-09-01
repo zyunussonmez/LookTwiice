@@ -2,15 +2,16 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebSiteTemplate.Data;
 using WebSiteTemplate.Models;
+using WebSiteTemplate.Resources;
 
 namespace WebSiteTemplate.Areas.Identity.Pages.Account.Manage;
 
@@ -60,18 +61,18 @@ public class IndexModel : PageModel
         /// 
         public string CountryCode { get; set; } = "+90";
 
-        [Phone(ErrorMessage = "Please enter a valid phone number.")]
+        [Phone(ErrorMessageResourceName = "InvalidPhoneNumber", ErrorMessageResourceType = typeof(ValidationMessages))]
         public string? PhoneNumber { get; set; }
 
-        [Required(ErrorMessage = "Name is required.")]
-        [StringLength(50, ErrorMessage = "This field cannot exceed 50 characters.")]
+        [Required(ErrorMessageResourceName = "NameRequired", ErrorMessageResourceType = typeof(ValidationMessages))]
+        [StringLength(50, ErrorMessageResourceName = "NameTooLong", ErrorMessageResourceType = typeof(ValidationMessages))]
         public string? Name { get; set; }
 
-        [Required(ErrorMessage = "Surname is required.")]
-        [StringLength(50, ErrorMessage = "This field cannot exceed 50 characters.")]
+        [Required(ErrorMessageResourceName = "SurnameRequired", ErrorMessageResourceType = typeof(ValidationMessages))]
+        [StringLength(50, ErrorMessageResourceName = "NameTooLong", ErrorMessageResourceType = typeof(ValidationMessages))]
         public string? Surname { get; set; }
 
-        [Url(ErrorMessage = "Please enter a valid URL.")]
+        [Url(ErrorMessageResourceName = "InvalidUrl", ErrorMessageResourceType = typeof(ValidationMessages))]
         public string? ProfileImageUrl { get; set; }
     }
 

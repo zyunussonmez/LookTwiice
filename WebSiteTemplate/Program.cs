@@ -6,6 +6,7 @@ using System.Globalization;
 using WebSiteTemplate.Data;
 using WebSiteTemplate.Models;
 using WebSiteTemplate.Services;
+using WebSiteTemplate.Services.Implementations;
 
 
 namespace WebSiteTemplate
@@ -21,7 +22,7 @@ namespace WebSiteTemplate
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
             builder.Configuration.GetConnectionString("DefaultConnection")));
-            
+
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddTransient<IEmailSender, EmailSender>();
@@ -31,11 +32,11 @@ namespace WebSiteTemplate
                 .AddErrorDescriber<LocalizedIdentityErrorDescriber>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            builder.Services.AddControllersWithViews();
 
             builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-            builder.Services.AddControllersWithViews()
+            builder.Services
+                .AddControllersWithViews()
                 .AddViewLocalization()
                 .AddDataAnnotationsLocalization();
 
@@ -65,6 +66,7 @@ namespace WebSiteTemplate
                 using var scope = app.Services.CreateScope();
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
 
                 string[] roleNames = { "Admin", "User" };
                 foreach (var roleName in roleNames)
@@ -73,11 +75,14 @@ namespace WebSiteTemplate
                         await roleManager.CreateAsync(new IdentityRole(roleName));
                 }
 
-                var adminEmail = "zeko276@hotmail.com"; // kendi email'ini yaz
-                var adminUser = await userManager.FindByEmailAsync(adminEmail);
-                if (adminUser != null && !await userManager.IsInRoleAsync(adminUser, "Admin"))
+                var adminEmail = config["SeedAdmin:Email"];
+                if (!string.IsNullOrEmpty(adminEmail))
                 {
-                    await userManager.AddToRoleAsync(adminUser, "Admin");
+                    var adminUser = await userManager.FindByEmailAsync(adminEmail);
+                    if (adminUser != null && !await userManager.IsInRoleAsync(adminUser, "Admin"))
+                    {
+                        await userManager.AddToRoleAsync(adminUser, "Admin");
+                    }
                 }
             }
 

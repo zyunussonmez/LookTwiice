@@ -30,7 +30,8 @@
                     @{
                         var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
                     }
-                    <form asp-controller="Culture" asp-action="SetLanguage" method="post" class="d-flex" asp-route-returnUrl="@Context.Request.Path">
+                    <form asp-controller="Culture" asp-action="SetLanguage" asp-area="" method="get" class="d-flex">
+                        <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString" />
                         <select name="culture" class="form-select form-select-sm" onchange="this.form.submit()" style="width: auto;">
                             <option value="en" selected="@(currentCulture == "en")">🇬🇧 EN</option>
                             <option value="tr" selected="@(currentCulture == "tr")">🇹🇷 TR</option>
