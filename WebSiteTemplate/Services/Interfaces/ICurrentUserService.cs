@@ -1,6 +1,6 @@
 ﻿namespace WebSiteTemplate.Services.Interfaces
 {
-    public class ICurrentUserService
+    public interface ICurrentUserService
     {
         string? UserId { get; }
         string? Email { get; }
