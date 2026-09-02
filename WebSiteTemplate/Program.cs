@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 using WebSiteTemplate.Data;
@@ -40,6 +41,29 @@ namespace WebSiteTemplate
 
 
             builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+
+            // Rate Limiting Configuration
+            builder.Services.AddRateLimiter(options =>
+            {
+                options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+                // AuthPolicy: Kimlik doğrulama ile ilgili istekler için daha sıkı bir limit
+                options.AddFixedWindowLimiter("AuthPolicy", opt =>
+                {
+                    opt.PermitLimit = 5;                          // 5 istek
+                    opt.Window = TimeSpan.FromMinutes(1);          // 1 dakika içinde
+                    opt.QueueLimit = 0;                             // sıraya alma, direkt reddet
+                });
+
+                // GlobalPolicy: Genel siteye daha gevşek bir limit 
+                options.AddFixedWindowLimiter("GlobalPolicy", opt =>
+                {
+                    opt.PermitLimit = 100;
+                    opt.Window = TimeSpan.FromMinutes(1);
+                    opt.QueueLimit = 0;
+                });
+            });
 
             builder.Services
                 .AddControllersWithViews()
@@ -119,8 +143,9 @@ namespace WebSiteTemplate
             app.UseHttpsRedirection();
             app.UseRouting();
 
+            app.UseRateLimiter();// Rate Limiting Middleware
 
-            app.UseAuthentication();
+            app.UseAuthentication(); // Kimlik doğrulama middleware'i
             app.UseAuthorization();
 
             app.MapStaticAssets();

@@ -5,6 +5,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.RateLimiting;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
@@ -15,6 +16,7 @@ using WebSiteTemplate.Resources;
 
 namespace WebSiteTemplate.Areas.Identity.Pages.Account.Manage;
 
+[EnableRateLimiting("AuthPolicy")]
 public class IndexModel : PageModel
 {
     private readonly UserManager<ApplicationUser> _userManager;
