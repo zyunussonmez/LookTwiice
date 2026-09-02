@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using WebSiteTemplate.Data;
 using WebSiteTemplate.Models;
+using WebSiteTemplate.Models.Constants;
 
 namespace WebSiteTemplate.Areas.Identity.Pages.Account;
 
@@ -123,7 +124,7 @@ public class RegisterModel : PageModel
             {
                 _logger.LogInformation("User created a new account with password.");
 
-                await _userManager.AddToRoleAsync(user, "User");
+                await _userManager.AddToRoleAsync(user, RoleNames.User);
 
                 var userId = await _userManager.GetUserIdAsync(user);
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

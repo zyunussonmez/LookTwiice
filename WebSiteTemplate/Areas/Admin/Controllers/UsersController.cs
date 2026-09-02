@@ -2,11 +2,12 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebSiteTemplate.Models;
+using WebSiteTemplate.Models.Constants;
 
 namespace WebSiteTemplate.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = RoleNames.Admin)]
     public class UsersController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -41,7 +42,7 @@ namespace WebSiteTemplate.Areas.Admin.Controllers
 
             // Giriş yapan kullanıcı kendi rolünü değiştirmeye çalışıyor mu?
             var currentUserId = _userManager.GetUserId(User);
-            if (userId == currentUserId && newRole != "Admin")
+            if (userId == currentUserId && newRole != RoleNames.Admin)
             {
                 TempData["ErrorMessage"] = "Kendi Admin yetkinizi kaldıramazsınız.";
                 return RedirectToAction(nameof(Index));

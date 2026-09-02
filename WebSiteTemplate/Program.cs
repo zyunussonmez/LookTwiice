@@ -5,8 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 using WebSiteTemplate.Data;
 using WebSiteTemplate.Models;
+using WebSiteTemplate.Models.Constants;
 using WebSiteTemplate.Services;
 using WebSiteTemplate.Services.Implementations;
+using WebSiteTemplate.Services.Interfaces;
 
 
 namespace WebSiteTemplate
@@ -26,6 +28,10 @@ namespace WebSiteTemplate
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddTransient<IEmailSender, EmailSender>();
+            builder.Services.AddHttpContextAccessor();
+            builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+            builder.Services.AddScoped<IFileService, FileService>();
+
 
             builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
@@ -59,7 +65,16 @@ namespace WebSiteTemplate
             var locOptions = app.Services.GetRequiredService<Microsoft.Extensions.Options.IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(locOptions.Value);
 
+            await ApplyMigrations(app);
+
             await SeedRolesAndAdmin(app);
+
+            async Task ApplyMigrations(WebApplication app)
+            {
+                using var scope = app.Services.CreateScope();
+                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                await db.Database.MigrateAsync();
+            }
 
             async Task SeedRolesAndAdmin(WebApplication app)
             {
@@ -68,7 +83,7 @@ namespace WebSiteTemplate
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
                 var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
 
-                string[] roleNames = { "Admin", "User" };
+                string[] roleNames = { RoleNames.Admin, RoleNames.User };
                 foreach (var roleName in roleNames)
                 {
                     if (!await roleManager.RoleExistsAsync(roleName))
@@ -104,6 +119,8 @@ namespace WebSiteTemplate
             app.UseHttpsRedirection();
             app.UseRouting();
 
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapStaticAssets();
