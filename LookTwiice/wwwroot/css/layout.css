@@ -88,6 +88,19 @@
     object-fit: contain;
 }
 
+[data-theme="dark"] .brand-logo {
+    filter: invert(1);
+}
+
+[data-theme="dark"] .site-header.scrolled .brand-logo {
+    filter: invert(1);
+}
+[data-theme="light"] .site-header.scrolled .brand-logo {
+    filter: none;
+}
+
+
+
 
 /* =========================================
    NAVIGATION WRAPPER
