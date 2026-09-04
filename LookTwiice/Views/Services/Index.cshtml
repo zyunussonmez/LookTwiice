@@ -1,0 +1,340 @@
+﻿@{
+    ViewData["Title"] = "Services";
+}
+
+<main class="services-page">
+    <section class="services-intro">
+        <div class="container services-intro-container">
+            <div class="services-label">
+                <span>LOOKTWiiCE</span>
+                <span>01</span>
+            </div>
+
+            <div class="services-intro-content">
+                <p class="services-eyebrow">SERVICES / WHAT WE DO</p>
+
+                <h1 class="services-title">
+                    Photography
+                    <span>with purpose.</span>
+                </h1>
+
+                <p class="services-lead">
+                    From intimate moments to bold campaigns,
+                    we create photographs that feel honest,
+                    intentional and timeless.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="services-list-section">
+        <div class="container">
+            <div class="services-section-header">
+                <div class="services-label">
+                    <span>LOOKTWiiCE</span>
+                    <span>02</span>
+                </div>
+
+                <div>
+                    <p class="services-eyebrow">WHAT WE OFFER</p>
+                    <h2 class="services-section-title">
+                        Stories in
+                        <span>every form.</span>
+                    </h2>
+                </div>
+            </div>
+
+            <div class="services-list">
+                <a asp-controller="Services" asp-action="Details" asp-route-slug="wedding" class="service-row">
+                    <span class="service-row-number">01</span>
+                    <div class="service-row-content">
+                        <h3>Wedding</h3>
+                        <p>Weddings & Engagements</p>
+                    </div>
+                    <span class="service-row-arrow">↗</span>
+                </a>
+
+                <a asp-controller="Services" asp-action="Details" asp-route-slug="fashion" class="service-row">
+                    <span class="service-row-number">02</span>
+                    <div class="service-row-content">
+                        <h3>Fashion</h3>
+                        <p>Editorial & Model Photography</p>
+                    </div>
+                    <span class="service-row-arrow">↗</span>
+                </a>
+
+                <a asp-controller="Services" asp-action="Details" asp-route-slug="portrait" class="service-row">
+                    <span class="service-row-number">03</span>
+                    <div class="service-row-content">
+                        <h3>Portrait</h3>
+                        <p>Personal & Branding</p>
+                    </div>
+                    <span class="service-row-arrow">↗</span>
+                </a>
+
+                <a asp-controller="Services" asp-action="Details" asp-route-slug="event" class="service-row">
+                    <span class="service-row-number">04</span>
+                    <div class="service-row-content">
+                        <h3>Event</h3>
+                        <p>Events & Campaigns</p>
+                    </div>
+                    <span class="service-row-arrow">↗</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="services-offer">
+        <div class="container">
+            <div class="services-section-header">
+                <div class="services-label">
+                    <span>LOOKTWiiCE</span>
+                    <span>02</span>
+                </div>
+                <div>
+                    <p class="services-eyebrow">WHAT WE OFFER</p>
+                    <h2 class="services-section-title">
+                        Photography for
+                        <span>every story.</span>
+                    </h2>
+                </div>
+            </div>
+
+            <div class="services-offer-list">
+                <article class="services-offer-item">
+                    <div class="services-offer-number">01</div>
+                    <div class="services-offer-main">
+                        <div class="services-offer-heading">
+                            <h3>Wedding</h3>
+                            <span>Weddings & Engagements</span>
+                        </div>
+                        <p class="services-offer-description">
+                            Natural, emotional and timeless photographs
+                            for the moments that matter most.
+                        </p>
+                        <ul class="services-offer-features">
+                            <li>Wedding day coverage</li>
+                            <li>Engagement sessions</li>
+                            <li>Couple portraits</li>
+                            <li>Candid moments</li>
+                        </ul>
+                    </div>
+                    <span class="services-offer-arrow">↗</span>
+                </article>
+
+                <article class="services-offer-item">
+                    <div class="services-offer-number">02</div>
+                    <div class="services-offer-main">
+                        <div class="services-offer-heading">
+                            <h3>Fashion</h3>
+                            <span>Editorial & Model Photography</span>
+                        </div>
+                        <p class="services-offer-description">
+                            Bold and intentional imagery created for
+                            editorials, campaigns and personal projects.
+                        </p>
+                        <ul class="services-offer-features">
+                            <li>Editorial photography</li>
+                            <li>Model portfolios</li>
+                            <li>Campaign photography</li>
+                            <li>Creative direction</li>
+                        </ul>
+                    </div>
+                    <span class="services-offer-arrow">↗</span>
+                </article>
+
+                <article class="services-offer-item">
+                    <div class="services-offer-number">03</div>
+                    <div class="services-offer-main">
+                        <div class="services-offer-heading">
+                            <h3>Portrait</h3>
+                            <span>Personal & Branding</span>
+                        </div>
+                        <p class="services-offer-description">
+                            Portraits that feel natural, confident and
+                            genuinely connected to who you are.
+                        </p>
+                        <ul class="services-offer-features">
+                            <li>Personal portraits</li>
+                            <li>Professional headshots</li>
+                            <li>Personal branding</li>
+                            <li>Creative portraits</li>
+                        </ul>
+                    </div>
+                    <span class="services-offer-arrow">↗</span>
+                </article>
+
+                <article class="services-offer-item">
+                    <div class="services-offer-number">04</div>
+                    <div class="services-offer-main">
+                        <div class="services-offer-heading">
+                            <h3>Event</h3>
+                            <span>Events & Campaigns</span>
+                        </div>
+                        <p class="services-offer-description">
+                            Documentary-style photography that captures
+                            the energy, people and atmosphere of your event.
+                        </p>
+                        <ul class="services-offer-features">
+                            <li>Corporate events</li>
+                            <li>Brand events</li>
+                            <li>Launches & campaigns</li>
+                            <li>Event coverage</li>
+                        </ul>
+                    </div>
+                    <span class="services-offer-arrow">↗</span>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="services-process">
+        <div class="container">
+            <div class="services-section-header">
+                <div class="services-label">
+                    <span>LOOKTWiiCE</span>
+                    <span>03</span>
+                </div>
+                <div>
+                    <p class="services-eyebrow">HOW IT WORKS</p>
+                    <h2 class="services-section-title">
+                        From first idea
+                        <span>to final frame.</span>
+                    </h2>
+                </div>
+            </div>
+
+            <div class="services-process-list">
+                <div class="services-process-item">
+                    <span class="services-process-number">01</span>
+                    <div class="services-process-content">
+                        <h3>Tell us your story</h3>
+                        <p>
+                            Get in touch and tell us about your project,
+                            your ideas and what you want to create.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="services-process-item">
+                    <span class="services-process-number">02</span>
+                    <div class="services-process-content">
+                        <h3>Plan the shoot</h3>
+                        <p>
+                            We discuss the details, location, mood and
+                            everything needed to make the session feel right.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="services-process-item">
+                    <span class="services-process-number">03</span>
+                    <div class="services-process-content">
+                        <h3>Create together</h3>
+                        <p>
+                            On the day, we focus on natural moments,
+                            honest expressions and intentional frames.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="services-process-item">
+                    <span class="services-process-number">04</span>
+                    <div class="services-process-content">
+                        <h3>Receive your photographs</h3>
+                        <p>
+                            Your final photographs are carefully edited
+                            and delivered through a personal online gallery.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services-get">
+        <div class="container">
+            <div class="services-section-header">
+                <div class="services-label">
+                    <span>LOOKTWiiCE</span>
+                    <span>04</span>
+                </div>
+                <div>
+                    <p class="services-eyebrow">WHAT YOU GET</p>
+                    <h2 class="services-section-title">
+                        More than
+                        <span>just photographs.</span>
+                    </h2>
+                </div>
+            </div>
+
+            <div class="services-get-list">
+                <div class="services-get-item">
+                    <span class="services-get-number">01</span>
+                    <div class="services-get-content">
+                        <h3>Carefully curated photographs</h3>
+                        <p>
+                            We select the frames that best represent
+                            your story and preserve the moments that matter.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="services-get-item">
+                    <span class="services-get-number">02</span>
+                    <div class="services-get-content">
+                        <h3>Thoughtful editing</h3>
+                        <p>
+                            Every selected photograph receives a consistent
+                            and intentional editing treatment.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="services-get-item">
+                    <span class="services-get-number">03</span>
+                    <div class="services-get-content">
+                        <h3>High-quality delivery</h3>
+                        <p>
+                            Your final photographs are prepared and delivered
+                            in a convenient digital format.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="services-get-item">
+                    <span class="services-get-number">04</span>
+                    <div class="services-get-content">
+                        <h3>A personal experience</h3>
+                        <p>
+                            From the first conversation to the final frame,
+                            the experience is built around your story.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services-cta">
+        <div class="container services-cta-container">
+            <p class="services-eyebrow">READY WHEN YOU ARE</p>
+
+            <h2 class="services-cta-title">
+                Have a story
+                <span>in mind?</span>
+            </h2>
+
+            <p class="services-cta-description">
+                Tell us what you have in mind.
+                Let's create something meaningful together.
+            </p>
+
+            <a asp-controller="Contact" asp-action="Index" class="services-cta-button">
+                <span>START A PROJECT</span>
+                <span>→</span>
+            </a>
+        </div>
+    </section>
+
+</main>
