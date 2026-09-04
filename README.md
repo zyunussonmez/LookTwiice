@@ -1,4 +1,4 @@
-# WebSiteTemplate
+# LookTwiice
 
 .NET 10 + PostgreSQL + Identity tabanlı, yeniden kullanılabilir proje şablonu.
 

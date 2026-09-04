@@ -1,0 +1,117 @@
+﻿* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+::selection {
+    background: var(--text);
+    color: var(--bg);
+}
+
+
+/* ================================
+   CONTAINER
+   ================================ */
+
+.container {
+    width: min(100% - 40px, var(--container-width));
+    margin-inline: auto;
+}
+
+
+/* ================================
+   TYPOGRAPHY
+   ================================ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-top: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+}
+
+p {
+    margin-top: 0;
+}
+
+
+/* ================================
+   FOCUS
+   ================================ */
+
+:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 4px;
+}
+
+
+/* ================================
+   REDUCED MOTION
+   ================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+
+/* ================================
+   MOBILE
+   ================================ */
+
+@media (max-width: 576px) {
+    .container {
+        width: min(100% - 28px, var(--container-width));
+    }
+}
