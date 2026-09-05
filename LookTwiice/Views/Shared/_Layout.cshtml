@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using LookTwiice.Models
+@using LookTwiice.Models.Constants
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
@@ -121,6 +122,26 @@
 
                         <div class="navbar-actions">
 
+                            @if (User.IsInRole(RoleNames.Admin))
+                            {
+                                <a class="nav-account-link"
+                                   asp-area="Admin"
+                                   asp-controller="Admin"
+                                   asp-action="Index">
+                                    ADMIN
+                                </a>
+                            }
+
+                            @if (User.IsInRole(RoleNames.Photographer))
+                            {
+                                <a class="nav-account-link"
+                                   asp-area="Photographer"
+                                   asp-controller="Dashboard"
+                                   asp-action="Index">
+                                    PHOTOGRAPHER
+                                </a>
+                            }
+
                             <!-- LANGUAGE -->
 
                             <div class="language-wrapper">
@@ -167,16 +188,25 @@
                                 <a class="nav-account-link"
                                    asp-area="Identity"
                                    asp-page="/Account/Manage/Index">
-
                                     Account
                                 </a>
+
+                                <form asp-area="Identity"
+                                      asp-page="/Account/Logout"
+                                      method="post"
+                                      class="d-inline">
+                                    <button type="submit" class="nav-account-link logout-button">
+                                        Logout
+                                    </button>
+                                </form>
+
+                                
                             }
                             else
                             {
                                 <a class="nav-account-link"
                                    asp-area="Identity"
                                    asp-page="/Account/Login">
-
                                     Login
                                 </a>
                             }

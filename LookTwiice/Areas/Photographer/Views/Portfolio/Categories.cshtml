@@ -1,0 +1,57 @@
+﻿@model IEnumerable<LookTwiice.Models.Category>
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<div class="page-header">
+    <div>
+        <span class="page-eyebrow">PORTFOLIO</span>
+        <h1>Categories</h1>
+    </div>
+
+    <a asp-area="Photographer"
+       asp-controller="Portfolio"
+       asp-action="CreateCategory">
+        Add Category +
+    </a>
+</div>
+
+<div class="category-list">
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="category-list-header">
+            <span>NAME</span>
+            <span>SLUG</span>
+        </div>
+
+        @foreach (var category in Model)
+        {
+            <div class="category-row">
+
+                <div class="category-name">
+                    @category.Name
+                </div>
+
+                <div class="category-slug">
+                    /@category.Slug
+                </div>
+
+            </div>
+        }
+    }
+    else
+    {
+        <div class="category-empty">
+            <span>No categories found.</span>
+
+            <a asp-area="Photographer"
+               asp-controller="Portfolio"
+               asp-action="CreateCategory">
+                Create your first category →
+            </a>
+        </div>
+    }
+
+</div>

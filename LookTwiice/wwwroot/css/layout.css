@@ -233,6 +233,12 @@
         opacity: 0.55;
     }
 
+.logout-button {
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+}
 
 /* =========================================
    MOBILE BUTTON
@@ -343,4 +349,29 @@
     align-items: center;
     justify-content: center;
     padding: 120px 20px 60px;
+}
+
+
+.account-settings-container {
+    padding-top: 140px;
+    padding-bottom: 80px;
+}
+
+.account-settings-container h1 {
+    margin-bottom: 30px;
+}
+
+
+.inner-page {
+    padding-top: 140px;
+    padding-bottom: 100px;
+    min-height: calc(100vh - 1px);
+}
+
+.inner-page-header {
+    margin-bottom: 50px;
+}
+
+.inner-page-title {
+    margin: 0;
 }

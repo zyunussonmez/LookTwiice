@@ -745,11 +745,10 @@
     letter-spacing: .12em;
     text-transform: uppercase;
 }
-
 .about-title {
-    max-width: 850px;
+    max-width: none;
     margin: 0;
-    font-size: clamp(3rem, 6vw, 6rem);
+    font-size: clamp(3rem, 5vw, 5rem);
     font-weight: 400;
     letter-spacing: -.06em;
     line-height: .95;
@@ -757,9 +756,8 @@
 
     .about-title span {
         display: block;
-        margin-left: clamp(20px, 7vw, 110px);
+        margin-left: clamp(20px, 5vw, 70px);
     }
-
 .about-main {
     display: grid;
     grid-template-columns: 1.1fr .9fr;
@@ -807,8 +805,8 @@
 }
 
 .about-content {
-    max-width: 500px;
-}
+    max-width: 650px;
+}   
 
 .about-lead {
     margin: 0 0 35px;

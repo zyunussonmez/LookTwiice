@@ -111,7 +111,7 @@ namespace LookTwiice
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
                 var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
 
-                string[] roleNames = { RoleNames.Admin, RoleNames.User };
+                string[] roleNames = { RoleNames.Admin, RoleNames.User, RoleNames.Photographer };
                 foreach (var roleName in roleNames)
                 {
                     if (!await roleManager.RoleExistsAsync(roleName))

@@ -1,174 +1,167 @@
-﻿/* Admin Topbar */
+﻿.admin-layout {
+    min-height: 100vh;
+    background: var(--background);
+    color: var(--text);
+}
+
 .admin-topbar {
-    height: 64px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 72px;
+    z-index: 1000;
     display: flex;
     align-items: center;
-    gap: 1rem;
-    padding: 0 1.5rem;
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    padding: 0 30px;
+    background: var(--background);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .admin-sidebar-toggle {
     width: 38px;
     height: 38px;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    color: var(--text);
-    border-radius: var(--radius-sm);
+    margin-right: 20px;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: inherit;
     cursor: pointer;
-    transition: background-color 0.15s, border-color 0.15s;
-    flex-shrink: 0;
 }
-
-    .admin-sidebar-toggle:hover {
-        background: var(--surface-soft);
-        border-color: var(--border-hover);
-    }
 
 .admin-topbar-brand {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1rem;
-    color: var(--text);
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    color: inherit;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
 }
+
+    .admin-topbar-brand span {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.12em;
+        opacity: 0.5;
+    }
 
 .admin-topbar-spacer {
     flex: 1;
 }
 
-.admin-shell {
-    display: flex;
-    min-height: calc(100vh - 64px);
+.admin-site-link {
+    color: inherit;
+    text-decoration: none;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    transition: opacity 0.2s ease;
 }
 
-/* Sidebar */
+    .admin-site-link:hover {
+        opacity: 0.5;
+    }
+
 .admin-sidebar {
+    position: fixed;
+    top: 72px;
+    left: 0;
+    bottom: 0;
     width: 240px;
-    flex-shrink: 0;
-    background: var(--surface);
-    border-right: 1px solid var(--border);
-    padding: 2rem 1rem;
-    transition: margin-left 0.25s ease;
-}
-
-.admin-shell.sidebar-collapsed .admin-sidebar {
-    margin-left: -240px;
+    padding: 35px 25px;
+    border-right: 1px solid var(--border-color);
+    transition: transform 0.3s ease;
 }
 
 .admin-sidebar-title {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
+    margin-bottom: 30px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text-muted);
-    padding: 0 0.75rem;
-    margin-bottom: 1rem;
+    opacity: 0.5;
 }
 
 .admin-nav {
-    list-style: none;
-    margin: 0;
-    padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 5px;
 }
 
 .admin-nav-link {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 0.6rem 0.75rem;
-    border-radius: var(--radius-sm);
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: background-color 0.15s, color 0.15s;
+    display: block;
+    padding: 12px 10px;
+    color: inherit;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.2s ease, opacity 0.2s ease;
 }
 
     .admin-nav-link:hover {
-        background: var(--surface-soft);
-        color: var(--text);
+        opacity: 0.6;
     }
 
-    .admin-nav-link.active {
-        background: var(--accent-soft, var(--surface-soft));
-        color: var(--accent);
-        font-weight: 600;
-    }
-
-/* İçerik - tam ekran kaplamıyor, ortalanmış ve boşluklu */
 .admin-content {
-    flex: 1;
-    padding: 2.5rem 3rem;
-    max-width: var(--container-width, 1200px);
-    margin: 0 auto;
+    min-height: 100vh;
+    margin-left: 240px;
+    padding: 112px 45px 80px;
+    transition: margin-left 0.3s ease;
 }
 
-.admin-page-header {
-    margin-bottom: 2rem;
+.sidebar-collapsed .admin-sidebar {
+    transform: translateX(-100%);
 }
 
-    .admin-page-header h2 {
-        margin-bottom: 0.25rem;
-    }
-
-    .admin-page-header p {
-        margin: 0;
-        font-size: 0.9rem;
-    }
-
-/* Kart benzeri panel (tablo vs. bunun içine girecek) */
-.admin-panel {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 1.5rem;
-    box-shadow: var(--shadow-sm);
+.sidebar-collapsed .admin-content {
+    margin-left: 0;
 }
 
-    /* Tablo - dark/light her iki modda da doğru kontrast */
-    .admin-panel .table {
-        --bs-table-color: var(--text);
-        --bs-table-bg: transparent;
-        color: var(--text);
-        margin-bottom: 0;
-    }
+@media (max-width: 768px) {
 
-        .admin-panel .table > :not(caption) > * > * {
-            background-color: transparent !important;
-            border-color: var(--border) !important;
-            color: var(--text) !important;
-        }
-
-        .admin-panel .table thead th {
-            font-size: 0.72rem;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--text-muted) !important;
-            font-weight: 600;
-            border-bottom: 2px solid var(--border) !important;
-        }
-
-@media (max-width: 900px) {
-    .admin-shell {
-        flex-direction: column;
+    .admin-topbar {
+        padding: 0 20px;
     }
 
     .admin-sidebar {
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid var(--border);
+        width: 220px;
     }
 
     .admin-content {
-        padding: 1.5rem;
+        margin-left: 0;
+        padding: 100px 20px 60px;
+    }
+
+    .admin-sidebar {
+        z-index: 1100;
+        background: var(--background);
     }
 }
+
+
+.admin-content {
+    color: var(--text);
+}
+
+    .admin-content table {
+        color: var(--text);
+    }
+
+    .admin-content th,
+    .admin-content td {
+        color: var(--text);
+    }
+
+    .admin-content select,
+    .admin-content input {
+        color: var(--text);
+        background: var(--background);
+        border-color: var(--border-color);
+    }
+
+        .admin-content select option {
+            color: #111;
+            background: #fff;
+        }

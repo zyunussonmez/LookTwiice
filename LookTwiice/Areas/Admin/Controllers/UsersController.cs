@@ -38,18 +38,17 @@ namespace LookTwiice.Areas.Admin.Controllers
         public async Task<IActionResult> ChangeRole(string userId, string newRole)
         {
             // Gelen rol adı gerçekten tanımlı rollerden biri mi kontrol et
-            if (newRole != RoleNames.Admin && newRole != RoleNames.User)
+            if (newRole != RoleNames.Admin && newRole != RoleNames.User && newRole != RoleNames.Photographer)
             {
                 return BadRequest("Geçersiz rol.");
             }
-
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null) return NotFound();
 
             var currentUserId = _userManager.GetUserId(User);
             if (userId == currentUserId && newRole != RoleNames.Admin)
             {
-                TempData["ErrorMessage"] = "Kendi Admin yetkinizi kaldıramazsınız.";
+                TempData["ErrorMessage"] = "Kendi Admin yetkinizi değiştiremezsiniz.";
                 return RedirectToAction(nameof(Index));
             }
 
@@ -90,6 +89,6 @@ namespace LookTwiice.Areas.Admin.Controllers
             }
 
             return RedirectToAction(nameof(Index));
-        }
+        }   
     }
 }

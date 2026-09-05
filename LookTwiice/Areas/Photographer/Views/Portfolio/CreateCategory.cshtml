@@ -1,0 +1,102 @@
+﻿@model LookTwiice.Models.Category
+
+@{
+    ViewData["Title"] = "Create Category";
+}
+
+<section class="inner-page">
+    <div class="container">
+
+        <div class="inner-page-header">
+            <div class="page-meta">
+                <span>LOOKTWiiCE</span>
+                <span>PORTFOLIO</span>
+            </div>
+
+            <div class="page-heading">
+                <div>
+                    <span class="page-eyebrow">PHOTOGRAPHER</span>
+                    <h1 class="inner-page-title">Create Category</h1>
+                </div>
+
+                <a asp-area="Photographer"
+                   asp-controller="Portfolio"
+                   asp-action="Categories"
+                   class="page-action">
+                    <span>BACK TO CATEGORIES</span>
+                    <span>←</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="category-form-wrapper">
+
+            <form asp-area="Photographer"
+                  asp-controller="Portfolio"
+                  asp-action="CreateCategory"
+                  method="post"
+                  class="category-form">
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger">
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Name">
+                        CATEGORY NAME
+                    </label>
+
+                    <input asp-for="Name"
+                           class="form-control"
+                           placeholder="e.g. Wedding" />
+
+                    <span asp-validation-for="Name"
+                          class="text-danger">
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Slug">
+                        SLUG
+                    </label>
+
+                    <input asp-for="Slug"
+                           class="form-control"
+                           placeholder="e.g. wedding" />
+
+                    <span asp-validation-for="Slug"
+                          class="text-danger">
+                    </span>
+
+                    <small>
+                        Used in URLs. Example: wedding
+                    </small>
+                </div>
+
+                <div class="form-actions">
+
+                    <a asp-area="Photographer"
+                       asp-controller="Portfolio"
+                       asp-action="Categories"
+                       class="form-cancel">
+                        CANCEL
+                    </a>
+
+                    <button type="submit"
+                            class="form-submit">
+                        CREATE CATEGORY
+                        <span>→</span>
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
