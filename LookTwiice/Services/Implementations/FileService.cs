@@ -39,5 +39,13 @@
                 File.Delete(fullPath);
             }
         }
+
+        public void DeleteFiles(params string[] filePaths)
+        {
+            foreach (var filePath in filePaths)
+            {
+                DeleteFile(filePath);
+            }
+        }
     }
 }

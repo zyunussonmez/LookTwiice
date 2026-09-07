@@ -130,6 +130,12 @@
                                    asp-action="Index">
                                     ADMIN
                                 </a>
+                                <a class="nav-account-link"
+                                   asp-area="Photographer"
+                                   asp-controller="Dashboard"
+                                   asp-action="Index">
+                                    PHOTOGRAPHER
+                                </a>
                             }
 
                             @if (User.IsInRole(RoleNames.Photographer))

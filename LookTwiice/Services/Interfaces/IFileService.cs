@@ -4,5 +4,6 @@
     {
         Task<string> SaveFileAsync(IFormFile file, string folder);
         void DeleteFile(string filePath);
+        void DeleteFiles(params string[] filePaths);
     }
 }

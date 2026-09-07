@@ -143,7 +143,7 @@ namespace LookTwiice
                 app.UseHsts();
             }
 
-            app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
+            //app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
 
             app.UseHttpsRedirection();
             app.UseRouting();

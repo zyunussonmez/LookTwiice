@@ -46,6 +46,13 @@
                 <div class="category-actions">
                     <a asp-area="Photographer"
                        asp-controller="Portfolio"
+                       asp-action="Photos"
+                       asp-route-galleryId="@gallery.Id">
+                        PHOTOS
+                    </a>
+
+                    <a asp-area="Photographer"
+                       asp-controller="Portfolio"
                        asp-action="EditGallery"
                        asp-route-id="@gallery.Id">
                         EDIT

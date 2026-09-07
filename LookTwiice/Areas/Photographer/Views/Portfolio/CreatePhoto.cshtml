@@ -1,0 +1,47 @@
+﻿@model LookTwiice.Models.Photo
+
+@{
+    ViewData["Title"] = "Upload Photo";
+    var gallery = ViewBag.Gallery as LookTwiice.Models.Gallery;
+}
+
+<h1>Upload Photo</h1>
+
+<form asp-area="Photographer"
+      asp-controller="Portfolio"
+      asp-action="CreatePhoto"
+      asp-route-galleryId="@gallery?.Id"
+      method="post"
+      enctype="multipart/form-data">
+
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div>
+        <label asp-for="Title"></label>
+        <input asp-for="Title" placeholder="e.g. Sunset Portrait" />
+        <span asp-validation-for="Title"></span>
+    </div>
+
+    <div>
+        <label for="file">Image</label>
+        <input id="file"
+               name="file"
+               type="file"
+               accept="image/jpeg,image/png,image/webp" />
+        @Html.ValidationMessage("file")
+    </div>
+
+    <div>
+        <label asp-for="IsFeatured"></label>
+        <input asp-for="IsFeatured" />
+    </div>
+
+    <button type="submit">
+        UPLOAD PHOTO
+    </button>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

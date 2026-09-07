@@ -1,0 +1,96 @@
+﻿@model IEnumerable<LookTwiice.Models.Photo>
+
+@{
+    ViewData["Title"] = "Photos";
+    var gallery = ViewBag.Gallery as LookTwiice.Models.Gallery;
+}
+
+<div class="page-header">
+    <div>
+        <span class="page-eyebrow">PORTFOLIO / GALLERY</span>
+        <h1>@gallery?.Title</h1>
+    </div>
+
+    <a asp-area="Photographer"
+       asp-controller="Portfolio"
+       asp-action="CreatePhoto"
+       asp-route-galleryId="@gallery?.Id"
+       class="page-action">
+        UPLOAD PHOTO +
+    </a>
+</div>
+
+<div class="photo-list">
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="photo-grid">
+
+            @foreach (var photo in Model)
+            {
+                <div class="photo-card">
+
+                    <div class="photo-preview">
+                        <img src="@photo.ThumbnailUrl"
+                             alt="@photo.Title" />
+                    </div>
+
+                    <div class="photo-card-info">
+                        <div>
+                            <span class="photo-order">
+                                @photo.DisplayOrder.ToString("D2")
+                            </span>
+
+                            <span class="photo-title">
+                                @photo.Title
+                            </span>
+                        </div>
+
+                        @if (photo.IsFeatured)
+                        {
+                            <span class="photo-featured">
+                                FEATURED
+                            </span>
+                        }
+                    </div>
+
+                    <a asp-area="Photographer"
+                       asp-controller="Portfolio"
+                       asp-action="EditPhoto"
+                       asp-route-id="@photo.Id">
+                        EDIT
+                    </a>
+
+                    <form asp-area="Photographer"
+                          asp-controller="Portfolio"
+                          asp-action="DeletePhoto"
+                          asp-route-id="@photo.Id"
+                          method="post"
+                          onsubmit="return confirm('Delete this photo?');">
+
+                        <button type="submit">
+                            DELETE
+                        </button>
+
+                    </form>
+
+                </div>
+            }
+
+        </div>
+    }
+    else
+    {
+        <div class="category-empty">
+            <span>No photos found.</span>
+
+            <a asp-area="Photographer"
+               asp-controller="Portfolio"
+               asp-action="CreatePhoto"
+               asp-route-galleryId="@gallery?.Id">
+                Upload your first photo →
+            </a>
+        </div>
+    }
+
+</div>
