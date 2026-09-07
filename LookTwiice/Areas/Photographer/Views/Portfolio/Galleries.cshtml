@@ -1,85 +1,82 @@
-﻿@model IEnumerable<LookTwiice.Models.Category>
+﻿@model IEnumerable<LookTwiice.Models.Gallery>
 
 @{
-    ViewData["Title"] = "Categories";
+    ViewData["Title"] = "Galleries";
 }
 
 <div class="page-header">
     <div>
         <span class="page-eyebrow">PORTFOLIO</span>
-        <h1>Categories</h1>
+        <h1>Galleries</h1>
     </div>
 
     <a asp-area="Photographer"
        asp-controller="Portfolio"
-       asp-action="CreateCategory"
+       asp-action="CreateGallery"
        class="page-action">
-        ADD CATEGORY +
+        ADD GALLERY +
     </a>
 </div>
 
 <div class="category-list">
-
     @if (Model != null && Model.Any())
     {
         <div class="category-list-header">
-            <span>NAME</span>
+            <span>TITLE</span>
+            <span>CATEGORY</span>
             <span>SLUG</span>
             <span>ACTIONS</span>
         </div>
 
-        @foreach (var category in Model)
+        @foreach (var gallery in Model)
         {
             <div class="category-row">
-
                 <div class="category-name">
-                    @category.Name
+                    @gallery.Title
                 </div>
 
                 <div class="category-slug">
-                    /@category.Slug
+                    @(gallery.Category?.Name ?? "-")
+                </div>
+
+                <div class="category-slug">
+                    /@gallery.Slug
                 </div>
 
                 <div class="category-actions">
-
                     <a asp-area="Photographer"
                        asp-controller="Portfolio"
-                       asp-action="EditCategory"
-                       asp-route-id="@category.Id">
+                       asp-action="EditGallery"
+                       asp-route-id="@gallery.Id">
                         EDIT
                     </a>
 
                     <form asp-area="Photographer"
                           asp-controller="Portfolio"
-                          asp-action="DeleteCategory"
-                          asp-route-id="@category.Id"
+                          asp-action="DeleteGallery"
+                          asp-route-id="@gallery.Id"
                           method="post"
-                          onsubmit="return confirm('Are you sure you want to delete this category?');">
+                          onsubmit="return confirm('Are you sure you want to delete this gallery?');">
 
                         <button type="submit">
                             DELETE
                         </button>
 
                     </form>
-
                 </div>
-
             </div>
         }
     }
     else
     {
         <div class="category-empty">
-
-            <span>No categories found.</span>
+            <span>No galleries found.</span>
 
             <a asp-area="Photographer"
                asp-controller="Portfolio"
-               asp-action="CreateCategory">
-                Create your first category →
+               asp-action="CreateGallery">
+                Create your first gallery →
             </a>
-
         </div>
     }
-
-</div>  
+</div>

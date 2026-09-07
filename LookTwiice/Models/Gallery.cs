@@ -9,7 +9,7 @@ public class Gallery : BaseEntity
     public bool IsFeatured { get; set; }
 
     public int CategoryId { get; set; }
-    public Category Category { get; set; } = null!;
+    public Category? Category { get; set; } 
 
     public ICollection<Photo> Photos { get; set; } = new List<Photo>();
 }

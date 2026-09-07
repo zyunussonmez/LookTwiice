@@ -33,6 +33,7 @@ namespace LookTwiice
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
             builder.Services.AddScoped<IFileService, FileService>();
+            builder.Services.AddScoped<IImageService, ImageService>();
 
 
             builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
