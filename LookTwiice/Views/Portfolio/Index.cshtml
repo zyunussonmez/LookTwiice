@@ -1,0 +1,327 @@
+﻿
+@model IEnumerable<LookTwiice.Models.Gallery>
+
+@{
+    ViewData["Title"] = "Portfolio";
+
+    var categories =
+        ViewBag.Categories as IEnumerable<LookTwiice.Models.Category>
+        ?? Enumerable.Empty<LookTwiice.Models.Category>();
+
+    int? selectedCategoryId = ViewBag.SelectedCategoryId;
+
+    var weddingCategory = categories
+        .FirstOrDefault(c =>
+            c.Name.Equals("Wedding", StringComparison.OrdinalIgnoreCase));
+
+    var weddingGalleries = Model
+        .Where(g => weddingCategory == null || g.CategoryId == weddingCategory.Id)
+        .ToList();
+
+    var otherGalleries = Model
+        .Where(g => weddingCategory == null || g.CategoryId != weddingCategory.Id)
+        .ToList();
+}
+
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/portfolio.css"
+          asp-append-version="true" />
+}
+
+<main class="portfolio-page">
+
+    <!-- =========================================
+         PORTFOLIO HERO
+         ========================================= -->
+
+    <section class="portfolio-hero">
+
+        <div class="container">
+
+            <div class="portfolio-hero-top">
+                <span class="portfolio-eyebrow">
+                    LOOKTWiiCE / PORTFOLIO
+                </span>
+
+                <span class="portfolio-index">
+                    01
+                </span>
+            </div>
+
+            <div class="portfolio-hero-content">
+
+                <h1 class="portfolio-title">
+                    Work that
+                    <span>speaks for itself.</span>
+                </h1>
+
+                <p class="portfolio-intro">
+                    A collection of stories, emotions and moments
+                    captured through our perspective.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         CATEGORY NAVIGATION
+         ========================================= -->
+
+    <section class="portfolio-navigation">
+
+        <div class="container">
+
+            <div class="portfolio-category-nav">
+
+                <a asp-action="Index"
+                   class="portfolio-category-link @(selectedCategoryId == null ? "active" : "")">
+                    ALL
+                </a>
+
+                @foreach (var category in categories)
+                {
+                    <a asp-action="Index"
+                       asp-route-categoryId="@category.Id"
+                       class="portfolio-category-link @(selectedCategoryId == category.Id ? "active" : "")">
+                        @category.Name.ToUpperInvariant()
+                    </a>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         WEDDING
+         ========================================= -->
+    @if (selectedCategoryId == null &&
+             weddingGalleries.Any())
+    {
+        <section class="portfolio-wedding">
+
+            <div class="container">
+
+                <div class="portfolio-section-header">
+
+                    <div class="portfolio-section-label">
+                        <span>LOOKTWiiCE</span>
+                        <span>02</span>
+                    </div>
+
+                    <div class="portfolio-section-heading">
+
+                        <span class="portfolio-section-eyebrow">
+                            WEDDING & ENGAGEMENTS
+                        </span>
+
+                        <h2>
+                            Stories
+                            <span>worth remembering.</span>
+                        </h2>
+
+                        <p>
+                            Honest moments, real emotions and
+                            timeless wedding stories.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="wedding-gallery-list">
+
+                    @foreach (var gallery in weddingGalleries)
+                    {
+                        var coverPhoto = gallery.Photos
+                            .OrderBy(p => p.DisplayOrder)
+                            .FirstOrDefault();
+
+                        var coverUrl = !string.IsNullOrWhiteSpace(gallery.CoverImageUrl)
+                            ? gallery.CoverImageUrl
+                            : coverPhoto?.WebUrl;
+
+                        <a asp-controller="Portfolio"
+                           asp-action="Gallery"
+                           asp-route-slug="@gallery.Slug"
+                           class="wedding-gallery">
+
+                            <div class="wedding-gallery-image">
+
+                                @if (!string.IsNullOrWhiteSpace(coverUrl))
+                                {
+                                    <img src="@coverUrl"
+                                         alt="@gallery.Title"
+                                         loading="lazy" />
+                                }
+
+                                <div class="wedding-gallery-overlay"></div>
+
+                                <div class="wedding-gallery-number">
+                                    @gallery.Photos.Count.ToString("D2")
+                                </div>
+
+                                <div class="wedding-gallery-view">
+                                    VIEW STORY
+                                    <span>→</span>
+                                </div>
+
+                            </div>
+
+                            <div class="wedding-gallery-info">
+
+                                <div>
+                                    <span class="gallery-category">
+                                        WEDDING
+                                    </span>
+
+                                    <h3>
+                                        @gallery.Title
+                                    </h3>
+                                </div>
+
+                                <span class="gallery-arrow">
+                                    →
+                                </span>
+
+                            </div>
+
+                        </a>
+                    }
+
+                </div>
+
+            </div>
+
+        </section>
+    }
+
+
+    <!-- =========================================
+         OTHER WORK
+         ========================================= -->
+    @if (otherGalleries.Any())
+    {
+        <section class="portfolio-other">
+
+            <div class="container">
+
+                <div class="portfolio-other-header">
+
+                    <div class="portfolio-section-label">
+                        <span>LOOKTWiiCE</span>
+                        <span>03</span>
+                    </div>
+
+                    <div>
+
+                        <span class="portfolio-section-eyebrow">
+                            BEYOND WEDDINGS
+                        </span>
+
+                        <h2>
+                            More ways
+                            <span>to tell a story.</span>
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="portfolio-other-grid">
+
+                    @foreach (var gallery in otherGalleries)
+                    {
+                        var coverPhoto = gallery.Photos
+                            .OrderBy(p => p.DisplayOrder)
+                            .FirstOrDefault();
+
+                        var coverUrl = !string.IsNullOrWhiteSpace(gallery.CoverImageUrl)
+                            ? gallery.CoverImageUrl
+                            : coverPhoto?.WebUrl;
+
+                        <a asp-controller="Portfolio"
+                           asp-action="Gallery"
+                           asp-route-slug="@gallery.Slug"
+                           class="other-gallery">
+
+                            <div class="other-gallery-image">
+
+                                @if (!string.IsNullOrWhiteSpace(coverUrl))
+                                {
+                                    <img src="@coverUrl"
+                                         alt="@gallery.Title"
+                                         loading="lazy" />
+                                }
+
+                                <div class="other-gallery-overlay"></div>
+
+                                <span class="other-gallery-arrow">
+                                    →
+                                </span>
+
+                            </div>
+
+                            <div class="other-gallery-info">
+
+                                <span>
+                                    @(gallery.Category?.Name?.ToUpperInvariant() ?? "PORTFOLIO")
+                                </span>
+
+                                <h3>
+                                    @gallery.Title
+                                </h3>
+
+                            </div>
+
+                        </a>
+                    }
+
+                </div>
+
+            </div>
+
+        </section>
+    }
+
+
+    <!-- =========================================
+         CTA
+         ========================================= -->
+
+    <section class="portfolio-cta">
+
+        <div class="container">
+
+            <div class="portfolio-cta-inner">
+
+                <span class="portfolio-section-eyebrow">
+                    HAVE A STORY TO TELL?
+                </span>
+
+                <h2>
+                    Let's create something
+                    <span>worth remembering.</span>
+                </h2>
+
+                <a href="#" class="portfolio-cta-link">
+                    START A PROJECT
+                    <span>→</span>
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>

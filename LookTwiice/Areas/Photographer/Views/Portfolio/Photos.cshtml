@@ -24,18 +24,28 @@
 
     @if (Model != null && Model.Any())
     {
-        <div class="photo-grid">
+        <div class="photo-grid"
+             id="photoGrid"
+             data-gallery-id="@gallery?.Id">
 
             @foreach (var photo in Model)
             {
-                <div class="photo-card">
+                <div class="photo-card"
+                     data-photo-id="@photo.Id">
 
                     <div class="photo-preview">
+
+                        <div class="photo-drag-handle">
+                            ⋮⋮
+                        </div>
+
                         <img src="@photo.ThumbnailUrl"
                              alt="@photo.Title" />
+
                     </div>
 
                     <div class="photo-card-info">
+
                         <div>
                             <span class="photo-order">
                                 @photo.DisplayOrder.ToString("D2")
@@ -52,27 +62,32 @@
                                 FEATURED
                             </span>
                         }
+
                     </div>
 
-                    <a asp-area="Photographer"
-                       asp-controller="Portfolio"
-                       asp-action="EditPhoto"
-                       asp-route-id="@photo.Id">
-                        EDIT
-                    </a>
+                    <div class="photo-card-actions">
 
-                    <form asp-area="Photographer"
-                          asp-controller="Portfolio"
-                          asp-action="DeletePhoto"
-                          asp-route-id="@photo.Id"
-                          method="post"
-                          onsubmit="return confirm('Delete this photo?');">
+                        <a asp-area="Photographer"
+                           asp-controller="Portfolio"
+                           asp-action="EditPhoto"
+                           asp-route-id="@photo.Id">
+                            EDIT
+                        </a>
 
-                        <button type="submit">
-                            DELETE
-                        </button>
+                        <form asp-area="Photographer"
+                              asp-controller="Portfolio"
+                              asp-action="DeletePhoto"
+                              asp-route-id="@photo.Id"
+                              method="post"
+                              onsubmit="return confirm('Delete this photo?');">
 
-                    </form>
+                            <button type="submit">
+                                DELETE
+                            </button>
+
+                        </form>
+
+                    </div>
 
                 </div>
             }
@@ -82,6 +97,7 @@
     else
     {
         <div class="category-empty">
+
             <span>No photos found.</span>
 
             <a asp-area="Photographer"
@@ -90,7 +106,86 @@
                asp-route-galleryId="@gallery?.Id">
                 Upload your first photo →
             </a>
+
         </div>
     }
 
 </div>
+
+@section Scripts {
+
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
+
+    @Html.AntiForgeryToken()
+
+    <script>
+
+        const photoGrid = document.getElementById("photoGrid");
+
+        if (photoGrid) {
+
+            new Sortable(photoGrid, {
+
+                animation: 200,
+
+                handle: ".photo-drag-handle",
+
+                ghostClass: "photo-sort-ghost",
+
+                onEnd: async function() {
+
+                    const photoIds = Array.from(
+                        photoGrid.querySelectorAll(".photo-card")
+                    ).map(card => Number(card.dataset.photoId));
+
+                    const galleryId = Number(
+                        photoGrid.dataset.galleryId
+                    );
+
+                    const token = document.querySelector(
+                        'input[name="__RequestVerificationToken"]'
+                    ).value;
+
+                    try {
+
+                        const response = await fetch(
+                            '@Url.Action("ReorderPhotos", "Portfolio", new { area = "Photographer" })',
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "RequestVerificationToken": token
+                                },
+
+                                body: JSON.stringify({
+                                    galleryId: galleryId,
+                                    photoIds: photoIds
+                                })
+                            }
+                        );
+
+                        if (!response.ok) {
+                            throw new Error("Photo order could not be saved.");
+                        }
+
+                        console.log("Photo order saved.");
+
+                    }
+                    catch (error) {
+
+                        console.error(error);
+
+                        alert("Photo order could not be saved.");
+
+                    }
+
+                }
+
+            });
+
+        }
+
+    </script>
+
+}

@@ -314,3 +314,62 @@
     font-size: 9px;
     opacity: .45;
 }
+
+
+.photo-preview {
+    position: relative;
+}
+
+.photo-drag-handle {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 5;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.55);
+    color: white;
+    font-size: 16px;
+    line-height: 1;
+    cursor: grab;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.photo-card:hover .photo-drag-handle {
+    opacity: 1;
+}
+
+.photo-drag-handle:active {
+    cursor: grabbing;
+}
+
+.photo-sort-ghost {
+    opacity: 0.35;
+}
+
+.photo-card-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 12px;
+}
+
+    .photo-card-actions a,
+    .photo-card-actions button {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        background: none;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+        color: inherit;
+    }
+
+    .photo-card-actions form {
+        margin: 0;
+    }

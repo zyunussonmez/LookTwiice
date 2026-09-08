@@ -1,6 +1,7 @@
 ﻿using LookTwiice.Data;
 using LookTwiice.Models;
 using LookTwiice.Models.Constants;
+using LookTwiice.Models.ViewModels;
 using LookTwiice.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -396,6 +397,30 @@ namespace LookTwiice.Areas.Photographer.Controllers
             return RedirectToAction(
                 nameof(Photos),
                 new { galleryId = existingPhoto.GalleryId });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ReorderPhotos([FromBody] ReorderPhotosRequest request)
+        {
+            var photos = await _context.Photos
+                .Where(p => p.GalleryId == request.GalleryId)
+                .ToListAsync();
+
+            for (var i = 0; i < request.PhotoIds.Count; i++)
+            {
+                var photo = photos.FirstOrDefault(
+                    p => p.Id == request.PhotoIds[i]);
+
+                if (photo != null)
+                {
+                    photo.DisplayOrder = i + 1;
+                }
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
         }
 
     }
