@@ -1,0 +1,95 @@
+﻿@model LookTwiice.Models.Gallery
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/portfolio.css"
+          asp-append-version="true" />
+}
+
+<main class="portfolio-gallery-page">
+
+    <section class="gallery-hero">
+
+        <div class="container">
+
+            <div class="gallery-hero-meta">
+
+                <span>
+                    @(Model.Category?.Name?.ToUpperInvariant() ?? "PORTFOLIO")
+                </span>
+
+                <span>
+                    @Model.Photos.Count.ToString("D2") PHOTOS
+                </span>
+
+            </div>
+
+            <h1 class="gallery-hero-title">
+                @Model.Title
+            </h1>
+
+            @if (!string.IsNullOrWhiteSpace(Model.Description))
+            {
+                <p class="gallery-hero-description">
+                    @Model.Description
+                </p>
+            }
+
+        </div>
+
+    </section>
+
+
+    <section class="gallery-photos">
+
+        <div class="container">
+
+            @if (Model.Photos.Any())
+            {
+                <div class="gallery-photo-grid">
+
+                    @foreach (var photo in Model.Photos)
+                    {
+                        <figure class="gallery-photo">
+
+                            <img src="@photo.WebUrl"
+                                 alt="@photo.Title"
+                                 loading="lazy" />
+
+                        </figure>
+                    }
+
+                </div>
+            }
+            else
+            {
+                <div class="gallery-empty">
+                    No photos in this gallery.
+                </div>
+            }
+
+        </div>
+
+    </section>
+
+
+    <section class="gallery-back">
+
+        <div class="container">
+
+            <a asp-controller="Portfolio"
+               asp-action="Index">
+
+                ← BACK TO PORTFOLIO
+
+            </a>
+
+        </div>
+
+    </section>
+
+</main>

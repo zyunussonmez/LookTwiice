@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<LookTwiice.Models.Gallery>
+
+@{
     ViewData["Title"] = "Home";
 }
 @section Styles {
@@ -127,75 +129,105 @@
      ========================================= -->
 
     <section class="featured-work">
+
         <div class="container">
+
             <div class="featured-header">
+
                 <div class="featured-label">
-                    <span>LOOKTWiiCE</span>
+                    <span>SELECTED WORK</span>
                     <span>02</span>
                 </div>
 
-                <div class="featured-heading">
-                    <h2 class="featured-title">
-                        Selected
-                        <span>stories.</span>
-                    </h2>
-                </div>
+                <h2 class="featured-title">
+                    Featured
+                    <span>work.</span>
+                </h2>
+
             </div>
+
 
             <div class="featured-grid">
-                <a href="#" class="featured-item featured-item-large">
-                    <div class="featured-image featured-placeholder-1">
-                        <span class="featured-placeholder-text">WEDDING</span>
-                    </div>
 
-                    <div class="featured-info">
-                        <div>
-                            <span class="featured-number">01</span>
-                            <span class="featured-name">Wedding</span>
+                @{
+                    var featuredIndex = 0;
+                }
+
+                @foreach (var gallery in Model.Take(3))
+                {
+                    var featuredPhoto = gallery.Photos
+                        .OrderByDescending(p => p.IsFeatured)
+                        .ThenBy(p => p.DisplayOrder)
+                        .FirstOrDefault();
+
+                    if (featuredPhoto == null)
+                    {
+                        continue;
+                    }
+
+                    featuredIndex++;
+
+                    var itemClass = featuredIndex switch
+                    {
+                        1 => "featured-item featured-item-large",
+                        2 => "featured-item featured-item-small",
+                        _ => "featured-item featured-item-wide"
+                    };
+
+                    <a asp-controller="Portfolio"
+                       asp-action="Gallery"
+                       asp-route-slug="@gallery.Slug"
+                       class="@itemClass">
+
+                        <div class="featured-image">
+
+                            <img src="@featuredPhoto.WebUrl"
+                                 alt="@featuredPhoto.Title"
+                                 loading="lazy"
+                                 style="width:100%; height:100%; object-fit:cover;" />
+
                         </div>
 
-                        <span class="featured-arrow">→</span>
-                    </div>
-                </a>
+                        <div class="featured-info">
 
-                <a href="#" class="featured-item featured-item-small">
-                    <div class="featured-image featured-placeholder-2">
-                        <span class="featured-placeholder-text">FASHION</span>
-                    </div>
+                            <div>
 
-                    <div class="featured-info">
-                        <div>
-                            <span class="featured-number">02</span>
-                            <span class="featured-name">Fashion</span>
+                                <span class="featured-number">
+                                    @featuredIndex.ToString("D2")
+                                </span>
+
+                                <span class="featured-name">
+                                    @gallery.Title
+                                </span>
+
+                            </div>
+
+                            <span class="featured-arrow">
+                                →
+                            </span>
+
                         </div>
 
-                        <span class="featured-arrow">→</span>
-                    </div>
-                </a>
+                    </a>
+                }
 
-                <a href="#" class="featured-item featured-item-wide">
-                    <div class="featured-image featured-placeholder-3">
-                        <span class="featured-placeholder-text">PORTRAIT</span>
-                    </div>
-
-                    <div class="featured-info">
-                        <div>
-                            <span class="featured-number">03</span>
-                            <span class="featured-name">Portrait</span>
-                        </div>
-
-                        <span class="featured-arrow">→</span>
-                    </div>
-                </a>
             </div>
+
 
             <div class="featured-all">
-                <a asp-controller="Portfolio" asp-action="Index">
+
+                <a asp-controller="Portfolio"
+                   asp-action="Index">
+
                     VIEW ALL WORK
                     <span>→</span>
+
                 </a>
+
             </div>
+
         </div>
+
     </section>
 
     <!-- =========================================
@@ -233,132 +265,152 @@
 
             <div class="services-list">
 
-                <!-- WEDDING -->
+                @{
+                    var homeCategories = ViewBag.Categories
+                        as IEnumerable<LookTwiice.Models.Category>
+                        ?? Enumerable.Empty<LookTwiice.Models.Category>();
 
-                <a href="#" class="service-item">
-                    <div class="service-number">
-                        01
-                    </div>
+                    var homeWedding = homeCategories
+                        .FirstOrDefault(c =>
+                            c.Name.Equals("Wedding", StringComparison.OrdinalIgnoreCase));
 
-                    <div class="service-content">
-                        <h3>Wedding</h3>
-                        <p>Weddings & Engagements</p>
-                    </div>
+                    var homeOtherCategories = homeCategories
+                        .Where(c => homeWedding == null || c.Id != homeWedding.Id)
+                        .ToList();
+                }
 
-                    <div class="service-arrow">
-                        →
-                    </div>
 
-                    <div class="service-preview service-preview-wedding">
-                        <div class="service-preview-image">
-                            <span>01</span>
+                @* =========================
+       WEDDING
+       ========================= *@
+
+                @if (homeWedding != null)
+                {
+                    <a asp-controller="Portfolio"
+                       asp-action="Index"
+                       asp-route-categoryId="@homeWedding.Id"
+                       class="service-item">
+
+                        <div class="service-number">
+                            01
                         </div>
 
-                        <div class="service-preview-image">
-                            <span>02</span>
+                        <div class="service-content">
+                            <h3>@homeWedding.Name</h3>
+                            <p>Weddings & Engagements</p>
                         </div>
 
-                        <div class="service-preview-image">
-                            <span>03</span>
-                        </div>
-                    </div>
-                </a>
-
-
-                <!-- FASHION -->
-
-                <a href="#" class="service-item">
-                    <div class="service-number">
-                        02
-                    </div>
-
-                    <div class="service-content">
-                        <h3>Fashion</h3>
-                        <p>Editorial & Model Photography</p>
-                    </div>
-
-                    <div class="service-arrow">
-                        →
-                    </div>
-
-                    <div class="service-preview service-preview-fashion">
-                        <div class="service-preview-image">
-                            <span>01</span>
+                        <div class="service-arrow">
+                            →
                         </div>
 
-                        <div class="service-preview-image">
-                            <span>02</span>
+                        @{
+                            var weddingPhotos = homeWedding?.Galleries
+                                .SelectMany(g => g.Photos)
+                                .OrderByDescending(p => p.IsFeatured)
+                                .ThenBy(p => p.DisplayOrder)
+                                .Take(3)
+                                .ToList()
+                                ?? new List<LookTwiice.Models.Photo>();
+                        }
+
+                        <div class="service-preview service-preview-wedding">
+
+                            @foreach (var photo in weddingPhotos)
+                            {
+                                <div class="service-preview-image">
+
+                                    <img src="@photo.ThumbnailUrl"
+                                         alt="@photo.Title"
+                                         loading="lazy" />
+
+                                </div>
+                            }
+
                         </div>
 
-                        <div class="service-preview-image">
-                            <span>03</span>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                }
 
 
-                <!-- PORTRAIT -->
+                @* =========================
+       OTHER CATEGORIES
+       ========================= *@
 
-                <a href="#" class="service-item">
-                    <div class="service-number">
-                        03
-                    </div>
+                @{
+                    var serviceNumber = 2;
+                }
 
-                    <div class="service-content">
-                        <h3>Portrait</h3>
-                        <p>Personal & Branding</p>
-                    </div>
+                @foreach (var category in homeOtherCategories)
+                {
+                    <a asp-controller="Portfolio"
+                       asp-action="Index"
+                       asp-route-categoryId="@category.Id"
+                       class="service-item">
 
-                    <div class="service-arrow">
-                        →
-                    </div>
-
-                    <div class="service-preview service-preview-portrait">
-                        <div class="service-preview-image">
-                            <span>01</span>
+                        <div class="service-number">
+                            @serviceNumber.ToString("D2")
                         </div>
 
-                        <div class="service-preview-image">
-                            <span>02</span>
+                        <div class="service-content">
+
+                            <h3>@category.Name</h3>
+
+                            <p>
+                                @switch (category.Name.ToLowerInvariant())
+                                {
+                                    case "fashion":
+                                        @:Editorial & Model Photography
+                                        break;
+
+                                    case "portrait":
+                                        @:Personal & Branding
+                                        break;
+
+                                    case "event":
+                                        @:Events & Campaigns
+                                        break;
+
+                                    default:
+                                        @:Photography & Visual Stories
+                                        break;
+                                }
+                            </p>
+
                         </div>
 
-                        <div class="service-preview-image">
-                            <span>03</span>
-                        </div>
-                    </div>
-                </a>
-
-
-                <!-- EVENT -->
-
-                <a href="#" class="service-item">
-                    <div class="service-number">
-                        04
-                    </div>
-
-                    <div class="service-content">
-                        <h3>Event</h3>
-                        <p>Events & Campaigns</p>
-                    </div>
-
-                    <div class="service-arrow">
-                        →
-                    </div>
-
-                    <div class="service-preview service-preview-event">
-                        <div class="service-preview-image">
-                            <span>01</span>
+                        <div class="service-arrow">
+                            →
                         </div>
 
-                        <div class="service-preview-image">
-                            <span>02</span>
+                        @{
+                            var categoryPhotos = category.Galleries
+                                .SelectMany(g => g.Photos)
+                                .OrderByDescending(p => p.IsFeatured)
+                                .ThenBy(p => p.DisplayOrder)
+                                .Take(3)
+                                .ToList();
+                        }
+
+                        <div class="service-preview">
+
+                            @foreach (var photo in categoryPhotos)
+                            {
+                                <div class="service-preview-image">
+
+                                    <img src="@photo.ThumbnailUrl"
+                                         alt="@photo.Title"
+                                         loading="lazy" />
+
+                                </div>
+                            }
+
                         </div>
 
-                        <div class="service-preview-image">
-                            <span>03</span>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+
+                    serviceNumber++;
+                }
 
             </div>
 

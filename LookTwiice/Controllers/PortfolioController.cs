@@ -42,4 +42,28 @@ public class PortfolioController : Controller
 
         return View(galleries);
     }
+
+    public async Task<IActionResult> Gallery(string slug)
+    {
+        if (string.IsNullOrWhiteSpace(slug))
+        {
+            return NotFound();
+        }
+
+        var gallery = await _context.Galleries
+            .Include(g => g.Category)
+            .Include(g => g.Photos)
+            .FirstOrDefaultAsync(g => g.Slug == slug);
+
+        if (gallery == null)
+        {
+            return NotFound();
+        }
+
+        gallery.Photos = gallery.Photos
+            .OrderBy(p => p.DisplayOrder)
+            .ToList();
+
+        return View(gallery);
+    }   
 }
