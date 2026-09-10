@@ -230,249 +230,297 @@
 
     </section>
 
-    <!-- =========================================
+
+</section>
+
+
+<!-- =========================================
++     CINEMATIC FEATURE
++     ========================================= -->
+@{
+    var cinematicPhoto = Model
+            .SelectMany(gallery => gallery.Photos)
+            .OrderByDescending(photo => photo.IsFeatured)
+            .ThenBy(photo => photo.DisplayOrder)
+            .FirstOrDefault();
+}
+
+
+@if (cinematicPhoto != null)
+{
+    <section class="cinematic-feature" aria-label="Featured photograph">
+
+        <img src="@cinematicPhoto.WebUrl"
+          alt="@(string.IsNullOrWhiteSpace(cinematicPhoto.Title) ? "LookTwiice featured photograph" : cinematicPhoto.Title)"
+          class="cinematic-feature-image"
+          loading="lazy" />
+
+        <div class="cinematic-feature-overlay"></div>
+
+        <div class="cinematic-feature-content container">
+            <span class="cinematic-feature-kicker">LOOKTWiiCE / 03</span>
+
+            <h2 class="cinematic-feature-title">
+                The moments
+                <span>that matter.</span>
+
+            </h2>
+
+            <p class="cinematic-feature-copy">
+                Honest images for the stories that stay with you.
+
+            </p>
+
+        </div>
+
+
+    </section>
+}
+
+
+<!-- =========================================
      SERVICES
      ========================================= -->
 
-    <section class="home-services">
+<section class="home-services">
 
-        <div class="container">
+    <div class="container">
 
-            <div class="services-header">
+        <div class="services-header">
 
-                <div class="services-label">
-                    <span>LOOKTWiiCE</span>
-                    <span>03</span>
-                </div>
+            <div class="services-label">
+                <span>LOOKTWiiCE</span>
+                <span>03</span>
+            </div>
 
-                <div>
+            <div>
 
-                    <p class="services-eyebrow">
-                        WHAT WE DO
-                    </p>
+                <p class="services-eyebrow">
+                    WHAT WE DO
+                </p>
 
-                    <h2 class="services-title">
-                        Stories in
-                        <span>different forms.</span>
-                    </h2>
-
-                </div>
+                <h2 class="services-title">
+                    Stories in
+                    <span>different forms.</span>
+                </h2>
 
             </div>
 
-
-            <!-- SERVICES LIST -->
-
-            <div class="services-list">
-
-                @{
-                    var homeCategories = ViewBag.Categories
-                        as IEnumerable<LookTwiice.Models.Category>
-                        ?? Enumerable.Empty<LookTwiice.Models.Category>();
-
-                    var homeWedding = homeCategories
-                        .FirstOrDefault(c =>
-                            c.Name.Equals("Wedding", StringComparison.OrdinalIgnoreCase));
-
-                    var homeOtherCategories = homeCategories
-                        .Where(c => homeWedding == null || c.Id != homeWedding.Id)
-                        .ToList();
-                }
+        </div>
 
 
-                @* =========================
+        <!-- SERVICES LIST -->
+
+        <div class="services-list">
+
+            @{
+                var homeCategories = ViewBag.Categories
+                    as IEnumerable<LookTwiice.Models.Category>
+                    ?? Enumerable.Empty<LookTwiice.Models.Category>();
+
+                var homeWedding = homeCategories
+                    .FirstOrDefault(c =>
+                        c.Name.Equals("Wedding", StringComparison.OrdinalIgnoreCase));
+
+                var homeOtherCategories = homeCategories
+                    .Where(c => homeWedding == null || c.Id != homeWedding.Id)
+                    .ToList();
+            }
+
+
+            @* =========================
        WEDDING
        ========================= *@
 
-                @if (homeWedding != null)
-                {
-                    <a asp-controller="Portfolio"
-                       asp-action="Index"
-                       asp-route-categoryId="@homeWedding.Id"
-                       class="service-item">
+            @if (homeWedding != null)
+            {
+                <a asp-controller="Portfolio"
+                   asp-action="Index"
+                   asp-route-categoryId="@homeWedding.Id"
+                   class="service-item">
 
-                        <div class="service-number">
-                            01
-                        </div>
+                    <div class="service-number">
+                        01
+                    </div>
 
-                        <div class="service-content">
-                            <h3>@homeWedding.Name</h3>
-                            <p>Weddings & Engagements</p>
-                        </div>
+                    <div class="service-content">
+                        <h3>@homeWedding.Name</h3>
+                        <p>Weddings & Engagements</p>
+                    </div>
 
-                        <div class="service-arrow">
-                            →
-                        </div>
+                    <div class="service-arrow">
+                        →
+                    </div>
 
-                        @{
-                            var weddingPhotos = homeWedding?.Galleries
-                                .SelectMany(g => g.Photos)
-                                .OrderByDescending(p => p.IsFeatured)
-                                .ThenBy(p => p.DisplayOrder)
-                                .Take(3)
-                                .ToList()
-                                ?? new List<LookTwiice.Models.Photo>();
+                    @{
+                        var weddingPhotos = homeWedding?.Galleries
+                            .SelectMany(g => g.Photos)
+                            .OrderByDescending(p => p.IsFeatured)
+                            .ThenBy(p => p.DisplayOrder)
+                            .Take(3)
+                            .ToList()
+                            ?? new List<LookTwiice.Models.Photo>();
+                    }
+
+                    <div class="service-preview service-preview-wedding">
+
+                        @foreach (var photo in weddingPhotos)
+                        {
+                            <div class="service-preview-image">
+
+                                <img src="@photo.ThumbnailUrl"
+                                     alt="@photo.Title"
+                                     loading="lazy" />
+
+                            </div>
                         }
 
-                        <div class="service-preview service-preview-wedding">
+                    </div>
 
-                            @foreach (var photo in weddingPhotos)
-                            {
-                                <div class="service-preview-image">
-
-                                    <img src="@photo.ThumbnailUrl"
-                                         alt="@photo.Title"
-                                         loading="lazy" />
-
-                                </div>
-                            }
-
-                        </div>
-
-                    </a>
-                }
+                </a>
+            }
 
 
-                @* =========================
+            @* =========================
        OTHER CATEGORIES
        ========================= *@
 
-                @{
-                    var serviceNumber = 2;
-                }
+            @{
+                var serviceNumber = 2;
+            }
 
-                @foreach (var category in homeOtherCategories)
-                {
-                    <a asp-controller="Portfolio"
-                       asp-action="Index"
-                       asp-route-categoryId="@category.Id"
-                       class="service-item">
+            @foreach (var category in homeOtherCategories)
+            {
+                <a asp-controller="Portfolio"
+                   asp-action="Index"
+                   asp-route-categoryId="@category.Id"
+                   class="service-item">
 
-                        <div class="service-number">
-                            @serviceNumber.ToString("D2")
-                        </div>
+                    <div class="service-number">
+                        @serviceNumber.ToString("D2")
+                    </div>
 
-                        <div class="service-content">
+                    <div class="service-content">
 
-                            <h3>@category.Name</h3>
+                        <h3>@category.Name</h3>
 
-                            <p>
-                                @switch (category.Name.ToLowerInvariant())
-                                {
-                                    case "fashion":
-                                        @:Editorial & Model Photography
-                                        break;
+                        <p>
+                            @switch (category.Name.ToLowerInvariant())
+                            {
+                                case "fashion":
+                                    @:Editorial & Model Photography
+                                    break;
 
-                                    case "portrait":
-                                        @:Personal & Branding
-                                        break;
+                                case "portrait":
+                                    @:Personal & Branding
+                                    break;
 
-                                    case "event":
-                                        @:Events & Campaigns
-                                        break;
+                                case "event":
+                                    @:Events & Campaigns
+                                    break;
 
-                                    default:
-                                        @:Photography & Visual Stories
-                                        break;
-                                }
-                            </p>
+                                default:
+                                    @:Photography & Visual Stories
+                                    break;
+                            }
+                        </p>
 
-                        </div>
+                    </div>
 
-                        <div class="service-arrow">
-                            →
-                        </div>
+                    <div class="service-arrow">
+                        →
+                    </div>
 
-                        @{
-                            var categoryPhotos = category.Galleries
-                                .SelectMany(g => g.Photos)
-                                .OrderByDescending(p => p.IsFeatured)
-                                .ThenBy(p => p.DisplayOrder)
-                                .Take(3)
-                                .ToList();
+                    @{
+                        var categoryPhotos = category.Galleries
+                            .SelectMany(g => g.Photos)
+                            .OrderByDescending(p => p.IsFeatured)
+                            .ThenBy(p => p.DisplayOrder)
+                            .Take(3)
+                            .ToList();
+                    }
+
+                    <div class="service-preview">
+
+                        @foreach (var photo in categoryPhotos)
+                        {
+                            <div class="service-preview-image">
+
+                                <img src="@photo.ThumbnailUrl"
+                                     alt="@photo.Title"
+                                     loading="lazy" />
+
+                            </div>
                         }
 
-                        <div class="service-preview">
+                    </div>
 
-                            @foreach (var photo in categoryPhotos)
-                            {
-                                <div class="service-preview-image">
-
-                                    <img src="@photo.ThumbnailUrl"
-                                         alt="@photo.Title"
-                                         loading="lazy" />
-
-                                </div>
-                            }
-
-                        </div>
-
-                    </a>
-
-                    serviceNumber++;
-                }
-
-            </div>
-
-
-            <!-- BOOKING CTA -->
-
-            <div class="services-cta">
-
-                <p>
-                    Have a project in mind?
-                </p>
-
-                <a href="#">
-                    START A PROJECT
-                    <span>→</span>
                 </a>
 
-            </div>
+                serviceNumber++;
+            }
 
         </div>
 
-    </section>
 
-    <!-- =========================================
+        <!-- BOOKING CTA -->
+
+        <div class="services-cta">
+
+            <p>
+                Have a project in mind?
+            </p>
+
+            <a href="#">
+                START A PROJECT
+                <span>→</span>
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================================
      ABOUT / STORY
      ========================================= -->
 
-    <section class="home-about">
-        <div class="container">
-            <div class="about-label">
-                <span>LOOKTWiiCE</span>
-                <span>04</span>
+<section class="home-about">
+    <div class="container">
+        <div class="about-label">
+            <span>LOOKTWiiCE</span>
+            <span>04</span>
+        </div>
+
+        <div class="about-main">
+            <div class="about-content">
+                <h2 class="about-title">
+                    Stories
+                    <span>worth remembering.</span>
+                </h2>
+
+                <p class="about-lead">
+                    We create photographs that feel as real
+                    as the moments they come from.
+                </p>
+
+                <a asp-controller="About"
+                   asp-action="Index"
+                   class="about-link">
+                    MORE ABOUT US
+                    <span>→</span>
+                </a>
             </div>
 
-            <div class="about-main">
-                <div class="about-content">
-                    <h2 class="about-title">
-                        Stories
-                        <span>worth remembering.</span>
-                    </h2>
-
-                    <p class="about-lead">
-                        We create photographs that feel as real
-                        as the moments they come from.
-                    </p>
-
-                    <a asp-controller="About"
-                       asp-action="Index"
-                       class="about-link">
-                        MORE ABOUT US
-                        <span>→</span>
-                    </a>
-                </div>
-
-                <div class="about-image">
-                    <div class="about-placeholder">
-                        <span>PHOTO</span>
-                        <small>PLACEHOLDER</small>
-                    </div>
+            <div class="about-image">
+                <div class="about-placeholder">
+                    <span>PHOTO</span>
+                    <small>PLACEHOLDER</small>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
 </main>
