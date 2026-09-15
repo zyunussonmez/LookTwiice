@@ -10,3 +10,13 @@ appsettings.Development.json
 # User uploaded / runtime images
 wwwroot/images/*
 !wwwroot/images/.gitkeep
+# User uploaded photos
+LookTwiice/wwwroot/uploads/
+
+# Portfolio / development photos
+LookTwiice/wwwroot/images/*.jpg
+LookTwiice/wwwroot/images/*.jpeg
+LookTwiice/wwwroot/images/*.webp
+
+# Keep logo
+!LookTwiice/wwwroot/images/LookTwiice_Logo.png
