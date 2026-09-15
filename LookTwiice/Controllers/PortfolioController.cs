@@ -65,5 +65,10 @@ public class PortfolioController : Controller
             .ToList();
 
         return View(gallery);
-    }   
+    }
+
+    public IActionResult PortfolioExperiment()
+    {
+        return View();
+    }
 }

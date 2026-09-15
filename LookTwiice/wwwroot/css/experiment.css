@@ -1,0 +1,394 @@
+﻿/* =========================================
+   LOOKTWiiCE PORTFOLIO EXPERIMENT
+   ========================================= */
+
+.experiment {
+    position: relative;
+    min-height: 100vh;
+    background: #eeeae2;
+    color: #171717;
+    overflow: hidden;
+}
+
+
+/* =========================================
+   BRAND
+   ========================================= */
+
+.experiment-brand {
+    position: absolute;
+    top: 32px;
+    left: 50px;
+    z-index: 20;
+    font-size: 12px;
+    letter-spacing: .18em;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   INTRO
+   ========================================= */
+
+.experiment-intro {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.intro-small {
+    display: block;
+    margin-bottom: 24px;
+    font-size: 10px;
+    letter-spacing: .25em;
+    opacity: .55;
+}
+
+.experiment-intro h1 {
+    margin: 0;
+    font-family: Georgia, serif;
+    font-size: clamp(48px, 7vw, 110px);
+    font-weight: 400;
+    line-height: .9;
+    letter-spacing: -.05em;
+}
+
+    .experiment-intro h1 span {
+        display: block;
+        font-style: italic;
+        margin-left: 80px;
+    }
+
+
+/* =========================================
+   PHOTO LINE SCENE
+   ========================================= */
+
+.photo-line-scene {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(30px, 5vw, 90px);
+    padding-top: 60px;
+    z-index: 5;
+}
+
+
+/* =========================================
+   CLOTHESLINE
+   ========================================= */
+
+.photo-line {
+    position: absolute;
+    left: -5%;
+    right: -5%;
+    top: 42%;
+    height: 1px;
+    background: #777;
+    transform: rotate(-1deg) scaleX(0);
+    transform-origin: left center;
+}
+
+
+/* =========================================
+   HANGING PHOTO
+   ========================================= */
+
+.hanging-photo {
+    position: relative;
+    width: clamp(150px, 16vw, 250px);
+    opacity: 0;
+    transform: translateY(-180px) rotate(0deg);
+}
+
+
+/* =========================================
+   PHOTO FRAME
+   ========================================= */
+
+.photo-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    padding: 8px;
+    background: #f7f5ef;
+    box-shadow: 0 18px 40px rgba(0,0,0,.12);
+    overflow: hidden;
+}
+
+    .photo-frame::before {
+        content: "";
+        position: absolute;
+        top: -9px;
+        left: 50%;
+        width: 18px;
+        height: 32px;
+        transform: translateX(-50%);
+        background: #b8b2a7;
+        z-index: 5;
+        clip-path: polygon( 20% 0, 80% 0, 70% 100%, 30% 100% );
+    }
+
+    .photo-frame img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: saturate(.85);
+    }
+
+
+/* =========================================
+   LABEL
+   ========================================= */
+
+.photo-label {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 12px;
+    margin-left: 8px;
+    gap: 10px;
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+.label-line {
+    display: block;
+    width: 1px;
+    height: 40px;
+    background: #555;
+}
+
+.photo-label strong {
+    display: block;
+    font-size: 11px;
+    letter-spacing: .18em;
+    font-weight: 600;
+}
+
+.photo-label small {
+    display: block;
+    margin-top: 5px;
+    font-size: 9px;
+    letter-spacing: .12em;
+    opacity: .5;
+}
+
+
+/* =========================================
+   INDIVIDUAL ROTATIONS
+   ========================================= */
+
+.photo-01 {
+    transform: translateY(-180px) rotate(-4deg);
+}
+
+.photo-02 {
+    transform: translateY(-180px) rotate(2deg);
+}
+
+.photo-03 {
+    transform: translateY(-180px) rotate(-2deg);
+}
+
+.photo-04 {
+    transform: translateY(-180px) rotate(4deg);
+}
+
+
+/* =========================================
+   BOTTOM
+   ========================================= */
+
+.experiment-bottom {
+    position: absolute;
+    left: 50%;
+    bottom: 35px;
+    transform: translateX(-50%);
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 9px;
+    letter-spacing: .18em;
+    opacity: .55;
+    z-index: 20;
+}
+
+.scroll-indicator {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 45px;
+    overflow: hidden;
+    background: rgba(0,0,0,.15);
+}
+
+    .scroll-indicator span {
+        display: block;
+        width: 1px;
+        height: 20px;
+        background: #222;
+        animation: scrollLine 1.8s infinite;
+    }
+
+@keyframes scrollLine {
+
+    0% {
+        transform: translateY(-20px);
+    }
+
+    100% {
+        transform: translateY(50px);
+    }
+}
+
+
+/* =========================================
+   REVEAL
+   ========================================= */
+
+.experiment-reveal {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: #111;
+    visibility: hidden;
+    overflow: hidden;
+}
+
+.reveal-image {
+    position: absolute;
+    inset: 0;
+    transform: scale(1.15);
+}
+
+    .reveal-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.reveal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.3);
+}
+
+.reveal-content {
+    position: absolute;
+    left: 7%;
+    bottom: 9%;
+    color: white;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+    .reveal-content > span {
+        font-size: 10px;
+        letter-spacing: .2em;
+    }
+
+    .reveal-content h2 {
+        margin: 10px 0;
+        font-family: Georgia, serif;
+        font-size: clamp(70px, 12vw, 180px);
+        font-weight: 400;
+        line-height: .8;
+    }
+
+    .reveal-content p {
+        font-size: 14px;
+        margin-bottom: 30px;
+        opacity: .75;
+    }
+
+    .reveal-content a {
+        color: white;
+        text-decoration: none;
+        font-size: 10px;
+        letter-spacing: .2em;
+        border-bottom: 1px solid rgba(255,255,255,.5);
+        padding-bottom: 8px;
+    }
+
+        .reveal-content a span {
+            margin-left: 20px;
+        }
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    .experiment-brand {
+        left: 20px;
+        top: 20px;
+    }
+
+    .experiment-intro h1 {
+        font-size: 52px;
+    }
+
+        .experiment-intro h1 span {
+            margin-left: 30px;
+        }
+
+    .photo-line-scene {
+        gap: 12px;
+        padding: 20px;
+        align-items: center;
+    }
+
+    .hanging-photo {
+        width: 21vw;
+    }
+
+    .photo-frame {
+        padding: 4px;
+    }
+
+    .photo-label {
+        margin-left: 2px;
+        margin-top: 8px;
+    }
+
+        .photo-label strong {
+            font-size: 7px;
+        }
+
+        .photo-label small {
+            font-size: 6px;
+        }
+
+    .label-line {
+        height: 28px;
+    }
+
+    .experiment-bottom {
+        bottom: 20px;
+    }
+
+        .experiment-bottom > span:first-child {
+            display: none;
+        }
+
+    .reveal-content {
+        left: 25px;
+        bottom: 50px;
+    }
+
+        .reveal-content h2 {
+            font-size: 70px;
+        }
+}

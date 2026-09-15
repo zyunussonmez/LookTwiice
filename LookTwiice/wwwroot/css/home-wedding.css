@@ -1,0 +1,817 @@
+﻿/* =====================================================
+   LOOKTWiiCE WEDDING HOME
+   ===================================================== */
+
+.home-wedding-page {
+    --wedding-paper: #ece9e2;
+    --wedding-dark: #171615;
+    --wedding-muted: #706c65;
+}
+
+
+/* =====================================================
+   WEDDING INTRO
+   ===================================================== */
+
+.wedding-intro {
+    background: var(--wedding-paper);
+    padding: 150px 0;
+}
+
+.wedding-intro-container {
+    position: relative;
+}
+
+.wedding-intro-label,
+.wedding-section-label,
+.wedding-wall-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--wedding-muted);
+}
+
+.wedding-intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.wedding-intro-copy {
+    max-width: 580px;
+}
+
+.wedding-intro-kicker,
+.wedding-section-kicker {
+    display: block;
+    margin-bottom: 25px;
+    font-size: 9px;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--wedding-muted);
+}
+
+.wedding-intro-copy h2 {
+    margin: 0;
+    font-family: Georgia, serif;
+    font-size: clamp(55px, 6vw, 95px);
+    font-weight: 400;
+    line-height: .88;
+    letter-spacing: -.055em;
+}
+
+    .wedding-intro-copy h2 span {
+        display: block;
+        font-style: italic;
+        margin-left: 70px;
+        margin-top: 10px;
+    }
+
+.wedding-intro-lead {
+    margin-top: 50px;
+    max-width: 380px;
+    font-family: Georgia, serif;
+    font-size: 20px;
+    line-height: 1.45;
+}
+
+.wedding-intro-description {
+    max-width: 380px;
+    margin-top: 25px;
+    font-size: 12px;
+    line-height: 1.8;
+    color: var(--wedding-muted);
+}
+
+.wedding-intro-image {
+    position: relative;
+    width: 100%;
+}
+
+    .wedding-intro-image img {
+        display: block;
+        width: 100%;
+        max-height: 680px;
+        object-fit: cover;
+        aspect-ratio: 4 / 5;
+    }
+
+.wedding-photo-caption {
+    position: absolute;
+    bottom: -30px;
+    left: 0;
+    font-size: 8px;
+    letter-spacing: .2em;
+    color: var(--wedding-muted);
+}
+
+
+/* =====================================================
+   PHOTO WALL
+   ===================================================== */
+
+.wedding-wall-section {
+    background: var(--wedding-paper);
+    padding-top: 100px;
+    overflow: hidden;
+}
+
+.wedding-wall-header {
+    position: relative;
+    z-index: 10;
+}
+
+.wedding-wall-heading {
+    text-align: center;
+    margin-top: 80px;
+}
+
+    .wedding-wall-heading > span {
+        font-size: 9px;
+        letter-spacing: .3em;
+        color: var(--wedding-muted);
+    }
+
+    .wedding-wall-heading h2 {
+        margin: 20px 0 0;
+        font-family: Georgia, serif;
+        font-weight: 400;
+        font-size: clamp(48px, 6vw, 90px);
+        line-height: .9;
+        letter-spacing: -.05em;
+    }
+
+    .wedding-wall-heading em {
+        display: block;
+        font-style: italic;
+    }
+
+
+/* WALL */
+
+.wedding-wall {
+    position: relative;
+    width: 100%;
+    height: 800px;
+    margin-top: -20px;
+}
+
+
+/* PHOTO */
+
+.wall-photo {
+    position: absolute;
+    width: 190px;
+    opacity: 0;
+    animation: weddingWallPhotoIn 1s cubic-bezier(.22, 1, .36, 1) forwards;
+}
+
+.wall-photo-frame {
+    position: relative;
+    padding: 8px;
+    background: #f8f6f1;
+    box-shadow: 0 25px 60px rgba(0,0,0,.13);
+    transition: transform .5s cubic-bezier(.22,1,.36,1), box-shadow .5s ease;
+}
+
+    .wall-photo-frame::before {
+        content: "";
+        position: absolute;
+        top: -7px;
+        left: 50%;
+        width: 36px;
+        height: 13px;
+        transform: translateX(-50%);
+        background: #aaa397;
+        z-index: 5;
+    }
+
+.wall-photo img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+}
+
+.wall-photo:hover {
+    z-index: 30;
+}
+
+    .wall-photo:hover .wall-photo-frame {
+        transform: translateY(-15px) scale(1.06) rotate(0deg);
+        box-shadow: 0 35px 70px rgba(0,0,0,.2);
+    }
+
+
+/* POSITIONS */
+
+.wall-photo-1 {
+    left: 5%;
+    top: 110px;
+    transform: rotate(-7deg);
+    animation-delay: .1s;
+}
+
+.wall-photo-2 {
+    left: 18%;
+    top: 370px;
+    transform: rotate(4deg);
+    animation-delay: .25s;
+}
+
+.wall-photo-3 {
+    left: 29%;
+    top: 90px;
+    width: 165px;
+    transform: rotate(-3deg);
+    animation-delay: .4s;
+}
+
+.wall-photo-4 {
+    left: 38%;
+    top: 440px;
+    transform: rotate(5deg);
+    animation-delay: .55s;
+}
+
+.wall-photo-5 {
+    right: 38%;
+    top: 90px;
+    transform: rotate(4deg);
+    animation-delay: .7s;
+}
+
+.wall-photo-6 {
+    right: 27%;
+    top: 370px;
+    width: 165px;
+    transform: rotate(-5deg);
+    animation-delay: .85s;
+}
+
+.wall-photo-7 {
+    right: 16%;
+    top: 110px;
+    transform: rotate(7deg);
+    animation-delay: 1s;
+}
+
+.wall-photo-8 {
+    right: 5%;
+    top: 400px;
+    transform: rotate(-4deg);
+    animation-delay: 1.15s;
+}
+
+.wall-photo-9 {
+    left: 2%;
+    top: 570px;
+    width: 130px;
+    transform: rotate(3deg);
+    animation-delay: 1.3s;
+}
+
+.wall-photo-10 {
+    left: 28%;
+    top: 590px;
+    width: 125px;
+    transform: rotate(-5deg);
+    animation-delay: 1.45s;
+}
+
+.wall-photo-11 {
+    right: 26%;
+    top: 590px;
+    width: 125px;
+    transform: rotate(5deg);
+    animation-delay: 1.6s;
+}
+
+.wall-photo-12 {
+    right: 2%;
+    top: 580px;
+    width: 130px;
+    transform: rotate(-6deg);
+    animation-delay: 1.75s;
+}
+
+
+@keyframes weddingWallPhotoIn {
+
+    0% {
+        opacity: 0;
+        transform: translateY(100px) scale(.9) rotate(0deg);
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+/* CENTER */
+
+.wedding-wall-center {
+    position: absolute;
+    z-index: 15;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 390px;
+    padding: 60px 50px;
+    text-align: center;
+    background: rgba(236,233,226,.94);
+    box-shadow: 0 25px 80px rgba(0,0,0,.08);
+}
+
+    .wedding-wall-center > span {
+        font-size: 8px;
+        letter-spacing: .25em;
+        color: var(--wedding-muted);
+    }
+
+    .wedding-wall-center h3 {
+        margin: 25px 0 0;
+        font-family: Georgia, serif;
+        font-size: 58px;
+        line-height: .9;
+        font-weight: 400;
+        letter-spacing: -.05em;
+    }
+
+    .wedding-wall-center em {
+        display: block;
+        font-style: italic;
+    }
+
+    .wedding-wall-center p {
+        max-width: 220px;
+        margin: 30px auto 0;
+        font-size: 11px;
+        line-height: 1.7;
+        color: var(--wedding-muted);
+    }
+
+
+/* =====================================================
+   WALL CONTACT
+   ===================================================== */
+
+.wedding-wall-contact {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 80px;
+    padding-bottom: 120px;
+    border-top: 1px solid rgba(0,0,0,.12);
+}
+
+    .wedding-wall-contact > div > span {
+        display: block;
+        margin-bottom: 20px;
+        font-size: 9px;
+        letter-spacing: .22em;
+        color: var(--wedding-muted);
+    }
+
+    .wedding-wall-contact h3 {
+        margin: 0;
+        font-family: Georgia, serif;
+        font-size: clamp(42px, 5vw, 70px);
+        font-weight: 400;
+        line-height: .95;
+        letter-spacing: -.05em;
+    }
+
+        .wedding-wall-contact h3 em {
+            display: block;
+            font-style: italic;
+        }
+
+    .wedding-wall-contact > a {
+        display: inline-flex;
+        gap: 25px;
+        align-items: center;
+        color: inherit;
+        text-decoration: none;
+        font-size: 9px;
+        letter-spacing: .2em;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(0,0,0,.4);
+        transition: gap .3s ease;
+    }
+
+        .wedding-wall-contact > a:hover {
+            gap: 40px;
+        }
+
+        .wedding-wall-contact > a span {
+            font-size: 18px;
+        }
+
+
+/* =====================================================
+   FEATURED WEDDING
+   ===================================================== */
+
+.wedding-featured {
+    padding: 140px 0;
+    background: #f4f2ed;
+}
+
+.wedding-featured-header {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 40px;
+}
+
+    .wedding-featured-header h2 {
+        margin: 20px 0 0;
+        font-family: Georgia, serif;
+        font-size: clamp(55px, 7vw, 100px);
+        font-weight: 400;
+        line-height: .8;
+        letter-spacing: -.06em;
+    }
+
+        .wedding-featured-header h2 em {
+            display: block;
+            font-style: italic;
+            margin-left: 100px;
+        }
+
+.wedding-featured-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr;
+    gap: 25px;
+    margin-top: 90px;
+}
+
+.wedding-story-card:nth-child(2) {
+    margin-top: 100px;
+}
+
+.wedding-story-card:nth-child(3) {
+    margin-top: 40px;
+}
+
+.wedding-story-image {
+    position: relative;
+    overflow: hidden;
+}
+
+    .wedding-story-image img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 3 / 4;
+        object-fit: cover;
+        transition: transform .8s cubic-bezier(.22,1,.36,1);
+    }
+
+.wedding-story-card:hover img {
+    transform: scale(1.04);
+}
+
+.wedding-story-number {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: white;
+    font-size: 9px;
+    letter-spacing: .2em;
+}
+
+.wedding-story-info {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 18px;
+}
+
+    .wedding-story-info h3 {
+        margin: 0;
+        font-family: Georgia, serif;
+        font-size: 22px;
+        font-weight: 400;
+    }
+
+    .wedding-story-info span {
+        display: block;
+        margin-top: 6px;
+        font-size: 8px;
+        letter-spacing: .18em;
+        color: var(--wedding-muted);
+    }
+
+.wedding-story-arrow {
+    font-size: 18px !important;
+    color: inherit !important;
+}
+
+.wedding-featured-footer {
+    margin-top: 80px;
+    text-align: right;
+}
+
+    .wedding-featured-footer a {
+        color: inherit;
+        text-decoration: none;
+        font-size: 9px;
+        letter-spacing: .2em;
+    }
+
+        .wedding-featured-footer a span {
+            margin-left: 20px;
+            font-size: 16px;
+        }
+
+
+/* =====================================================
+   CINEMATIC
+   ===================================================== */
+
+.wedding-cinematic {
+    position: relative;
+    height: 85vh;
+    overflow: hidden;
+    background: #111;
+}
+
+    .wedding-cinematic img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.wedding-cinematic-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient( 90deg, rgba(0,0,0,.55), transparent 70% );
+}
+
+.wedding-cinematic-content {
+    position: absolute;
+    left: 50%;
+    bottom: 10%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    color: white;
+}
+
+    .wedding-cinematic-content > span {
+        font-size: 9px;
+        letter-spacing: .25em;
+    }
+
+    .wedding-cinematic-content h2 {
+        margin: 15px 0;
+        font-family: Georgia, serif;
+        font-size: clamp(60px, 9vw, 140px);
+        font-weight: 400;
+        line-height: .8;
+        letter-spacing: -.06em;
+    }
+
+        .wedding-cinematic-content h2 em {
+            display: block;
+            font-style: italic;
+            margin-left: 100px;
+        }
+
+    .wedding-cinematic-content p {
+        font-size: 13px;
+        opacity: .7;
+    }
+
+
+/* =====================================================
+   SERVICES
+   ===================================================== */
+
+.wedding-services {
+    background: #e9e6df;
+}
+
+
+/* =====================================================
+   ABOUT
+   ===================================================== */
+
+.wedding-about {
+    background: #f4f2ed;
+}
+
+.wedding-about-kicker {
+    display: block;
+    margin-bottom: 20px;
+    font-size: 9px;
+    letter-spacing: .25em;
+    color: var(--wedding-muted);
+}
+
+.wedding-about .about-image {
+    overflow: hidden;
+}
+
+    .wedding-about .about-image img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+
+/* =====================================================
+   FINAL CTA
+   ===================================================== */
+
+.wedding-final-cta {
+    padding: 160px 0;
+    background: #171615;
+    color: #f3f0e9;
+    text-align: center;
+}
+
+    .wedding-final-cta > .container > span {
+        font-size: 9px;
+        letter-spacing: .3em;
+        opacity: .5;
+    }
+
+    .wedding-final-cta h2 {
+        margin: 30px 0 50px;
+        font-family: Georgia, serif;
+        font-size: clamp(60px, 9vw, 130px);
+        font-weight: 400;
+        line-height: .8;
+        letter-spacing: -.06em;
+    }
+
+        .wedding-final-cta h2 em {
+            display: block;
+            font-style: italic;
+        }
+
+    .wedding-final-cta a {
+        display: inline-flex;
+        align-items: center;
+        gap: 25px;
+        color: inherit;
+        text-decoration: none;
+        font-size: 9px;
+        letter-spacing: .25em;
+        border-bottom: 1px solid rgba(255,255,255,.4);
+        padding-bottom: 10px;
+    }
+
+        .wedding-final-cta a span {
+            font-size: 18px;
+        }
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 768px) {
+
+    .wedding-intro {
+        padding: 90px 0;
+    }
+
+    .wedding-intro-grid {
+        grid-template-columns: 1fr;
+        gap: 70px;
+        margin-top: 60px;
+    }
+
+    .wedding-intro-copy h2 {
+        font-size: 52px;
+    }
+
+        .wedding-intro-copy h2 span {
+            margin-left: 25px;
+        }
+
+    .wedding-intro-image img {
+        aspect-ratio: 4 / 5;
+    }
+
+
+    .wedding-wall {
+        height: 650px;
+    }
+
+    .wall-photo {
+        width: 115px;
+    }
+
+    .wall-photo-1 {
+        left: 3%;
+        top: 80px;
+    }
+
+    .wall-photo-2 {
+        left: 20%;
+        top: 300px;
+    }
+
+    .wall-photo-3 {
+        left: 34%;
+        top: 80px;
+    }
+
+    .wall-photo-4 {
+        left: 37%;
+        top: 450px;
+    }
+
+    .wall-photo-5 {
+        right: 34%;
+        top: 300px;
+    }
+
+    .wall-photo-6 {
+        right: 3%;
+        top: 80px;
+    }
+
+    .wall-photo-7,
+    .wall-photo-8,
+    .wall-photo-9,
+    .wall-photo-10,
+    .wall-photo-11,
+    .wall-photo-12 {
+        display: none;
+    }
+
+    .wedding-wall-center {
+        width: 230px;
+        padding: 35px 25px;
+    }
+
+        .wedding-wall-center h3 {
+            font-size: 38px;
+        }
+
+
+    .wedding-wall-contact {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 50px;
+    }
+
+        .wedding-wall-contact > a {
+            align-self: flex-end;
+        }
+
+
+    .wedding-featured {
+        padding: 90px 0;
+    }
+
+    .wedding-featured-header {
+        grid-template-columns: 1fr;
+    }
+
+        .wedding-featured-header h2 {
+            font-size: 58px;
+        }
+
+    .wedding-featured-grid {
+        grid-template-columns: 1fr;
+        gap: 60px;
+        margin-top: 60px;
+    }
+
+    .wedding-story-card:nth-child(2),
+    .wedding-story-card:nth-child(3) {
+        margin-top: 0;
+    }
+
+
+    .wedding-cinematic {
+        height: 70vh;
+    }
+
+    .wedding-cinematic-content h2 {
+        font-size: 65px;
+    }
+
+        .wedding-cinematic-content h2 em {
+            margin-left: 30px;
+        }
+
+
+    .wedding-final-cta {
+        padding: 100px 0;
+    }
+
+        .wedding-final-cta h2 {
+            font-size: 65px;
+        }
+}
+    

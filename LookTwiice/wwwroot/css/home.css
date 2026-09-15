@@ -1320,3 +1320,438 @@
         padding-top: 110px;
     }
 }
+
+
+/* =========================================
+   PHOTO WALL
+   ========================================= */
+
+.photo-wall-section {
+    position: relative;
+    background: #e9e6df;
+    padding: 120px 0 0;
+    overflow: hidden;
+}
+
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.photo-wall-header {
+    position: relative;
+    z-index: 5;
+}
+
+.photo-wall-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    opacity: .55;
+}
+
+.photo-wall-kicker {
+    margin: 80px 0 0;
+    font-size: 10px;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    text-align: center;
+    opacity: .5;
+}
+
+
+/* =========================================
+   WALL
+   ========================================= */
+
+.photo-wall {
+    position: relative;
+    width: 100%;
+    height: 760px;
+    margin-top: -15px;
+}
+
+
+/* =========================================
+   PHOTO
+   ========================================= */
+
+.wall-photo {
+    position: absolute;
+    z-index: 2;
+    width: 190px;
+    opacity: 0;
+    animation: wallPhotoReveal 1s cubic-bezier(.22, 1, .36, 1) forwards;
+}
+
+.wall-photo-frame {
+    position: relative;
+    padding: 9px;
+    background: #f8f6f1;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, .14);
+    transition: transform .5s cubic-bezier(.22, 1, .36, 1), box-shadow .5s ease;
+}
+
+    .wall-photo-frame::before {
+        content: "";
+        position: absolute;
+        top: -5px;
+        left: 50%;
+        width: 38px;
+        height: 12px;
+        transform: translateX(-50%);
+        background: rgba(190, 181, 165, .8);
+        z-index: 4;
+        clip-path: polygon( 0 0, 100% 0, 82% 100%, 18% 100% );
+    }
+
+.wall-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    filter: saturate(.88);
+    transition: transform .8s cubic-bezier(.22, 1, .36, 1), filter .5s ease;
+}
+
+
+/* =========================================
+   PHOTO POSITIONS
+   ========================================= */
+
+.wall-photo-01 {
+    left: 7%;
+    top: 90px;
+    width: 175px;
+    transform: rotate(-7deg);
+    animation-delay: .1s;
+}
+
+.wall-photo-02 {
+    left: 18%;
+    top: 350px;
+    width: 205px;
+    transform: rotate(4deg);
+    animation-delay: .25s;
+}
+
+.wall-photo-03 {
+    left: 30%;
+    top: 100px;
+    width: 155px;
+    transform: rotate(-3deg);
+    animation-delay: .4s;
+}
+
+.wall-photo-04 {
+    left: 39%;
+    top: 400px;
+    width: 185px;
+    transform: rotate(6deg);
+    animation-delay: .55s;
+}
+
+.wall-photo-05 {
+    right: 39%;
+    top: 80px;
+    width: 190px;
+    transform: rotate(4deg);
+    animation-delay: .7s;
+}
+
+.wall-photo-06 {
+    right: 28%;
+    top: 340px;
+    width: 160px;
+    transform: rotate(-5deg);
+    animation-delay: .85s;
+}
+
+.wall-photo-07 {
+    right: 17%;
+    top: 110px;
+    width: 205px;
+    transform: rotate(7deg);
+    animation-delay: 1s;
+}
+
+.wall-photo-08 {
+    right: 7%;
+    top: 390px;
+    width: 170px;
+    transform: rotate(-4deg);
+    animation-delay: 1.15s;
+}
+
+.wall-photo-09 {
+    left: 2%;
+    top: 530px;
+    width: 130px;
+    transform: rotate(3deg);
+    animation-delay: 1.3s;
+}
+
+.wall-photo-10 {
+    left: 27%;
+    top: 550px;
+    width: 125px;
+    transform: rotate(-7deg);
+    animation-delay: 1.45s;
+}
+
+.wall-photo-11 {
+    right: 25%;
+    top: 540px;
+    width: 135px;
+    transform: rotate(5deg);
+    animation-delay: 1.6s;
+}
+
+.wall-photo-12 {
+    right: 2%;
+    top: 550px;
+    width: 125px;
+    transform: rotate(-6deg);
+    animation-delay: 1.75s;
+}
+
+
+/* =========================================
+   HOVER
+   ========================================= */
+
+.wall-photo:hover {
+    z-index: 20;
+}
+
+    .wall-photo:hover .wall-photo-frame {
+        transform: translateY(-12px) rotate(0deg) scale(1.06);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, .2);
+    }
+
+    .wall-photo:hover img {
+        transform: scale(1.04);
+        filter: saturate(1);
+    }
+
+
+/* =========================================
+   CENTER CONTENT
+   ========================================= */
+
+.photo-wall-center {
+    position: absolute;
+    z-index: 10;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: min(430px, 80%);
+    text-align: center;
+    padding: 55px 45px;
+    background: rgba(239, 236, 228, .94);
+    box-shadow: 0 25px 70px rgba(0, 0, 0, .08);
+}
+
+.photo-wall-center-small {
+    display: block;
+    margin-bottom: 24px;
+    font-size: 9px;
+    letter-spacing: .24em;
+    opacity: .55;
+}
+
+.photo-wall-center h2 {
+    margin: 0;
+    font-family: Georgia, serif;
+    font-size: clamp(40px, 4.5vw, 70px);
+    font-weight: 400;
+    line-height: .9;
+    letter-spacing: -.04em;
+}
+
+    .photo-wall-center h2 span {
+        display: block;
+        font-style: italic;
+        margin-top: 8px;
+    }
+
+.photo-wall-center p {
+    max-width: 270px;
+    margin: 28px auto 0;
+    font-size: 12px;
+    line-height: 1.7;
+    opacity: .65;
+}
+
+
+/* =========================================
+   CONTACT
+   ========================================= */
+
+.photo-wall-contact {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 70px;
+    padding-bottom: 100px;
+    border-top: 1px solid rgba(0, 0, 0, .12);
+}
+
+.photo-wall-contact-copy > span {
+    display: block;
+    margin-bottom: 18px;
+    font-size: 9px;
+    letter-spacing: .22em;
+    opacity: .5;
+}
+
+.photo-wall-contact-copy h3 {
+    margin: 0;
+    max-width: 500px;
+    font-family: Georgia, serif;
+    font-size: clamp(38px, 5vw, 68px);
+    font-weight: 400;
+    line-height: .95;
+    letter-spacing: -.04em;
+}
+
+    .photo-wall-contact-copy h3 em {
+        display: block;
+        font-style: italic;
+    }
+
+.photo-wall-contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 25px;
+    color: inherit;
+    text-decoration: none;
+    font-size: 10px;
+    letter-spacing: .2em;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, .45);
+    transition: gap .35s ease;
+}
+
+    .photo-wall-contact-link:hover {
+        gap: 40px;
+    }
+
+.photo-wall-contact-arrow {
+    font-size: 18px;
+    line-height: 1;
+}
+
+
+/* =========================================
+   REVEAL ANIMATION
+   ========================================= */
+
+@keyframes wallPhotoReveal {
+
+    0% {
+        opacity: 0;
+        transform: translateY(80px) scale(.92) rotate(0deg);
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    .photo-wall-section {
+        padding-top: 80px;
+    }
+
+    .photo-wall-kicker {
+        margin-top: 55px;
+    }
+
+    .photo-wall {
+        height: 650px;
+    }
+
+    .wall-photo {
+        width: 115px !important;
+    }
+
+    .wall-photo-01 {
+        left: 4%;
+        top: 80px;
+    }
+
+    .wall-photo-02 {
+        left: 20%;
+        top: 300px;
+    }
+
+    .wall-photo-03 {
+        left: 8%;
+        top: 450px;
+    }
+
+    .wall-photo-04 {
+        left: 34%;
+        top: 80px;
+    }
+
+    .wall-photo-05 {
+        right: 34%;
+        top: 430px;
+    }
+
+    .wall-photo-06 {
+        right: 20%;
+        top: 280px;
+    }
+
+    .wall-photo-07 {
+        right: 4%;
+        top: 80px;
+    }
+
+    .wall-photo-08 {
+        right: 3%;
+        top: 440px;
+    }
+
+    .wall-photo-09,
+    .wall-photo-10,
+    .wall-photo-11,
+    .wall-photo-12 {
+        display: none;
+    }
+
+    .photo-wall-center {
+        width: 230px;
+        padding: 35px 25px;
+    }
+
+        .photo-wall-center h2 {
+            font-size: 34px;
+        }
+
+    .photo-wall-contact {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 45px;
+        padding-top: 55px;
+        padding-bottom: 70px;
+    }
+
+    .photo-wall-contact-link {
+        align-self: flex-end;
+    }
+}

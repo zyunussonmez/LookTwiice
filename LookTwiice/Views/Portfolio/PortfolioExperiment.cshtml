@@ -1,0 +1,175 @@
+﻿@{
+    ViewData["Title"] = "Portfolio Experiment";
+}
+
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/experiment.css"
+          asp-append-version="true" />
+}
+
+<main class="experiment">
+
+    <div class="experiment-brand">
+        <span>LOOKTWiiCE</span>
+    </div>
+
+    <div class="experiment-intro">
+        <span class="intro-small">PHOTOGRAPHY / 2026</span>
+
+        <h1>
+            Stories
+            <span>in the making.</span>
+        </h1>
+    </div>
+
+
+    <!-- CLOTHESLINE -->
+
+    <section class="photo-line-scene">
+
+        <div class="photo-line"></div>
+
+        <!-- PHOTO 01 -->
+
+        <div class="hanging-photo photo-01">
+
+            <div class="photo-frame">
+                <img src="~/images/wedding_1.jpeg"
+                     alt="Wedding photography" />
+            </div>
+
+            <div class="photo-label">
+                <span class="label-line"></span>
+
+                <div>
+                    <strong>WEDDING</strong>
+                    <small>01 / 04</small>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- PHOTO 02 -->
+
+        <div class="hanging-photo photo-02">
+
+            <div class="photo-frame">
+                <img src="~/images/wedding_1.jpeg"
+                     alt="Fashion photography" />
+            </div>
+
+            <div class="photo-label">
+                <span class="label-line"></span>
+
+                <div>
+                    <strong>FASHION</strong>
+                    <small>02 / 04</small>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- PHOTO 03 -->
+
+        <div class="hanging-photo photo-03">
+
+            <div class="photo-frame">
+                <img src="~/images/wedding_1.jpeg"
+                     alt="Portrait photography" />
+            </div>
+
+            <div class="photo-label">
+                <span class="label-line"></span>
+
+                <div>
+                    <strong>PORTRAIT</strong>
+                    <small>03 / 04</small>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- PHOTO 04 -->
+
+        <div class="hanging-photo photo-04">
+
+            <div class="photo-frame">
+                <img src="~/images/wedding_1.jpeg"
+                     alt="Event photography" />
+            </div>
+
+            <div class="photo-label">
+                <span class="label-line"></span>
+
+                <div>
+                    <strong>EVENT</strong>
+                    <small>04 / 04</small>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <div class="experiment-bottom">
+
+        <span>
+            A DIFFERENT PERSPECTIVE
+        </span>
+
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+
+        <span>
+            SCROLL TO EXPLORE
+        </span>
+
+    </div>
+
+
+    <!-- FINAL REVEAL -->
+
+    <section class="experiment-reveal">
+
+        <div class="reveal-image">
+            <img src="~/images/wedding_1.jpeg"
+                 alt="LookTwiice photography" />
+        </div>
+
+        <div class="reveal-overlay"></div>
+
+        <div class="reveal-content">
+
+            <span>01 / 04</span>
+
+            <h2>
+                WEDDING
+            </h2>
+
+            <p>
+                Stories worth remembering.
+            </p>
+
+            <a href="#">
+                EXPLORE STORIES
+                <span>→</span>
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+
+    <script src="~/js/experiment.js"
+            asp-append-version="true"></script>
+}
