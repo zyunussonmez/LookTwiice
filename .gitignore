@@ -7,3 +7,6 @@ appsettings.Development.json
 *.db
 *.db-shm
 *.db-wal
+# User uploaded / runtime images
+wwwroot/images/*
+!wwwroot/images/.gitkeep
