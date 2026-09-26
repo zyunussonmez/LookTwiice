@@ -1,65 +1,232 @@
 @page
 @model IndexModel
+
 @{
     ViewData["Title"] = "Profil";
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
-<div class="settings-card">
-    <span class="glass-label">HESAP · PROFİL</span>
-    <h2>Profil Bilgilerin</h2>
+
+
+<div class="account-settings-content  ">
+
+    <div class="account-profile__header">
+        
+        <h2>Profil Bilgilerin</h2>
+    </div>
 
     <partial name="_StatusMessage" for="StatusMessage" />
 
-    <form id="profile-form" method="post">
-        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+    <form id="profile-form"
+          method="post"
+          class="profile-form">
 
-        <div class="mb-3">
-            <label asp-for="Username" class="form-label"></label>
-            <input asp-for="Username" class="form-control" placeholder="Kullanıcı adı" disabled />
+        <div asp-validation-summary="ModelOnly"
+             class="profile-validation"
+             role="alert">
         </div>
 
-        <div class="form-row-split mb-3">
-            <div>
-                <label asp-for="Input.Name" class="form-label"></label>
-                <input asp-for="Input.Name" class="form-control" placeholder="Adınız" />
-                <span asp-validation-for="Input.Name" class="text-danger"></span>
+
+        <div class="profile-field">
+            <label asp-for="Username">
+                Kullanıcı adı
+            </label>
+
+            <input asp-for="Username"
+                   class="profile-input"
+                   disabled />
+        </div>
+
+
+        <div class="profile-field-grid">
+
+            <div class="profile-field">
+                <label asp-for="Input.Name">
+                    Ad
+                </label>
+
+                <input asp-for="Input.Name"
+                       class="profile-input"
+                       placeholder="Adınız" />
+
+                <span asp-validation-for="Input.Name"
+                      class="profile-error">
+                </span>
             </div>
-            <div>
-                <label asp-for="Input.Surname" class="form-label"></label>
-                <input asp-for="Input.Surname" class="form-control" placeholder="Soyadınız" />
-                <span asp-validation-for="Input.Surname" class="text-danger"></span>
+
+
+            <div class="profile-field">
+                <label asp-for="Input.Surname">
+                    Soyad
+                </label>
+
+                <input asp-for="Input.Surname"
+                       class="profile-input"
+                       placeholder="Soyadınız" />
+
+                <span asp-validation-for="Input.Surname"
+                      class="profile-error">
+                </span>
             </div>
+
         </div>
 
-        <div class="mb-3">
-            <label asp-for="Input.PhoneNumber" class="form-label"></label>
-            <div class="row g-2">
-                <div class="col-4">
-                    <select asp-for="Input.CountryCode" class="form-select">
-                        <option value="+90">🇹🇷 +90</option>
-                        <option value="+1">🇺🇸 +1</option>
-                        <option value="+49">🇩🇪 +49</option>
-                        <option value="+44">🇬🇧 +44</option>
-                    </select>
-                </div>
-                <div class="col-8">
-                    <input asp-for="Input.PhoneNumber" class="form-control" placeholder="5XX XXX XX XX" />
-                </div>
+
+        <div class="profile-field">
+            <label asp-for="Input.PhoneNumber">
+                Telefon
+            </label>
+
+            <div class="profile-phone">
+
+                <select asp-for="Input.CountryCode"
+                        class="profile-input profile-phone__code"
+                        id="countryCode">
+
+                    <option value="+90" data-country="TR">🇹🇷 +90</option>
+                    <option value="+1" data-country="US">🇺🇸 +1</option>
+                    <option value="+1" data-country="CA">🇨🇦 +1</option>
+                    <option value="+44" data-country="GB">🇬🇧 +44</option>
+                    <option value="+49" data-country="DE">🇩🇪 +49</option>
+                    <option value="+33" data-country="FR">🇫🇷 +33</option>
+                    <option value="+39" data-country="IT">🇮🇹 +39</option>
+                    <option value="+34" data-country="ES">🇪🇸 +34</option>
+                    <option value="+31" data-country="NL">🇳🇱 +31</option>
+                    <option value="+32" data-country="BE">🇧🇪 +32</option>
+                    <option value="+41" data-country="CH">🇨🇭 +41</option>
+                    <option value="+43" data-country="AT">🇦🇹 +43</option>
+                    <option value="+46" data-country="SE">🇸🇪 +46</option>
+                    <option value="+47" data-country="NO">🇳🇴 +47</option>
+                    <option value="+45" data-country="DK">🇩🇰 +45</option>
+                    <option value="+358" data-country="FI">🇫🇮 +358</option>
+                    <option value="+351" data-country="PT">🇵🇹 +351</option>
+                    <option value="+30" data-country="GR">🇬🇷 +30</option>
+                    <option value="+48" data-country="PL">🇵🇱 +48</option>
+                    <option value="+420" data-country="CZ">🇨🇿 +420</option>
+                    <option value="+36" data-country="HU">🇭🇺 +36</option>
+                    <option value="+7" data-country="RU">🇷🇺 +7</option>
+                    <option value="+971" data-country="AE">🇦🇪 +971</option>
+                    <option value="+966" data-country="SA">🇸🇦 +966</option>
+                    <option value="+972" data-country="IL">🇮🇱 +972</option>
+                    <option value="+91" data-country="IN">🇮🇳 +91</option>
+                    <option value="+86" data-country="CN">🇨🇳 +86</option>
+                    <option value="+81" data-country="JP">🇯🇵 +81</option>
+                    <option value="+82" data-country="KR">🇰🇷 +82</option>
+                    <option value="+65" data-country="SG">🇸🇬 +65</option>
+                    <option value="+61" data-country="AU">🇦🇺 +61</option>
+                    <option value="+64" data-country="NZ">🇳🇿 +64</option>
+
+                </select>
+
+                <input asp-for="Input.PhoneNumber"
+                   class="profile-input"
+                   id="phoneNumber"
+                   autocomplete="tel" />
+
             </div>
-            <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+
+            <span asp-validation-for="Input.PhoneNumber"
+                  class="profile-error">
+            </span>
         </div>
 
-        <div class="mb-3">
-            <label asp-for="Input.ProfileImageUrl" class="form-label"></label>
-            <input asp-for="Input.ProfileImageUrl" class="form-control" placeholder="https://..." />
-            <span asp-validation-for="Input.ProfileImageUrl" class="text-danger"></span>
+
+
+
+        <div class="profile-form__footer">
+
+            <span>PROFILE</span>
+
+            <button id="update-profile-button"
+                    type="submit"
+                    class="profile-save">
+
+                <span>Kaydet</span>
+                <span>→</span>
+
+            </button>
+
         </div>
 
-        <button id="update-profile-button" type="submit" class="btn btn-primary w-100">Kaydet</button>
     </form>
+
 </div>
 
 @section Scripts {
+
     <partial name="_ValidationScriptsPartial" />
+
+    <script src="https://cdn.jsdelivr.net/npm/libphonenumber-js@1.12.27/bundle/libphonenumber-max.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const countryCode =
+                document.getElementById("countryCode");
+
+            const phoneNumber =
+                document.getElementById("phoneNumber");
+
+            if (!countryCode || !phoneNumber) {
+                return;
+            }
+
+            function getSelectedCountry() {
+
+                const option =
+                    countryCode.options[
+                        countryCode.selectedIndex
+                    ];
+
+                return option?.dataset.country || "TR";
+            }
+
+            function formatPhone() {
+
+                const value =
+                    phoneNumber.value.trim();
+
+                if (!value) {
+                    return;
+                }
+
+                const country =
+                    getSelectedCountry();
+
+                try {
+
+                    const parsed =
+                        libphonenumber.parsePhoneNumber(
+                            value,
+                            country
+                        );
+
+                    phoneNumber.value =
+                        parsed.formatNational();
+
+                }
+                catch {
+                    // Geçersiz / eksik numarada
+                    // kullanıcının yazdığı değeri bozma.
+                }
+            }
+
+            phoneNumber.addEventListener(
+                "blur",
+                formatPhone
+            );
+
+            countryCode.addEventListener(
+                "change",
+                function () {
+
+                    phoneNumber.value = "";
+
+                    phoneNumber.focus();
+
+                }
+            );
+
+        });
+    </script>
 }

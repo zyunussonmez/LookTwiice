@@ -1,8 +1,505 @@
-﻿@{
-    ViewData["Title"] = "Photographer Dashboard";
+﻿@using LookTwiice.Models
+
+@{
+    ViewData["Title"] = "Dashboard";
+
+    var pending = ViewBag.Pending as List<ContactInquiry>
+                   ?? new List<ContactInquiry>();
+
+    var inDiscussion = ViewBag.InDiscussion as List<ContactInquiry>
+                       ?? new List<ContactInquiry>();
+
+    var completed = ViewBag.Completed as List<ContactInquiry>
+                    ?? new List<ContactInquiry>();
 }
 
-<div class="container">
-    <h1>Photographer Dashboard</h1>
-    <p>Welcome to your photography workspace.</p>
+<link rel="stylesheet"
+      href="~/css/photographer-dashboard.css"
+      asp-append-version="true" />
+
+
+<div class="photographer-dashboard">
+
+    <!-- HEADER -->
+
+    <header class="dashboard-header">
+
+        <div>
+
+            <span class="dashboard-eyebrow">
+                PHOTOGRAPHER
+            </span>
+
+            <h1>
+                Dashboard
+            </h1>
+
+            <p>
+                Your stories, at a glance.
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <!-- STATS -->
+
+    <section class="dashboard-stats">
+
+        <div class="dashboard-stat">
+            <span>Pending</span>
+            <strong>@ViewBag.PendingCount</strong>
+        </div>
+
+        <div class="dashboard-stat">
+            <span>In Discussion</span>
+            <strong>@ViewBag.InDiscussionCount</strong>
+        </div>
+
+        <div class="dashboard-stat">
+            <span>Completed</span>
+            <strong>@ViewBag.CompletedCount</strong>
+        </div>
+
+        <div class="dashboard-stat">
+            <span>Archived</span>
+            <strong>@ViewBag.ArchivedCount</strong>
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         PENDING
+         ========================================= -->
+
+    <section class="dashboard-section">
+
+        <div class="dashboard-section__header">
+
+            <div>
+                <span>01</span>
+                <h2>Pending</h2>
+            </div>
+
+            <small>
+                @pending.Count inquiries
+            </small>
+
+        </div>
+
+
+        @if (!pending.Any())
+        {
+            <div class="dashboard-empty">
+                No pending inquiries.
+            </div>
+        }
+        else
+        {
+            <div class="inquiry-grid">
+
+                @foreach (var inquiry in pending)
+                {
+                    <article class="inquiry-card"
+                             data-inquiry-id="@inquiry.Id">
+
+                        <div class="inquiry-card__top">
+
+                            <span class="inquiry-card__type">
+                                @inquiry.ServiceType
+                            </span>
+
+                            <span class="inquiry-card__status">
+                                NEW
+                            </span>
+
+                        </div>
+
+                        <h3>
+                            @inquiry.Name
+                        </h3>
+
+                        <div class="inquiry-card__location">
+                            @inquiry.City, @inquiry.Country
+                        </div>
+
+                        @if (inquiry.EventDate.HasValue)
+                        {
+                            <div class="inquiry-card__date">
+                                @inquiry.EventDate.Value.ToString("dd MMM yyyy")
+                            </div>
+                        }
+
+                    </article>
+                }
+
+            </div>
+        }
+
+    </section>
+
+
+    <!-- =========================================
+         IN DISCUSSION
+         ========================================= -->
+
+    <section class="dashboard-section">
+
+        <div class="dashboard-section__header">
+
+            <div>
+                <span>02</span>
+                <h2>In Discussion</h2>
+            </div>
+
+            <small>
+                @inDiscussion.Count inquiries
+            </small>
+
+        </div>
+
+
+        @if (!inDiscussion.Any())
+        {
+            <div class="dashboard-empty">
+                No active discussions.
+            </div>
+        }
+        else
+        {
+            <div class="inquiry-grid">
+
+                @foreach (var inquiry in inDiscussion)
+                {
+                    <article class="inquiry-card"
+                             data-inquiry-id="@inquiry.Id">
+
+                        <div class="inquiry-card__top">
+
+                            <span class="inquiry-card__type">
+                                @inquiry.ServiceType
+                            </span>
+
+                            <span class="inquiry-card__status">
+
+                                @(inquiry.Status == InquiryStatus.Contacted
+                                    ? "CONTACTED"
+                                    : "IN DISCUSSION")
+
+                            </span>
+
+                        </div>
+
+                        <h3>
+                            @inquiry.Name
+                        </h3>
+
+                        <div class="inquiry-card__location">
+                            @inquiry.City, @inquiry.Country
+                        </div>
+
+                        @if (inquiry.EventDate.HasValue)
+                        {
+                            <div class="inquiry-card__date">
+                                @inquiry.EventDate.Value.ToString("dd MMM yyyy")
+                            </div>
+                        }
+
+                    </article>
+                }
+
+            </div>
+        }
+
+    </section>
+
+
+    <!-- =========================================
+         COMPLETED
+         ========================================= -->
+
+    <section class="dashboard-section">
+
+        <div class="dashboard-section__header">
+
+            <div>
+                <span>03</span>
+                <h2>Completed</h2>
+            </div>
+
+            <small>
+                @completed.Count inquiries
+            </small>
+
+        </div>
+
+
+        @if (!completed.Any())
+        {
+            <div class="dashboard-empty">
+                No completed events yet.
+            </div>
+        }
+        else
+        {
+            <div class="inquiry-grid">
+
+                @foreach (var inquiry in completed)
+                {
+                    <article class="inquiry-card"
+                             data-inquiry-id="@inquiry.Id">
+
+                        <div class="inquiry-card__top">
+
+                            <span class="inquiry-card__type">
+                                @inquiry.ServiceType
+                            </span>
+
+                            <span class="inquiry-card__status">
+                                BOOKED
+                            </span>
+
+                        </div>
+
+                        <h3>
+                            @inquiry.Name
+                        </h3>
+
+                        <div class="inquiry-card__location">
+                            @inquiry.City, @inquiry.Country
+                        </div>
+
+                        @if (inquiry.EventDate.HasValue)
+                        {
+                            <div class="inquiry-card__date">
+                                @inquiry.EventDate.Value.ToString("dd MMM yyyy")
+                            </div>
+                        }
+
+                    </article>
+                }
+
+            </div>
+        }
+
+    </section>
+
 </div>
+
+
+<!-- =========================================
+     INQUIRY MODAL
+     ========================================= -->
+
+<div id="inquiryModal"
+     class="inquiry-modal">
+
+    <div class="inquiry-modal__backdrop"></div>
+
+    <div class="inquiry-modal__window">
+
+        <button type="button"
+                id="inquiryModalClose"
+                class="inquiry-modal__close"
+                aria-label="Close">
+
+            ×
+
+        </button>
+
+        <div id="inquiryModalBody">
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const modal =
+            document.getElementById("inquiryModal");
+
+        const modalBody =
+            document.getElementById("inquiryModalBody");
+
+        const closeButton =
+            document.getElementById("inquiryModalClose");
+
+        const backdrop =
+            modal.querySelector(".inquiry-modal__backdrop");
+
+
+        /*
+         * URL generated by ASP.NET Core.
+         *
+         * This prevents routing problems with Areas.
+         */
+
+        const detailsUrl =
+            '@Url.Action(
+                                "InquiryDetails",
+                                "Dashboard",
+                                new { area = "Photographer" }
+                        )';
+
+
+        /*
+         * OPEN INQUIRY
+         */
+
+        document
+            .querySelectorAll(".inquiry-card")
+            .forEach(card => {
+
+                card.addEventListener("click", async function () {
+
+                    const inquiryId =
+                        this.dataset.inquiryId;
+
+
+                    if (!inquiryId) {
+                        return;
+                    }
+
+
+                    /*
+                     * Open modal immediately
+                     */
+
+                    modal.classList.add("is-open");
+
+
+                    /*
+                     * Loading state
+                     */
+
+                    modalBody.innerHTML = `
+                        <div class="inquiry-modal__loading">
+                            Loading...
+                        </div>
+                    `;
+
+
+                    try {
+
+                        const response =
+                            await fetch(
+                                `${detailsUrl}?id=${inquiryId}`
+                            );
+
+
+                        if (!response.ok) {
+
+                            throw new Error(
+                                `Request failed: ${response.status}`
+                            );
+
+                        }
+
+
+                        /*
+                         * Read server response once.
+                         *
+                         * IMPORTANT:
+                         * Do not declare "html" twice.
+                         */
+
+                        const responseHtml =
+                            await response.text();
+
+
+                        /*
+                         * Put PartialView inside modal.
+                         */
+
+                        modalBody.innerHTML =
+                            responseHtml;
+
+
+                    }
+                    catch (error) {
+
+                        console.error(
+                            "Inquiry request failed:",
+                            error
+                        );
+
+
+                        modalBody.innerHTML = `
+                            <div class="inquiry-modal__error">
+                                <p>
+                                    Something went wrong while
+                                    loading the inquiry.
+                                </p>
+                            </div>
+                        `;
+
+                    }
+
+                });
+
+            });
+
+
+        /*
+         * CLOSE MODAL
+         */
+
+        function closeModal() {
+
+            modal.classList.remove("is-open");
+
+            /*
+             * Clear previous content.
+             */
+
+            modalBody.innerHTML = "";
+
+        }
+
+
+        /*
+         * Close button
+         */
+
+        closeButton.addEventListener(
+            "click",
+            closeModal
+        );
+
+
+        /*
+         * Click outside modal
+         */
+
+        backdrop.addEventListener(
+            "click",
+            closeModal
+        );
+
+
+        /*
+         * ESC key
+         */
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (event.key === "Escape") {
+
+                    closeModal();
+
+                }
+
+            }
+        );
+
+    });
+
+</script>

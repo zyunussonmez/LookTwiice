@@ -1,0 +1,106 @@
+﻿
+@model LookTwiice.Models.ContactInquiry
+<div class="inquiry-detail">
+
+    <div class="inquiry-detail__header">
+
+        <div>
+            <span class="inquiry-detail__eyebrow">
+                INQUIRY
+            </span>
+
+            <h2>@Model.Name</h2>
+
+            <span class="inquiry-detail__service">
+                @Model.ServiceType
+            </span>
+        </div>
+
+        <div class="inquiry-detail__status">
+            @Model.Status
+        </div>
+
+    </div>
+
+
+    <div class="inquiry-detail__body">
+
+        <div class="inquiry-detail__section">
+
+            <span class="inquiry-detail__label">
+                CONTACT
+            </span>
+
+            <div class="inquiry-detail__row">
+                <span>Name</span>
+                <strong>@Model.Name</strong>
+            </div>
+
+            <div class="inquiry-detail__row">
+                <span>Email</span>
+
+                <a href="mailto:@Model.Email">
+                    @Model.Email
+                </a>
+            </div>
+
+        </div>
+
+
+        <div class="inquiry-detail__section">
+
+            <span class="inquiry-detail__label">
+                EVENT
+            </span>
+
+            <div class="inquiry-detail__row">
+                <span>Photography</span>
+                <strong>@Model.ServiceType</strong>
+            </div>
+
+            <div class="inquiry-detail__row">
+                <span>Date</span>
+
+                <strong>
+                    @(Model.EventDate?.ToString("dd MMMM yyyy")
+                        ?? "Not specified")
+                </strong>
+            </div>
+
+            <div class="inquiry-detail__row">
+                <span>Location</span>
+
+                <strong>
+                    @Model.City, @Model.Country
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="inquiry-detail__message">
+
+            <span class="inquiry-detail__label">
+                MESSAGE
+            </span>
+
+            <p>
+                @Model.Message
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="inquiry-detail__footer">
+
+        <a href="mailto:@Model.Email"
+           class="inquiry-detail__email">
+            Reply by email
+            <span>→</span>
+        </a>
+
+    </div>
+
+</div>

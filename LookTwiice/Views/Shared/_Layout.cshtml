@@ -1,452 +1,435 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using LookTwiice.Models
-@using LookTwiice.Models.Constants
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
+﻿    @using Microsoft.AspNetCore.Identity
+    @using LookTwiice.Models
+    @using LookTwiice.Models.Constants
+    @inject SignInManager<ApplicationUser> SignInManager
+    @inject UserManager<ApplicationUser> UserManager
 
-<!DOCTYPE html>
-<html lang="en" data-theme="light">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!DOCTYPE html>
+    <html lang="en" >
+        <head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>@ViewData["Title"] - LOOKTWiiCE</title>
+            <title>@ViewData["Title"] - LOOKTWiiCE</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap"
+                  rel="stylesheet">
 
-    <link rel="stylesheet"
-          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+            <link rel="stylesheet"
+                  href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 
-    <link rel="stylesheet" href="~/css/variables.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/base.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/components.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/responsive.css" asp-append-version="true" />
+            <link rel="stylesheet" href="~/css/variables.css" asp-append-version="true" />
+            <link rel="stylesheet" href="~/css/base.css" asp-append-version="true" />
+            <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
+            <link rel="stylesheet" href="~/css/components.css" asp-append-version="true" />
+            <link rel="stylesheet" href="~/css/responsive.css" asp-append-version="true" />
 
-    @await RenderSectionAsync("Styles", required: false)
-</head>
+            @await RenderSectionAsync("Styles", required: false)
+        </head>
 
-<body>
+        <body>
 
-    <div class="site-wrapper">
+            <div class="site-wrapper">
 
-        <!-- =========================
-             NAVBAR
-             ========================= -->
+                <!-- =========================
+                     NAVBAR
+                     ========================= -->
 
-        <header class="site-header" id="siteHeader">
+                <header class="site-header" id="siteHeader">
 
-            <nav class="site-navbar">
+                    <nav class="site-navbar">
 
-                <div class="navbar-container">
+                        <div class="navbar-container">
 
-                    <!-- LOGO -->
+                            <!-- LOGO -->
 
-                    <a class="site-brand"
-                       asp-controller="Home"
-                       asp-action="Index"
-                       aria-label="LOOKTWiiCE Home">
+                            <a class="site-brand"
+                               asp-area=""
+                               asp-controller="Home"
+                               asp-action="Index"
+                               aria-label="LOOKTWiiCE Home">
 
-                        <img src="~/images/LookTwiice_Logo.png"
-                             alt="LOOKTWiiCE"
-                             class="brand-logo" />
-
-                    </a>
-
-
-                    <!-- MOBILE BUTTON -->
-
-                    <button type="button"
-                            class="navbar-toggle"
-                            id="navbarToggle"
-                            aria-label="Toggle navigation"
-                            aria-expanded="false">
-
-                        <span></span>
-                        <span></span>
-
-                    </button>
-
-
-                    <!-- NAVIGATION -->
-
-                    <div class="navbar-collapse"
-                         id="navbarCollapse">
-
-                        <div class="site-nav">
-
-                            <a class="nav-link-custom"
-                               asp-controller="Portfolio"
-                               asp-action="Index">
-
-                                <span class="nav-number">01</span>
-                                <span>Work</span>
+                                <img src="~/images/LookTwiice_Logo.png"
+                                     alt="LOOKTWiiCE"
+                                     class="brand-logo" />
 
                             </a>
 
-                            <a class="nav-link-custom"
-                               asp-controller="Services"
-                               asp-action="Index">
 
-                                <span class="nav-number">02</span>
-                                <span>Services</span>
-
-                            </a>
-
-                            <a class="nav-link-custom"
-                               asp-controller="About"
-                               asp-action="Index">
-
-                                <span class="nav-number">03</span>
-                                <span>About</span>
-
-                            </a>
-
-                            <a class="nav-link-custom"
-                               asp-controller="Contact"
-                               asp-action="Index">
-
-                                <span class="nav-number">04</span>
-                                <span>Contact</span>
-
-                            </a>
-
-                        </div>
-
-
-                        <!-- RIGHT SIDE -->
-
-                        <div class="navbar-actions">
-
-                            @if (User.IsInRole(RoleNames.Admin))
-                            {
-                                <a class="nav-account-link"
-                                   asp-area="Admin"
-                                   asp-controller="Admin"
-                                   asp-action="Index">
-                                    ADMIN
-                                </a>
-                                <a class="nav-account-link"
-                                   asp-area="Photographer"
-                                   asp-controller="Dashboard"
-                                   asp-action="Index">
-                                    PHOTOGRAPHER
-                                </a>
-                            }
-
-                            @if (User.IsInRole(RoleNames.Photographer))
-                            {
-                                <a class="nav-account-link"
-                                   asp-area="Photographer"
-                                   asp-controller="Dashboard"
-                                   asp-action="Index">
-                                    PHOTOGRAPHER
-                                </a>
-                            }
-
-                            <!-- LANGUAGE -->
-
-                            <div class="language-wrapper">
-
-                                <form asp-controller="Culture"
-                                      asp-action="SetLanguage"
-                                      method="get">
-
-                                    <input type="hidden"
-                                           name="returnUrl"
-                                           value="@Context.Request.Path" />
-
-                                    <select name="culture"
-                                            class="language-select"
-                                            onchange="this.form.submit()">
-
-                                        <option value="en">EN</option>
-                                        <option value="tr">TR</option>
-                                        <option value="de">DE</option>
-
-                                    </select>
-
-                                </form>
-
-                            </div>
-
-
-                            <!-- THEME -->
+                            <!-- MOBILE BUTTON -->
 
                             <button type="button"
-                                    class="theme-toggle"
-                                    id="themeToggle"
-                                    aria-label="Toggle theme">
+                                    class="navbar-toggle"
+                                    id="navbarToggle"
+                                    aria-label="Toggle navigation"
+                                    aria-expanded="false">
 
-                                <span class="theme-icon">○</span>
+                                <span></span>
+                                <span></span>
 
                             </button>
 
 
-                            <!-- AUTH -->
+                            <!-- NAVIGATION -->
 
-                            @if (SignInManager.IsSignedIn(User))
-                            {
-                                <a class="nav-account-link"
-                                   asp-area="Identity"
-                                   asp-page="/Account/Manage/Index">
-                                    Account
-                                </a>
+                            <div class="navbar-collapse"
+                                 id="navbarCollapse">
 
-                                <form asp-area="Identity"
-                                      asp-page="/Account/Logout"
-                                      method="post"
-                                      class="d-inline">
-                                    <button type="submit" class="nav-account-link logout-button">
-                                        Logout
-                                    </button>
-                                </form>
+                                <div class="site-nav">
+
+                                    <a class="nav-link-custom"
+                                       asp-area=""
+                                       asp-controller="Portfolio"
+                                       asp-action="Index">
+
+                                        <span class="nav-number">01</span>
+                                        <span>Portfolio</span>
+
+                                    </a>
+
+                                    <a asp-area="" asp-controller="Portfolio"
+                                       asp-action="WeddingGallery"
+                                       class="nav-link-custom">
+                                        <span class="nav-number">02</span>
+                                        WEDDING GALLERY
+                                    </a>
+
+
+                                    <a class="nav-link-custom"
+                                       asp-area=""
+                                       asp-controller="About"
+                                       asp-action="Index">
+
+                                        <span class="nav-number">03</span>
+                                        <span>About</span>
+
+                                    </a>
+
+
+                                    <a class="nav-link-custom"
+                                       asp-area=""
+                                       asp-controller="Contact"
+                                       asp-action="Index">
+
+                                        <span class="nav-number">04</span>
+                                        <span>Contact</span>
+
+                                    </a>
+
+                                </div>
+
+
+                                <!-- RIGHT SIDE -->
+
+                                <div class="navbar-actions">
+
+                                    @if (User.IsInRole(RoleNames.Admin))
+                                    {
+                                        <a class="nav-account-link"
+                                           asp-area="Admin"
+                                           asp-controller="Admin"
+                                           asp-action="Index">
+                                            ADMIN
+                                        </a>
+                                        <a class="nav-account-link"
+                                           asp-area="Photographer"
+                                           asp-controller="Dashboard"
+                                           asp-action="Index">
+                                            PHOTOGRAPHER
+                                        </a>
+                                    }
+
+                                    @if (User.IsInRole(RoleNames.Photographer))
+                                    {
+                                        <a class="nav-account-link"
+                                           asp-area="Photographer"
+                                           asp-controller="Dashboard"
+                                           asp-action="Index">
+                                            PHOTOGRAPHER
+                                        </a>
+                                    }
+
+                                    <!-- LANGUAGE -->
+
+                                    <div class="language-wrapper">
+
+                                        <form asp-controller="Culture"
+                                              asp-action="SetLanguage"
+                                              method="get">
+
+                                            <input type="hidden"
+                                                   name="returnUrl"
+                                                   value="@Context.Request.Path" />
+
+                                            <select name="culture"
+                                                    class="language-select"
+                                                    onchange="this.form.submit()">
+
+                                                <option value="en">EN</option>
+                                                <option value="tr">TR</option>
+                                                <option value="de">DE</option>
+
+                                            </select>
+
+                                        </form>
+
+                                    </div>
+
+
+
+                                    <!-- AUTH -->
+
+                                    @if (SignInManager.IsSignedIn(User))
+                                    {
+                                        <a class="nav-account-link"
+                                           asp-area="Identity"
+                                           asp-page="/Account/Manage/Index">
+                                            Account
+                                        </a>
+
+                                        <form asp-area="Identity"
+                                              asp-page="/Account/Logout"
+                                              method="post"
+                                              class="d-inline">
+                                            <button type="submit" class="nav-account-link logout-button">
+                                                Logout
+                                            </button>
+                                        </form>
 
                                 
-                            }
-                            else
-                            {
-                                <a class="nav-account-link"
-                                   asp-area="Identity"
-                                   asp-page="/Account/Login">
-                                    Login
+                                    }
+                                    else
+                                    {
+                                        <a class="nav-account-link"
+                                           asp-area="Identity"
+                                           asp-page="/Account/Login">
+                                            Login
+                                        </a>
+                                    }
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </nav>
+
+                </header>
+
+
+                <!-- =========================
+                     MAIN
+                     ========================= -->
+
+                <main role="main" class="site-main">
+
+                    @RenderBody()
+
+                </main>
+
+
+                <!-- =========================
+                     FOOTER
+                     ========================= -->
+
+                <footer class="site-footer">
+
+                    <div class="container">
+
+                        <div class="footer-top">
+
+                            <div class="footer-brand">
+
+                                <img src="~/images/LookTwiice_Logo.png"
+                                     alt="LOOKTWiiCE"
+                                     class="footer-logo" />
+                                <p>
+                                    Photography with perspective.
+                                </p>
+
+                            </div>
+
+
+                            <div class="footer-links">
+
+                                <a asp-area=""
+                                   asp-controller="Portfolio"
+                                   asp-action="Index">
+                                   Portfolio
                                 </a>
-                            }
+
+                        
+
+                                <a asp-area=""
+                                   asp-controller="About"
+                                   asp-action="Index">
+                                    About
+                                </a>
+
+                                <a asp-area=""
+                                   asp-controller="Contact"
+                                   asp-action="Index">
+                                    Contact
+                                </a>
+
+                            </div>
+
+
+                            <div class="footer-social">
+
+                                <a href="https://www.instagram.com/looktwice.photo"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   aria-label="Instagram">
+                                    Instagram
+                                </a>
+
+                                <a href="mailto:hello@looktwiice.com">
+                                    Email
+                                </a>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="footer-bottom">
+
+                            <span>
+                                © @DateTime.Now.Year LOOKTWiiCE
+                            </span>
+
+                            <span>
+                                All rights reserved.
+                            </span>
 
                         </div>
 
                     </div>
 
-                </div>
-
-            </nav>
-
-        </header>
-
-
-        <!-- =========================
-             MAIN
-             ========================= -->
-
-        <main class="site-main">
-
-            @RenderBody()
-
-        </main>
-
-
-        <!-- =========================
-             FOOTER
-             ========================= -->
-
-        <footer class="site-footer">
-
-            <div class="container">
-
-                <div class="footer-top">
-
-                    <div class="footer-brand">
-
-                        <img src="~/images/LookTwiice_Logo.png"
-                             alt="LOOKTWiiCE"
-                             class="footer-logo" />
-                        <p>
-                            Photography with perspective.
-                        </p>
-
-                    </div>
-
-
-                    <div class="footer-links">
-
-                        <a asp-controller="Portfolio"
-                           asp-action="Index">
-                            Work
-                        </a>
-
-                        <a asp-controller="Services"
-                           asp-action="Index">
-                            Services
-                        </a>
-
-                        <a asp-controller="About"
-                           asp-action="Index">
-                            About
-                        </a>
-
-                        <a asp-controller="Contact"
-                           asp-action="Index">
-                            Contact
-                        </a>
-
-                    </div>
-
-
-                    <div class="footer-social">
-
-                        <a href="#" aria-label="Instagram">
-                            Instagram
-                        </a>
-
-                        <a href="mailto:hello@looktwiice.com">
-                            Email
-                        </a>
-
-                    </div>
-
-                </div>
-
-
-                <div class="footer-bottom">
-
-                    <span>
-                        © @DateTime.Now.Year LOOKTWiiCE
-                    </span>
-
-                    <span>
-                        All rights reserved.
-                    </span>
-
-                </div>
+                </footer>
 
             </div>
 
-        </footer>
 
-    </div>
+            <!-- =========================
+                 SCRIPTS
+                 ========================= -->
 
+            <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
-    <!-- =========================
-         SCRIPTS
-         ========================= -->
+            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script src="~/js/site.js"
-            asp-append-version="true"></script>
+            <script src="~/js/site.js"
+                    asp-append-version="true"></script>
 
 
-    <script>
+          <script>
 
-        document.addEventListener("DOMContentLoaded", function () {
+                document.addEventListener("DOMContentLoaded", function () {
 
-            const header = document.getElementById("siteHeader");
-            const toggle = document.getElementById("navbarToggle");
-            const collapse = document.getElementById("navbarCollapse");
-            const themeToggle = document.getElementById("themeToggle");
+                    const header = document.getElementById("siteHeader");
+                    const toggle = document.getElementById("navbarToggle");
+                    const collapse = document.getElementById("navbarCollapse");
 
-            /* =========================
-               NAVBAR SCROLL
-               ========================= */
+                    /* =========================
+                       NAVBAR SCROLL
+                       ========================= */
 
-            function handleScroll() {
+                    let lastScrollY = window.scrollY;
 
-                if (window.scrollY > 30) {
-                    header.classList.add("scrolled");
-                }
-                else {
-                    header.classList.remove("scrolled");
-                }
+                    function handleScroll() {
 
-            }
+                        const currentScrollY = window.scrollY;
 
-            window.addEventListener("scroll", handleScroll);
+                        if (currentScrollY > 30) {
+                            header.classList.add("scrolled");
+                        }
+                        else {
+                            header.classList.remove("scrolled");
+                        }
 
-            handleScroll();
+                        if (window.innerWidth <= 768) {
 
+                            const menuOpen = collapse.classList.contains("show");
 
-            /* =========================
-               MOBILE MENU
-               ========================= */
+                            if (currentScrollY <= 30) {
+                                header.classList.remove("nav-hidden");
+                            }
+                            else if (currentScrollY > lastScrollY) {
+                                header.classList.add("nav-hidden");
+                            }
+                            else if (currentScrollY < lastScrollY) {
+                                header.classList.remove("nav-hidden");
+                            }
 
-            if (toggle && collapse) {
+                        }
 
-                toggle.addEventListener("click", function () {
+                        lastScrollY = currentScrollY;
+                    }
 
-                    const isOpen =
-                        collapse.classList.toggle("show");
+                    window.addEventListener("scroll", handleScroll);
 
-                    toggle.classList.toggle("active", isOpen);
-
-                    toggle.setAttribute(
-                        "aria-expanded",
-                        isOpen
-                    );
-
-                });
-
-
-                collapse.querySelectorAll("a").forEach(link => {
-
-                    link.addEventListener("click", function () {
-
-                        collapse.classList.remove("show");
-                        toggle.classList.remove("active");
-
-                        toggle.setAttribute(
-                            "aria-expanded",
-                            "false"
-                        );
-
-                    });
-
-                });
-
-            }
+                    handleScroll();
 
 
-            /* =========================
-               THEME
-               ========================= */
+                    /* =========================
+                       MOBILE MENU
+                       ========================= */
 
-            const savedTheme =
-                localStorage.getItem("looktwiice-theme");
+                    if (toggle && collapse) {
 
-            if (savedTheme) {
+                        toggle.addEventListener("click", function () {
 
-                document.documentElement
-                    .setAttribute("data-theme", savedTheme);
+                            const isOpen =
+                                collapse.classList.toggle("show");
 
-            }
+                            toggle.classList.toggle(
+                                "active",
+                                isOpen
+                            );
+
+                            toggle.setAttribute(
+                                "aria-expanded",
+                                isOpen
+                            );
+
+                            document.body.style.overflow =
+                                isOpen ? "hidden" : "";
+
+                        });
 
 
-            if (themeToggle) {
+                        collapse.querySelectorAll("a").forEach(link => {
 
-                themeToggle.addEventListener("click", function () {
+                            link.addEventListener("click", function () {
 
-                    const current =
-                        document.documentElement
-                            .getAttribute("data-theme");
+                                collapse.classList.remove("show");
 
-                    const next =
-                        current === "dark"
-                            ? "light"
-                            : "dark";
+                                toggle.classList.remove("active");
 
-                    document.documentElement
-                        .setAttribute("data-theme", next);
+                                toggle.setAttribute(
+                                    "aria-expanded",
+                                    "false"
+                                );
 
-                    localStorage.setItem(
-                        "looktwiice-theme",
-                        next
-                    );
+                                document.body.style.overflow = "";
+
+                            });
+
+                        });
+
+                    }
 
                 });
 
-            }
+          </script>
 
-        });
+            @await RenderSectionAsync("Scripts", required: false)
 
-    </script>
-
-
-    @await RenderSectionAsync("Scripts", required: false)
-
-</body>
-</html>
+        </body>
+    </html>

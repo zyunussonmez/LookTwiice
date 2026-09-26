@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Page Not Found";
+}
+
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/error.css"
+          asp-append-version="true" />
+}
+
+<main class="error-page">
+
+    <div class="error-page__inner">
+
+        <span class="error-page__code">
+            404
+        </span>
+
+        <span class="error-page__eyebrow">
+            THE FRAME IS MISSING
+        </span>
+
+        <h1>
+            This page<br />
+            couldn't be found.
+        </h1>
+
+        <p>
+            The page you're looking for doesn't exist
+            or may have been moved.
+        </p>
+
+        <div class="error-page__actions">
+
+            <a asp-area=""
+               asp-controller="Home"
+               asp-action="Index">
+                ← BACK TO HOME
+            </a>
+
+            <a asp-area=""
+               asp-controller="Portfolio"
+               asp-action="Index">
+                VIEW PORTFOLIO →
+            </a>
+
+        </div>
+
+    </div>
+
+</main>

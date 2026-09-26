@@ -1,0 +1,413 @@
+﻿/* =========================================
+   ACCOUNT SETTINGS
+   LOOKTWiiCE EDITORIAL
+   ========================================= */
+
+.account-settings-container {
+    width: min(calc(100% - 48px), var(--container-width));
+    margin-inline: auto;
+    padding-top: 130px;
+    padding-bottom: 120px;
+}
+
+    /* =========================================
+   PAGE HEADER
+   ========================================= */
+
+    .account-settings-container > h1 {
+        margin: 0;
+        color: var(--ink);
+        font-size: clamp(2.8rem, 5vw, 4rem);
+        line-height: 0.95;
+        letter-spacing: -0.05em;
+        font-weight: 500;
+    }
+
+.account-settings-divider {
+    width: 100%;
+    height: 1px;
+    margin: 30px 0 16px;
+    background: var(--border);
+}
+
+/* =========================================
+   DESKTOP LAYOUT
+   ========================================= */
+
+.account-settings-sidebar {
+    padding-right: 25px;
+}
+
+.account-settings-content {
+    padding-left: 10px;
+    min-width: 0;
+}
+
+/* =========================================
+   ACCOUNT NAVIGATION
+   ========================================= */
+
+.account-mobile-menu {
+    display: none;
+}
+
+.account-manage-nav {
+    display: block;
+}
+
+    .account-manage-nav .nav {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .account-manage-nav .nav-link {
+        display: block;
+        padding: 11px 14px;
+        border-radius: 3px;
+        color: var(--muted);
+        background: transparent;
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 400;
+        text-decoration: none;
+        transition: color 0.2s ease, background-color 0.2s ease;
+    }
+
+        .account-manage-nav .nav-link:hover {
+            color: var(--ink);
+            background: var(--paper-light);
+        }
+
+        .account-manage-nav .nav-link.active {
+            color: #fff;
+            background: var(--ink);
+            font-weight: 500;
+        }
+
+/* =========================================
+   PROFILE
+   ========================================= */
+
+.account-profile {
+    width: 100%;
+    max-width: 100%;
+}
+
+.account-profile__header {
+    margin-bottom: 48px;
+}
+
+.account-profile__eyebrow {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--muted);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.account-profile__header h2 {
+    margin: 0;
+    color: var(--ink);
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    line-height: 0.95;
+    letter-spacing: -0.045em;
+    font-weight: 500;
+}
+
+/* =========================================
+   PROFILE FORM
+   ========================================= */
+
+.profile-form {
+    width: 100%;
+}
+
+.profile-field {
+    margin-bottom: 30px;
+}
+
+.profile-field-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.profile-field label {
+    display: block;
+    margin-bottom: 9px;
+    color: var(--muted);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.profile-input {
+    width: 100%;
+    min-height: 50px;
+    padding: 12px 14px;
+    border: 1px solid rgba(23, 22, 21, 0.12);
+    border-radius: 0;
+    outline: none;
+    background: transparent;
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 400;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+    .profile-input:hover {
+        border-color: rgba(23, 22, 21, 0.25);
+    }
+
+    .profile-input:focus {
+        border-color: var(--ink);
+        background: var(--paper-light);
+    }
+
+    .profile-input:disabled {
+        color: var(--muted);
+        background: rgba(23, 22, 21, 0.025);
+        cursor: not-allowed;
+    }
+
+/* =========================================
+   PHONE
+   ========================================= */
+
+.profile-phone {
+    display: grid;
+    grid-template-columns: 105px minmax(0, 1fr);
+    gap: 10px;
+}
+
+.profile-phone__code {
+    appearance: auto;
+    cursor: pointer;
+}
+
+/* =========================================
+   VALIDATION
+   ========================================= */
+
+.profile-error {
+    display: block;
+    margin-top: 7px;
+    color: #9b3d3d;
+    font-size: 11px;
+}
+
+.profile-validation {
+    margin-bottom: 24px;
+    color: #9b3d3d;
+    font-size: 12px;
+}
+
+    .profile-validation:empty {
+        display: none;
+    }
+
+/* =========================================
+   STATUS MESSAGE
+   ========================================= */
+
+.account-profile .alert {
+    margin-bottom: 28px;
+    border: 0;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+    padding: 12px 0;
+    background: transparent;
+    color: var(--ink);
+    font-size: 12px;
+}
+
+/* =========================================
+   FORM FOOTER
+   ========================================= */
+
+.profile-form__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+}
+
+    .profile-form__footer > span {
+        color: var(--muted);
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.12em;
+    }
+
+.profile-save {
+    display: inline-flex;
+    align-items: center;
+    gap: 22px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+    .profile-save:hover {
+        opacity: 0.55;
+    }
+
+    .profile-save span:last-child {
+        font-size: 17px;
+        transition: transform 0.2s ease;
+    }
+
+    .profile-save:hover span:last-child {
+        transform: translateX(5px);
+    }
+
+/* =========================================
+   MOBILE ACCOUNT MENU
+   ========================================= */
+
+@media (max-width: 767.98px) {
+
+    .account-settings-container {
+        width: calc(100% - 32px);
+        padding-top: 105px;
+        padding-bottom: 80px;
+    }
+
+        .account-settings-container > h1 {
+            font-size: clamp(2.4rem, 11vw, 3.2rem);
+        }
+
+    .account-settings-divider {
+        margin: 24px 0 0;
+    }
+
+    /* Sidebar */
+
+    .account-settings-sidebar {
+        padding: 0;
+    }
+
+    .account-settings-content {
+        padding: 0;
+    }
+
+    /* Mobile menu button */
+
+    .account-mobile-menu {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 0;
+        border: 0;
+        border-bottom: 1px solid var(--border);
+        background: transparent;
+        color: var(--ink);
+        font-family: inherit;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        cursor: pointer;
+    }
+
+    .account-mobile-menu__arrow {
+        font-size: 14px;
+        transition: transform 0.25s ease;
+    }
+
+    .account-mobile-menu.is-open
+    .account-mobile-menu__arrow {
+        transform: rotate(180deg);
+    }
+
+    /* Closed by default */
+
+    .account-manage-nav {
+        display: none;
+        padding: 10px 0 15px;
+    }
+
+        .account-manage-nav.is-open {
+            display: block;
+        }
+
+        .account-manage-nav .nav {
+            gap: 0;
+        }
+
+        .account-manage-nav .nav-link {
+            padding: 10px 0;
+            border-radius: 0;
+            background: transparent;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+            .account-manage-nav .nav-link.active {
+                background: transparent;
+                color: var(--ink);
+                font-weight: 500;
+            }
+
+    /* Profile */
+
+    .account-profile__header {
+        padding-top: 30px;
+        margin-bottom: 38px;
+    }
+
+        .account-profile__header h2 {
+            font-size: clamp(2rem, 10vw, 2.8rem);
+        }
+
+    /* Form */
+
+    .profile-field {
+        margin-bottom: 25px;
+    }
+
+    .profile-field-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .profile-phone {
+        grid-template-columns: 92px minmax(0, 1fr);
+        gap: 8px;
+    }
+
+    .profile-input {
+        min-height: 48px;
+        padding: 11px 12px;
+        font-size: 13px;
+    }
+
+    .profile-form__footer {
+        margin-top: 38px;
+    }
+
+        .profile-form__footer > span {
+            font-size: 8px;
+        }
+
+    .profile-save {
+        gap: 16px;
+        font-size: 11px;
+    }
+}

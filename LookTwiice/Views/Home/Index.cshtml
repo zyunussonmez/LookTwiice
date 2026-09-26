@@ -111,16 +111,13 @@
 
                 <a asp-controller="Portfolio"
                    asp-action="Index"
+                   asp-fragment="category-@weddingCategory.Id"
                    class="hero-button">
-
                     <span>VIEW WEDDING STORIES</span>
-
                     <span class="hero-button-arrow">
                         →
                     </span>
-
                 </a>
-
             </div>
 
         </div>
@@ -383,7 +380,10 @@
                         }
 
 
-                        <article class="wedding-story-card">
+                        <a asp-controller="Portfolio"
+                           asp-action="Gallery"
+                           asp-route-slug="@gallery.Slug"
+                           class="wedding-story-card">
 
                             <div class="wedding-story-image">
 
@@ -396,7 +396,6 @@
                                 </span>
 
                             </div>
-
 
                             <div class="wedding-story-info">
 
@@ -412,14 +411,13 @@
 
                                 </div>
 
-
                                 <span class="wedding-story-arrow">
                                     ↗
                                 </span>
 
                             </div>
 
-                        </article>
+                        </a>
                     }
 
                 </div>
@@ -428,7 +426,7 @@
                 <div class="wedding-featured-footer">
 
                     <a asp-controller="Portfolio"
-                       asp-action="Index">
+                       asp-action="WeddingGallery">
 
                         VIEW ALL WEDDING STORIES
 
@@ -532,7 +530,7 @@
                 {
                     <a asp-controller="Portfolio"
                        asp-action="Index"
-                       asp-route-categoryId="@weddingCategory.Id"
+                       asp-fragment="category-@weddingCategory.Id"
                        class="service-item wedding-service-main">
 
                         <div class="service-number">
@@ -593,7 +591,7 @@
 
                     <a asp-controller="Portfolio"
                        asp-action="Index"
-                       asp-route-categoryId="@category.Id"
+                       asp-fragment="category-@category.Id"
                        class="service-item">
 
                         <div class="service-number">

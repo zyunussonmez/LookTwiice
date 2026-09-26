@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using LookTwiice.Data;
 using LookTwiice.Models;
 using LookTwiice.Resources;
+using PhoneNumbers;
+using System.Linq;
 
 namespace LookTwiice.Areas.Identity.Pages.Account.Manage;
 
@@ -63,7 +65,6 @@ public class IndexModel : PageModel
         /// 
         public string CountryCode { get; set; } = "+90";
 
-        [Phone(ErrorMessageResourceName = "InvalidPhoneNumber", ErrorMessageResourceType = typeof(ValidationMessages))]
         public string? PhoneNumber { get; set; }
 
         [Required(ErrorMessageResourceName = "NameRequired", ErrorMessageResourceType = typeof(ValidationMessages))]
@@ -74,11 +75,10 @@ public class IndexModel : PageModel
         [StringLength(50, ErrorMessageResourceName = "NameTooLong", ErrorMessageResourceType = typeof(ValidationMessages))]
         public string? Surname { get; set; }
 
-        [Url(ErrorMessageResourceName = "InvalidUrl", ErrorMessageResourceType = typeof(ValidationMessages))]
-        public string? ProfileImageUrl { get; set; }
+        
     }
 
-    private static readonly string[] KnownCountryCodes = { "+90", "+1", "+49", "+44" };
+
 
     private async Task LoadAsync(ApplicationUser user)
     {
@@ -90,17 +90,22 @@ public class IndexModel : PageModel
         var countryCode = "+90";
         var localNumber = phoneNumber;
 
-        if (!string.IsNullOrEmpty(phoneNumber))
+        if (!string.IsNullOrWhiteSpace(phoneNumber))
         {
-            var matchedCode = KnownCountryCodes
-                .Where(code => phoneNumber.StartsWith(code))
-                .OrderByDescending(code => code.Length)
-                .FirstOrDefault();
-
-            if (matchedCode != null)
+            try
             {
-                countryCode = matchedCode;
-                localNumber = phoneNumber.Substring(matchedCode.Length);
+                var phoneUtil = PhoneNumberUtil.GetInstance();
+                var parsedNumber = phoneUtil.Parse(phoneNumber, null);
+
+                if (parsedNumber.CountryCode > 0)
+                {
+                    countryCode = $"+{parsedNumber.CountryCode}";
+                    localNumber = parsedNumber.NationalNumber.ToString();
+                }
+            }
+            catch (NumberParseException)
+            {
+                // Eski/geçersiz bir numara varsa mevcut değeri bozmuyoruz.
             }
         }
 
@@ -109,8 +114,7 @@ public class IndexModel : PageModel
             CountryCode = countryCode,
             PhoneNumber = localNumber,
             Name = user.Name,
-            Surname = user.Surname,
-            ProfileImageUrl = user.ProfileImageUrl
+            Surname = user.Surname
         };
     }
 
@@ -140,14 +144,58 @@ public class IndexModel : PageModel
             return Page();
         }
 
-        var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-        var fullPhone = Input.CountryCode + Input.PhoneNumber?.TrimStart('0');
-        if (fullPhone != phoneNumber)
+        var phoneUtil = PhoneNumberUtil.GetInstance();
+
+        PhoneNumber parsedPhone;
+
+        try
         {
-            var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, fullPhone);
+            parsedPhone = phoneUtil.Parse(
+                Input.PhoneNumber,
+                Input.CountryCode
+            );
+        }
+        catch (NumberParseException)
+        {
+            ModelState.AddModelError(
+                "Input.PhoneNumber",
+                "Geçerli bir telefon numarası giriniz."
+            );
+
+            return Page();
+        }
+
+        if (!phoneUtil.IsValidNumber(parsedPhone))
+        {
+            ModelState.AddModelError(
+                "Input.PhoneNumber",
+                "Geçerli bir telefon numarası giriniz."
+            );
+
+            return Page();
+        }
+
+        var fullPhone = phoneUtil.Format(
+            parsedPhone,
+            PhoneNumberFormat.E164
+        );
+
+        var currentPhone =
+            await _userManager.GetPhoneNumberAsync(user);
+
+        if (fullPhone != currentPhone)
+        {
+            var setPhoneResult =
+                await _userManager.SetPhoneNumberAsync(
+                    user,
+                    fullPhone
+                );
+
             if (!setPhoneResult.Succeeded)
             {
-                StatusMessage = "Unexpected error when trying to set phone number.";
+                StatusMessage =
+                    "Telefon numarası güncellenirken bir hata oluştu.";
+
                 return RedirectToPage();
             }
         }
@@ -155,7 +203,6 @@ public class IndexModel : PageModel
 
         user.Name = Input.Name;
         user.Surname = Input.Surname;
-        user.ProfileImageUrl = Input.ProfileImageUrl;
         await _userManager.UpdateAsync(user);
 
         await _signInManager.RefreshSignInAsync(user);

@@ -2,19 +2,29 @@
 
 @{
     ViewData["Title"] = Model.Title;
+
+    var photos = Model.Photos
+        .OrderBy(p => p.DisplayOrder)
+        .ToList();
+
+    var heroPhoto = photos.FirstOrDefault();
 }
 
 @section Styles {
     <link rel="stylesheet"
-          href="~/css/portfolio.css"
+          href="~/css/gallery.css"
           asp-append-version="true" />
 }
 
-<main class="portfolio-gallery-page">
+<main class="gallery-page">
+
+    <!-- ==========================================
+         HERO
+         ========================================== -->
 
     <section class="gallery-hero">
 
-        <div class="container">
+        <div class="gallery-container">
 
             <div class="gallery-hero-meta">
 
@@ -23,68 +33,114 @@
                 </span>
 
                 <span>
-                    @Model.Photos.Count.ToString("D2") PHOTOS
+                    @photos.Count.ToString("D2") PHOTOS
                 </span>
 
             </div>
 
-            <h1 class="gallery-hero-title">
-                @Model.Title
-            </h1>
 
-            @if (!string.IsNullOrWhiteSpace(Model.Description))
-            {
-                <p class="gallery-hero-description">
-                    @Model.Description
-                </p>
-            }
+            <div class="gallery-hero-content">
+
+                <span class="gallery-hero-kicker">
+                    LOOKTWiiCE / STORY
+                </span>
+
+                <h1>
+                    @Model.Title
+                </h1>
+
+                @if (!string.IsNullOrWhiteSpace(Model.Description))
+                {
+                    <p>
+                        @Model.Description
+                    </p>
+                }
+
+            </div>
 
         </div>
 
     </section>
 
 
+    <!-- ==========================================
+         HERO PHOTO
+         ========================================== -->
+
+    @if (heroPhoto != null)
+    {
+        <section class="gallery-hero-photo">
+
+            <div class="gallery-container">
+
+                <button type="button"
+                        class="gallery-photo-button gallery-photo-button--hero"
+                        data-photo="@heroPhoto.WebUrl"
+                        data-title="@heroPhoto.Title">
+
+                    <img src="@heroPhoto.WebUrl"
+                         alt="@heroPhoto.Title"
+                         loading="eager" />
+
+                </button>
+
+            </div>
+
+        </section>
+    }
+
+
+    <!-- ==========================================
+         PHOTO WALL
+         ========================================== -->
+
     <section class="gallery-photos">
 
-        <div class="container">
+        <div class="gallery-container">
 
-            @if (Model.Photos.Any())
+            @if (photos.Any())
             {
                 <div class="gallery-photo-grid">
 
-                    @foreach (var photo in Model.Photos)
+                    @foreach (var photo in photos.Skip(1))
                     {
                         <figure class="gallery-photo">
 
-                            <img src="@photo.WebUrl"
-                                 alt="@photo.Title"
-                                 loading="lazy" />
+                            <button type="button"
+                                    class="gallery-photo-button"
+                                    data-photo="@photo.WebUrl"
+                                    data-title="@photo.Title">
+
+                                <img src="@photo.WebUrl"
+                                     alt="@photo.Title"
+                                     loading="lazy" />
+
+                            </button>
 
                         </figure>
                     }
 
                 </div>
             }
-            else
-            {
-                <div class="gallery-empty">
-                    No photos in this gallery.
-                </div>
-            }
 
         </div>
 
     </section>
 
 
+    <!-- ==========================================
+         BACK
+         ========================================== -->
+
     <section class="gallery-back">
 
-        <div class="container">
+        <div class="gallery-container">
 
             <a asp-controller="Portfolio"
-               asp-action="Index">
+               asp-action="WeddingGallery">
 
-                ← BACK TO PORTFOLIO
+                <span>←</span>
+                BACK TO GALLERY
 
             </a>
 
@@ -92,4 +148,55 @@
 
     </section>
 
+
+    <!-- ==========================================
+         LIGHTBOX
+         ========================================== -->
+
+    <div class="gallery-lightbox"
+         id="galleryLightbox"
+         aria-hidden="true">
+
+        <div class="gallery-lightbox__backdrop"></div>
+
+        <div class="gallery-lightbox__content">
+
+            <button type="button"
+                    class="gallery-lightbox__close"
+                    id="galleryLightboxClose"
+                    aria-label="Close">
+                ×
+            </button>
+
+            <button type="button"
+                    class="gallery-lightbox__prev"
+                    id="galleryLightboxPrev"
+                    aria-label="Previous photo">
+                ←
+            </button>
+
+            <figure class="gallery-lightbox__figure">
+
+                <img id="galleryLightboxImage"
+                     src=""
+                     alt="" />
+
+                <figcaption id="galleryLightboxCaption"></figcaption>
+
+            </figure>
+
+            <button type="button"
+                    class="gallery-lightbox__next"
+                    id="galleryLightboxNext"
+                    aria-label="Next photo">
+                →
+            </button>
+
+        </div>
+
+    </div>
+
 </main>
+
+<script src="~/js/gallery.js"
+        asp-append-version="true"></script>

@@ -1,0 +1,83 @@
+﻿@model List<LookTwiice.Models.Gallery>
+
+@{
+    ViewData["Title"] = "Wedding Gallery";
+}
+
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/wedding-gallery.css"
+          asp-append-version="true" />
+}
+
+<main class="wedding-gallery-page">
+
+    <section class="wedding-gallery-list">
+        <div class="wedding-gallery-container">
+            <div class="wedding-gallery-header">
+                <span>WEDDING GALLERY</span>
+                <span>@Model.Count.ToString("D2") STORIES</span>
+            </div>
+            
+            <div class="wedding-gallery-grid">
+
+                @for (var i = 0; i < Model.Count; i++)
+                {
+                    var gallery = Model[i];
+
+                    var coverPhoto = gallery.Photos
+                        .OrderByDescending(p => p.IsFeatured)
+                        .ThenBy(p => p.DisplayOrder)
+                        .FirstOrDefault();
+
+                    if (coverPhoto == null)
+                        continue;
+
+                    <a asp-controller="Portfolio"
+                       asp-action="Gallery"
+                       asp-route-slug="@gallery.Slug"
+                       class="wedding-gallery-card">
+
+                        <div class="wedding-gallery-card__image">
+                            <img src="@coverPhoto.WebUrl"
+                                 alt="@gallery.Title"
+                                 loading="lazy" />
+
+                            <div class="wedding-gallery-card__overlay">
+                                <span class="wedding-gallery-card__category">
+                                    WEDDING STORY
+                                </span>
+
+                                <h2>@gallery.Title</h2>
+
+                                <span class="wedding-gallery-card__arrow">
+                                    →
+                                </span>
+                            </div>
+                        </div>
+
+                    </a>
+                }
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <section class="wedding-gallery-end">
+        <div class="wedding-gallery-container">
+
+            <div class="wedding-gallery-end__line"></div>
+
+            <span>THE STORIES CONTINUE</span>
+
+            <a asp-controller="Portfolio"
+               asp-action="Index">
+                VIEW PORTFOLIO →
+            </a>
+
+        </div>
+    </section>
+
+</main>

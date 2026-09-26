@@ -91,6 +91,8 @@ namespace LookTwiice
 
             var app = builder.Build();
 
+         
+
             var locOptions = app.Services.GetRequiredService<Microsoft.Extensions.Options.IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(locOptions.Value);
 
@@ -143,7 +145,9 @@ namespace LookTwiice
                 app.UseHsts();
             }
 
-            //app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
+            app.UseStatusCodePagesWithReExecute("/Error/{0}");
+
+            
 
             app.UseHttpsRedirection();
             app.UseRouting();

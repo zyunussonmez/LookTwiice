@@ -9,6 +9,17 @@ namespace LookTwiice.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Gallery> Galleries { get; set; }
         public DbSet<Photo> Photos { get; set; }
+        public DbSet<ContactInquiry> ContactInquiries { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+
+            builder.Entity<ContactInquiry>()
+                .Property(x => x.EventDate)
+                .HasColumnType("date");
+        }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {

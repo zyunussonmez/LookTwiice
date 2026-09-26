@@ -1,0 +1,673 @@
+﻿/* ==========================================
+   PORTFOLIO EXPERIMENT
+   ========================================== */
+
+.portfolio-experiment {
+    padding-top: 90px;
+    background: #ece9e2;
+    color: #171615;
+    overflow: hidden;
+}
+
+
+/* ==========================================
+   CATEGORY WALL
+   ========================================== */
+
+.category-wall {
+    position: relative;
+    min-height: calc(100vh - 90px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8vh 6vw 12vh;
+}
+
+
+/* ==========================================
+   CLOTHESLINE
+   ========================================== */
+
+.category-wall__line {
+    position: absolute;
+    top: 20%;
+    left: 7%;
+    right: 7%;
+    height: 1px;
+    background: rgba(23, 22, 21, 0.28);
+    transform: rotate(-0.4deg);
+    transform-origin: center;
+}
+
+/* ==========================================
+   CATEGORY ITEMS
+   ========================================== */
+
+.category-wall__items {
+    position: relative;
+    width: min(1100px, 100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 0 30px;
+}
+
+
+/* ==========================================
+   HANGING CATEGORY PHOTO
+   ========================================== */
+
+.category-photo {
+    position: relative;
+    width: clamp(150px, 17vw, 210px);
+    padding-top: 7vh;
+    color: inherit;
+    text-decoration: none;
+    transform-origin: top center;
+    transition: transform 0.45s cubic-bezier(.22, 1, .36, 1);
+}
+
+
+    /* Alternate hanging angles */
+
+    .category-photo:nth-child(odd) {
+        transform: rotate(-2deg);
+    }
+
+    .category-photo:nth-child(even) {
+        transform: rotate(2deg);
+    }
+
+
+    /* Hover */
+
+    .category-photo:hover {
+        transform: rotate(0deg) translateY(-15px);
+    }
+
+
+/* ==========================================
+   STRING
+   ========================================== */
+
+.category-photo__string {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 7vh;
+    background: rgba(23, 22, 21, 0.35);
+}
+
+
+/* ==========================================
+   PHOTO FRAME
+   ========================================== */
+
+.category-photo__frame {
+    position: relative;
+    padding: 8px;
+    background: #f4f2ed;
+    box-shadow: 0 18px 35px rgba(23, 22, 21, 0.12);
+}
+
+
+    .category-photo__frame img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 4 / 5;
+        object-fit: cover;
+        filter: saturate(0.9);
+    }
+
+
+/* ==========================================
+   PHOTO CLIP
+   ========================================== */
+
+.category-photo__clip {
+    position: absolute;
+    top: -9px;
+    left: 50%;
+    width: 14px;
+    height: 28px;
+    transform: translateX(-50%);
+    border: 1px solid rgba(23, 22, 21, 0.45);
+    background: #d8d3c9;
+    z-index: 2;
+    box-shadow: 0 3px 5px rgba(23, 22, 21, 0.12);
+}
+
+    .category-photo__clip::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: -7px;
+        width: 1px;
+        height: 8px;
+        transform: translateX(-50%);
+        background: rgba(23, 22, 21, 0.4);
+    }
+
+/* ==========================================
+   CATEGORY LABEL
+   ========================================== */
+
+.category-photo__label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 18px;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+
+.category-photo__number {
+    font-size: 9px;
+    color: #706c65;
+}
+
+
+/* ==========================================
+   CATEGORY SECTIONS
+   ========================================== */
+
+.portfolio-category {
+    position: relative;
+    scroll-margin-top: 90px;
+    padding: 14vh 6vw 20vh;
+    border-top: 1px solid rgba(23, 22, 21, 0.14);
+}
+
+
+/* Category heading */
+
+.portfolio-category__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 94%;
+    margin-inline: auto;
+    margin-bottom: 50px;
+}
+
+.portfolio-category__title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.portfolio-category__eyebrow {
+    margin: 0 0 8px 0;
+    font-size: 9px;
+    letter-spacing: .2em;
+    color: #706c65;
+}
+
+.portfolio-category__header h2 {
+    margin-top: 10px;
+    font-size: clamp(55px, 8vw, 120px);
+    line-height: .85;
+    font-weight: 400;
+    letter-spacing: -.055em;
+    text-align: left;
+}
+
+.portfolio-category__count {
+    margin: 0 0 5px 0;
+    font-size: 10px;
+    letter-spacing: .1em;
+    color: #706c65;
+    white-space: nowrap;
+}
+/* ==========================================
+   BALANCED PHOTO WALL
+   ========================================== */
+
+.portfolio-category__wall {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    width: 94%;
+    margin-inline: auto;
+}
+
+
+/* Every photo has equal visual weight */
+
+.portfolio-photo {
+    margin: 0;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    background: #dedbd4;
+}
+
+
+    .portfolio-photo img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.8s cubic-bezier(.22, 1, .36, 1);
+    }
+
+
+    .portfolio-photo:hover img {
+        transform: scale(1.02);
+    }
+
+
+/* ==========================================
+   END SECTION
+   ========================================== */
+
+.portfolio-end {
+    position: relative;
+    min-height: 75vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10vh 5vw;
+    background: #171615;
+    color: #f4f2ed;
+}
+
+
+.portfolio-end__line {
+    width: 1px;
+    height: 70px;
+    margin-bottom: 35px;
+    background: rgba(244, 242, 237, 0.35);
+}
+
+
+.portfolio-end__eyebrow {
+    margin-bottom: 28px;
+    font-size: 9px;
+    letter-spacing: 0.24em;
+    opacity: 0.55;
+}
+
+
+.portfolio-end h2 {
+    margin: 0;
+    font-size: clamp(55px, 8vw, 120px);
+    line-height: 0.86;
+    font-weight: 400;
+    letter-spacing: -0.055em;
+}
+
+
+.portfolio-end__meta {
+    position: absolute;
+    left: 5vw;
+    right: 5vw;
+    bottom: 35px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 8px;
+    letter-spacing: 0.18em;
+    opacity: 0.4;
+}
+
+/* ==========================================
+   MOBILE
+   ========================================== */
+
+@media (max-width: 800px) {
+
+    /* Portfolio starts below navbar */
+
+    .portfolio-experiment {
+        padding-top: 72px;
+    }
+
+
+    /* Category wall */
+
+    .category-wall {
+        min-height: auto;
+        padding: 8vh 20px 12vh;
+        overflow: hidden;
+        justify-content: center;
+    }
+
+    .category-wall::-webkit-scrollbar {
+        display: none;
+    }
+
+    .category-wall__line {
+        left: 25px;
+        right: 25px;
+        width: calc(100% - 50px);
+        min-width: 600px;
+    }
+
+    .category-wall__items {
+        width: 100%;
+        max-width: 390px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px 16px;
+        padding: 0;
+    }
+
+
+
+    .category-photo {
+        width: 100%;
+        padding-top: 5vh;
+    }
+
+
+    .category-photo__string {
+        height: 5vh;
+    }
+
+    .category-photo__frame {
+        padding: 5px;
+    }
+
+    .category-photo__clip {
+        width: 12px;
+        height: 24px;
+    }
+
+    .category-photo__label {
+        margin-top: 12px;
+        gap: 6px;
+        font-size: 9px;
+    }
+
+    .category-photo__number {
+        font-size: 8px;
+    }
+
+    /* Category sections */
+
+    .portfolio-category {
+        scroll-margin-top:90px;
+        padding: 18vh 6vw 22vh;
+        border-top: 1px solid rgba(23, 22, 21, 0.14);
+    }
+
+
+    .portfolio-category__header {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+    }
+
+    .portfolio-category__title {
+        width: 100%;
+    }
+
+        .portfolio-category__title h2 {
+            font-size: clamp(2.8rem, 12vw, 3.8rem);
+            line-height: 0.9;
+            letter-spacing: -0.05em;
+            white-space: normal;
+            margin: 0;
+        }
+
+    .portfolio-category__count {
+        align-self: flex-end;
+        font-size: 9px;
+        line-height: 1;
+        white-space: nowrap;
+        margin: 0;
+    }
+
+
+    .portfolio-category__header h2 {
+        font-size: clamp(60px, 18vw, 110px);
+    }
+
+
+    /* Photo grid */
+
+   
+
+   .portfolio-category__wall {
+       grid-template-columns: repeat(2, minmax(0, 1fr));
+       width: 100%;
+       gap: 10px;
+   }
+    
+
+
+   .portfolio-photo {
+       aspect-ratio: 4 / 5;
+       transform: none !important;
+   }
+
+
+    .portfolio-end {
+        min-height: 65vh;
+        padding-inline: 25px;
+    }
+
+        .portfolio-end h2 {
+            font-size: clamp(52px, 15vw, 90px);
+        }
+
+    .portfolio-end__meta {
+        left: 25px;
+        right: 25px;
+        bottom: 25px;
+    }
+
+}
+
+
+/* ==========================================
+   PHOTO LIGHTBOX
+   ========================================== */
+
+.portfolio-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .3s ease, visibility .3s ease;
+}
+
+    .portfolio-lightbox.is-open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+
+/* Backdrop */
+
+.portfolio-lightbox__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 14, 13, .92);
+    cursor: pointer;
+}
+
+
+/* Content */
+
+.portfolio-lightbox__content {
+    position: relative;
+    z-index: 1;
+    width: min(1200px, 90vw);
+    height: min(90vh, 900px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Figure */
+
+.portfolio-lightbox__figure {
+    position: relative;
+    max-width: calc(100% - 120px);
+    max-height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+    .portfolio-lightbox__figure img {
+        display: block;
+        max-width: 100%;
+        max-height: 82vh;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+    }
+
+
+    /* Caption */
+
+    .portfolio-lightbox__figure figcaption {
+        margin-top: 16px;
+        color: #f4f2ed;
+        font-size: 10px;
+        letter-spacing: .12em;
+        text-align: center;
+        opacity: .7;
+    }
+
+
+/* Close */
+
+.portfolio-lightbox__close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    width: 48px;
+    height: 48px;
+    border: 0;
+    background: transparent;
+    color: #f4f2ed;
+    font-size: 32px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: opacity .2s ease;
+}
+
+    .portfolio-lightbox__close:hover {
+        opacity: .55;
+    }
+
+
+/* Previous / Next */
+
+.portfolio-lightbox__prev,
+.portfolio-lightbox__next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 52px;
+    height: 52px;
+    border: 1px solid rgba(244, 242, 237, .3);
+    background: rgba(23, 22, 21, .25);
+    color: #f4f2ed;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background .2s ease, border-color .2s ease;
+}
+
+    .portfolio-lightbox__prev:hover,
+    .portfolio-lightbox__next:hover {
+        background: rgba(244, 242, 237, .12);
+        border-color: rgba(244, 242, 237, .6);
+    }
+
+.portfolio-lightbox__prev {
+    left: 0;
+}
+
+.portfolio-lightbox__next {
+    right: 0;
+}
+
+
+/* Make photo buttons invisible */
+
+.portfolio-photo__button {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: zoom-in;
+}
+
+    .portfolio-photo__button:focus-visible {
+        outline: 2px solid rgba(23, 22, 21, 0.55);
+        outline-offset: 4px;
+    }
+    .portfolio-photo__button img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+
+/* Mobile */
+
+@media (max-width: 800px) {
+
+    .portfolio-lightbox {
+        padding: 20px;
+    }
+
+    .portfolio-lightbox__content {
+        width: 100%;
+        height: 100%;
+    }
+
+    .portfolio-lightbox__figure {
+        max-width: calc(100% - 40px);
+    }
+
+        .portfolio-lightbox__figure img {
+            max-height: 75vh;
+        }
+
+    .portfolio-lightbox__prev,
+    .portfolio-lightbox__next {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .portfolio-lightbox__prev {
+        left: -5px;
+    }
+
+    .portfolio-lightbox__next {
+        right: -5px;
+    }
+
+    .portfolio-lightbox__close {
+        top: -5px;
+        right: -5px;
+    }
+}

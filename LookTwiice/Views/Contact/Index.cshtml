@@ -1,0 +1,304 @@
+﻿@model LookTwiice.ViewModels.ContactInquiryViewModel
+
+@{
+    ViewData["Title"] = "Contact";
+}
+
+<link rel="stylesheet"
+      href="~/css/contact.css"
+      asp-append-version="true" />
+
+<section class="contact-page">
+
+    <!-- =========================================
+         LEFT — PHOTO + TEXT OVERLAY
+         ========================================= -->
+
+    <div class="contact-visual">
+
+        <img src="~/images/wedding_2.jpeg"
+             alt="LookTwiice photography"
+             class="contact-visual__image" />
+
+        <div class="contact-visual__overlay"></div>
+
+        <div class="contact-visual__content">
+
+            <span class="contact-visual__eyebrow">
+                CONTACT
+            </span>
+
+            <h1>
+                Tell your story.
+            </h1>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         RIGHT — FORM
+         ========================================= -->
+
+    <div class="contact-form">
+
+        <div class="contact-form__header">
+
+            <span>
+                START A CONVERSATION
+            </span>
+
+            <p>
+                Tell us a little about what you're planning,
+                and we'll take it from there.
+            </p>
+
+        </div>
+
+
+        <form asp-controller="Contact"
+              asp-action="Index"
+              method="post">
+
+            @Html.AntiForgeryToken()
+
+
+            <!-- NAME -->
+
+            <div class="contact-field">
+
+                <label asp-for="Name">
+                    Name <span>*</span>
+                </label>
+
+                <input asp-for="Name"
+                       autocomplete="name"
+                       placeholder="Your name" />
+
+                <span asp-validation-for="Name"
+                      class="contact-field__error">
+                </span>
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="contact-field">
+
+                <label asp-for="Email">
+                    Email <span>*</span>
+                </label>
+
+                <input asp-for="Email"
+                       type="email"
+                       autocomplete="email"
+                       placeholder="your@email.com" />
+
+                <span asp-validation-for="Email"
+                      class="contact-field__error">
+                </span>
+
+            </div>
+
+
+            <!-- PHOTOGRAPHY TYPE -->
+
+            <div class="contact-field">
+
+                <label asp-for="ServiceType">
+                    Photography type <span>*</span>
+                </label>
+
+                <select asp-for="ServiceType">
+
+                    <option value="">
+                        Select a photography type
+                    </option>
+
+                    <option value="Wedding">
+                        Wedding
+                    </option>
+
+                    <option value="Engagement">
+                        Engagement
+                    </option>
+
+                    <option value="Portrait">
+                        Portrait
+                    </option>
+
+                    <option value="Fashion">
+                        Fashion
+                    </option>
+
+                    <option value="Event">
+                        Event
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+                <span asp-validation-for="ServiceType"
+                      class="contact-field__error">
+                </span>
+
+            </div>
+
+            <!-- LOCATION -->
+
+            <div class="contact-field">
+
+                <label>
+                    Location
+                </label>
+
+                <div class="contact-location">
+
+                    <div>
+                        <label asp-for="Country">
+                            Country <span>*</span>
+                        </label>
+
+                        <select asp-for="Country">
+                            <option value="">Select country</option>
+
+                            <option value="Austria">Austria</option>
+                            <option value="Belgium">Belgium</option>
+                            <option value="Croatia">Croatia</option>
+                            <option value="Czech Republic">Czech Republic</option>
+                            <option value="Denmark">Denmark</option>
+                            <option value="Finland">Finland</option>
+                            <option value="France">France</option>
+                            <option value="Germany">Germany</option>
+                            <option value="Greece">Greece</option>
+                            <option value="Hungary">Hungary</option>
+                            <option value="Ireland">Ireland</option>
+                            <option value="Italy">Italy</option>
+                            <option value="Netherlands">Netherlands</option>
+                            <option value="Norway">Norway</option>
+                            <option value="Poland">Poland</option>
+                            <option value="Portugal">Portugal</option>
+                            <option value="Romania">Romania</option>
+                            <option value="Spain">Spain</option>
+                            <option value="Sweden">Sweden</option>
+                            <option value="Switzerland">Switzerland</option>
+                            <option value="Türkiye">Türkiye</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                        </select>
+
+                        <span asp-validation-for="Country"
+                              class="contact-field__error">
+                        </span>
+                    </div>
+
+
+                    <div>
+                        <label asp-for="City">
+                            City <span>*</span>
+                        </label>
+
+                        <input asp-for="City"
+                               placeholder="e.g. Paris" />
+
+                        <span asp-validation-for="City"
+                              class="contact-field__error">
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- EVENT DATE -->
+
+            <div class="contact-field">
+
+                <label asp-for="EventDate">
+                    Event date
+                    <small>(optional)</small>
+                </label>
+
+                <input asp-for="EventDate"
+                       type="date" />
+
+                <span asp-validation-for="EventDate"
+                      class="contact-field__error">
+                </span>
+
+            </div>
+
+
+            <!-- MESSAGE -->
+
+            <div class="contact-field">
+
+                <label asp-for="Message">
+                    Message <span>*</span>
+                </label>
+
+                <textarea asp-for="Message"
+                          rows="5"
+                          placeholder="Tell us a little about your plans...">
+                </textarea>
+
+                <span asp-validation-for="Message"
+                      class="contact-field__error">
+                </span>
+
+            </div>
+
+
+            <!-- CONSENT -->
+
+            <div class="contact-consent">
+
+                <label>
+
+                    <input asp-for="Consent"
+                           type="checkbox" />
+
+                    <span>
+                        I agree to be contacted regarding my inquiry.
+                    </span>
+
+                </label>
+
+                <span asp-validation-for="Consent"
+                      class="contact-field__error">
+                </span>
+
+            </div>
+
+
+            <!-- SUBMIT -->
+
+            <button type="submit"
+                    class="contact-submit">
+
+                <span>
+                    Send inquiry
+                </span>
+
+                <span class="contact-submit__arrow">
+                    →
+                </span>
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

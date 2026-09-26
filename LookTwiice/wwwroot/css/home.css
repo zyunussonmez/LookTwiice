@@ -208,6 +208,83 @@
 .hero:hover .hero-placeholder {
     transform: scale(1.05);
 }
+/*Hero Mobile*/
+
+@media (max-width: 768px) {
+
+    .hero {
+        min-height: 100svh;
+    }
+
+    .hero-background,
+    .hero-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .hero-image {
+        object-fit: cover;
+        object-position: 58% center;
+    }
+
+    .hero-content {
+        width: calc(100% - 36px);
+        min-height: 100svh;
+        padding-top: 120px;
+        padding-bottom: 55px;
+    }
+
+    .hero-meta {
+        gap: 12px;
+        margin-bottom: 18px;
+        font-size: 8px;
+    }
+
+        .hero-meta span {
+            gap: 12px;
+        }
+
+    .hero-title {
+        max-width: 100%;
+        margin-bottom: 30px;
+        font-size: clamp(2.7rem, 13vw, 4rem);
+        line-height: .9;
+        letter-spacing: -.055em;
+    }
+
+    .hero-title-line {
+        white-space: normal;
+    }
+
+    .hero-title-indent {
+        margin-left: 18px;
+    }
+
+    .hero-bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-end;
+        gap: 28px;
+        max-width: 100%;
+    }
+
+    .hero-description {
+        max-width: 300px;
+        font-size: 11px;
+    }
+
+    .hero-button {
+        gap: 28px;
+        font-size: 11px;
+    }
+
+    .hero-scroll {
+        display: none;
+    }
+}
+/*Hero Mobile END*/
+
 
 /* =========================================================
    HOME INTRO

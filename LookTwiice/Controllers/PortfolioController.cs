@@ -13,34 +13,16 @@ public class PortfolioController : Controller
         _context = context;
     }
 
-    public async Task<IActionResult> Index(int? categoryId)
+    public async Task<IActionResult> Index()
     {
         var categories = await _context.Categories
             .Include(c => c.Galleries)
-            .ThenInclude(g => g.Photos)
+                .ThenInclude(g => g.Photos)
+            .Where(c => c.Galleries.Any(g => g.Photos.Any()))
             .OrderBy(c => c.Name)
             .ToListAsync();
 
-        var galleriesQuery = _context.Galleries
-            .Include(g => g.Category)
-            .Include(g => g.Photos)
-            .Where(g => g.Photos.Any());
-
-        if (categoryId.HasValue)
-        {
-            galleriesQuery = galleriesQuery
-                .Where(g => g.CategoryId == categoryId.Value);
-        }
-
-        var galleries = await galleriesQuery
-            .OrderByDescending(g => g.IsFeatured)
-            .ThenBy(g => g.Title)
-            .ToListAsync();
-
-        ViewBag.Categories = categories;
-        ViewBag.SelectedCategoryId = categoryId;
-
-        return View(galleries);
+        return View(categories);
     }
 
     public async Task<IActionResult> Gallery(string slug)
@@ -67,8 +49,23 @@ public class PortfolioController : Controller
         return View(gallery);
     }
 
-    public IActionResult PortfolioExperiment()
+    public async Task<IActionResult> WeddingGallery()
     {
-        return View();
+        var weddingCategory = await _context.Categories
+            .Include(c => c.Galleries)
+                .ThenInclude(g => g.Photos)
+            .FirstOrDefaultAsync(c =>
+                c.Name.ToLower() == "wedding");
+
+        if (weddingCategory == null)
+            return NotFound();
+
+        var galleries = weddingCategory.Galleries
+            .Where(g => g.Photos.Any())
+            .OrderByDescending(g => g.IsFeatured)
+            .ThenBy(g => g.Title)
+            .ToList();
+
+        return View(galleries);
     }
 }

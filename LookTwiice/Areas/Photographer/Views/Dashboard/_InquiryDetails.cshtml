@@ -1,0 +1,195 @@
+﻿@model LookTwiice.Models.ContactInquiry
+
+<div class="inquiry-detail">
+
+    <!-- HEADER -->
+
+    <div class="inquiry-detail__header">
+
+        <div class="inquiry-detail__heading">
+
+            <span class="inquiry-detail__eyebrow">
+                INQUIRY
+            </span>
+
+            <h2>
+                @Model.Name
+            </h2>
+
+            <span class="inquiry-detail__service">
+                @Model.ServiceType
+            </span>
+
+        </div>
+
+
+        <div class="inquiry-detail__status">
+
+            <span class="inquiry-detail__status-label">
+                STATUS
+            </span>
+
+            <span class="inquiry-detail__status-badge
+                inquiry-detail__status-badge--@Model.Status.ToString().ToLower()">
+
+                @switch (Model.Status)
+                {
+                    case InquiryStatus.New:
+                        <text>NEW</text>
+                        break;
+
+                    case InquiryStatus.Contacted:
+                        <text>CONTACTED</text>
+                        break;
+
+                    case InquiryStatus.InDiscussion:
+                        <text>IN DISCUSSION</text>
+                        break;
+
+                    case InquiryStatus.Booked:
+                        <text>BOOKED</text>
+                        break;
+
+                    case InquiryStatus.Rejected:
+                        <text>REJECTED</text>
+                        break;
+
+                    case InquiryStatus.Archived:
+                        <text>ARCHIVED</text>
+                        break;
+                }
+
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- INFORMATION -->
+
+    <div class="inquiry-detail__information">
+
+        <!-- CONTACT -->
+
+        <div class="inquiry-detail__column">
+
+            <span class="inquiry-detail__label">
+                CONTACT
+            </span>
+
+            <div class="inquiry-detail__row">
+
+                <span>Name</span>
+
+                <strong>
+                    @Model.Name
+                </strong>
+
+            </div>
+
+            <div class="inquiry-detail__row">
+
+                <span>Email</span>
+
+                <a href="mailto:@Model.Email">
+                    @Model.Email
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- EVENT -->
+
+        <div class="inquiry-detail__column">
+
+            <span class="inquiry-detail__label">
+                EVENT
+            </span>
+
+            <div class="inquiry-detail__row">
+
+                <span>Type</span>
+
+                <strong>
+                    @Model.ServiceType
+                </strong>
+
+            </div>
+
+            <div class="inquiry-detail__row">
+
+                <span>Date</span>
+
+                <strong>
+                    @(Model.EventDate?.ToString("dd MMMM yyyy")
+                        ?? "Not specified")
+                </strong>
+
+            </div>
+
+            <div class="inquiry-detail__row">
+
+                <span>Location</span>
+
+                <strong>
+                    @Model.City, @Model.Country
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MESSAGE -->
+
+    <div class="inquiry-detail__message">
+
+        <span class="inquiry-detail__label">
+            MESSAGE
+        </span>
+
+        <p>
+            @Model.Message
+        </p>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <div class="inquiry-detail__footer">
+
+        <div class="inquiry-detail__received">
+
+            <span>
+                RECEIVED
+            </span>
+
+            <strong>
+                @Model.CreatedAt.ToString("dd MMMM yyyy, HH:mm")
+            </strong>
+
+        </div>
+
+
+        <a href="mailto:@Model.Email"
+           class="inquiry-detail__reply">
+
+            <span>
+                Reply by email
+            </span>
+
+            <span>
+                →
+            </span>
+
+        </a>
+
+    </div>
+
+</div>
