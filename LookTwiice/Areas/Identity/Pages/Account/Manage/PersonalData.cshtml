@@ -1,25 +1,68 @@
 @page
 @model PersonalDataModel
+
 @{
     ViewData["Title"] = "Personal Data";
     ViewData["ActivePage"] = ManageNavPages.PersonalData;
 }
 
-<h3>@ViewData["Title"]</h3>
+<div class="account-profile">
 
-<div class="row">
-    <div class="col-md-6">
-        <p>Your account contains personal data that you have given us. This page allows you to download or delete that data.</p>
-        <p>
-            <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
-        </p>
-        <form id="download-data" asp-page="DownloadPersonalData" method="post">
-            <button class="btn btn-primary" type="submit">Download</button>
-        </form>
-        <p>
-            <a id="delete" asp-page="DeletePersonalData" class="btn btn-danger">Delete</a>
-        </p>
+    <div class="account-profile__header">
+        <span class="account-profile__eyebrow">
+            ACCOUNT · DATA
+        </span>
+
+        <h2>Kişisel Veriler</h2>
     </div>
+
+    <div class="personal-data">
+
+        <div class="personal-data__intro">
+            <p>
+                Hesabınızla ilişkilendirilmiş kişisel verilerinizi
+                buradan indirebilir veya hesabınızı tamamen silebilirsiniz.
+            </p>
+        </div>
+
+        <div class="personal-data__warning">
+            <span class="personal-data__warning-label">
+                IMPORTANT
+            </span>
+
+            <p>
+                Hesabınızı silmek tüm kişisel verilerinizi kalıcı olarak
+                kaldırır. Bu işlem geri alınamaz.
+            </p>
+        </div>
+
+        <div class="personal-data__actions">
+
+            <form id="download-data"
+                  asp-page="DownloadPersonalData"
+                  method="post">
+
+                <button class="account-action-button
+                    account-action-button--primary"
+                        type="submit">
+                    Verilerimi İndir
+                    <span>↓</span>
+                </button>
+
+            </form>
+
+            <a id="delete"
+               asp-page="DeletePersonalData"
+               class="account-action-button
+                account-action-button--danger">
+                Hesabı Sil
+                <span>→</span>
+            </a>
+
+        </div>
+
+    </div>
+
 </div>
 
 @section Scripts {

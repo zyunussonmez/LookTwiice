@@ -411,3 +411,134 @@
         font-size: 11px;
     }
 }
+
+
+/* =========================================
+   EMAIL
+   ========================================= */
+
+.account-email-status {
+    position: relative;
+}
+
+    .account-email-status .profile-input {
+        padding-right: 95px;
+    }
+
+.account-email-status__confirmed {
+    position: absolute;
+    top: 50%;
+    right: 14px;
+    transform: translateY(-50%);
+    color: var(--ink);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+}
+
+.account-inline-action {
+    margin-top: 10px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 11px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+    .account-inline-action:hover {
+        color: var(--ink);
+    }
+
+@media (max-width: 767.98px) {
+
+    .account-email-status .profile-input {
+        padding-right: 85px;
+    }
+
+    .account-email-status__confirmed {
+        right: 12px;
+    }
+}
+
+/* =========================================
+   PERSONAL DATA
+   ========================================= */
+
+.personal-data {
+    max-width: 620px;
+}
+
+.personal-data__intro {
+    margin-bottom: 32px;
+}
+
+    .personal-data__intro p {
+        max-width: 500px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+.personal-data__warning {
+    padding: 18px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+}
+
+.personal-data__warning-label {
+    display: block;
+    margin-bottom: 8px;
+    color: #9b3d3d;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+}
+
+.personal-data__warning p {
+    max-width: 500px;
+    margin: 0;
+    color: var(--ink);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.personal-data__actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+    .personal-data__actions form {
+        margin: 0;
+    }
+
+    .personal-data__actions .account-action-button {
+        gap: 22px;
+    }
+
+@media (max-width: 767.98px) {
+
+    .personal-data {
+        max-width: 100%;
+    }
+
+    .personal-data__intro p,
+    .personal-data__warning p {
+        font-size: 12px;
+    }
+
+    .personal-data__actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+        .personal-data__actions .account-action-button {
+            width: 100%;
+            justify-content: space-between;
+        }
+}
